@@ -1,0 +1,263 @@
+/* ══════════════════════════════════════════════════════════════════
+ * Blog luxury theme (V2)
+ *
+ * Scope: `.ppc-blog-luxury` on /blogs and /blogs/<slug> roots.
+ * Palette: cream bg + near-black text + gold-tan (39 46% 48%) accent.
+ * Same theme as .ppc-quote-light but targeted at blog surface classes.
+ * ══════════════════════════════════════════════════════════════════ */
+
+.ppc-blog-luxury {
+  --background: 42 38% 96%;
+  --foreground: 240 14% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 14% 10%;
+  --primary: 39 46% 48%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 42 24% 92%;
+  --muted-foreground: 240 8% 32%;
+  --border: 42 22% 78%;
+  --input: 42 28% 90%;
+  --ring: 39 46% 48%;
+
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  color-scheme: light;
+}
+
+/* Category / tag / filter pills — cream w/ gold accent when selected */
+.ppc-blog-luxury [class*="bg-brand-blue"],
+.ppc-blog-luxury [class*="bg-blue-600"],
+.ppc-blog-luxury [class*="bg-blue-500"],
+.ppc-blog-luxury [class*="bg-yellow-400"],
+.ppc-blog-luxury [class*="bg-yellow-500"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+.ppc-blog-luxury [class*="text-brand-blue"],
+.ppc-blog-luxury [class*="text-blue-600"],
+.ppc-blog-luxury [class*="text-blue-500"],
+.ppc-blog-luxury [class*="text-blue-700"],
+.ppc-blog-luxury [class*="text-yellow-"] {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Blog card images — if missing, show an elegant gradient placeholder */
+.ppc-blog-luxury img[src=""],
+.ppc-blog-luxury img:not([src]) {
+  background: linear-gradient(135deg, hsl(42 30% 88%) 0%, hsl(39 46% 70% / 0.4) 100%);
+  min-height: 180px;
+}
+
+/* Category badges (colored pills on cards) — override to gold-tan family */
+.ppc-blog-luxury [class*="bg-purple-5"],
+.ppc-blog-luxury [class*="bg-pink-5"],
+.ppc-blog-luxury [class*="bg-indigo-5"] {
+  background-color: hsl(var(--primary) / 0.15) !important;
+  color: hsl(var(--primary)) !important;
+  border: 1px solid hsl(var(--primary) / 0.3);
+}
+
+/* Category/tag rail in the sidebar */
+.ppc-blog-luxury .bg-card,
+.ppc-blog-luxury [class*="bg-card"],
+.ppc-blog-luxury [class*="bg-white"] {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+.ppc-blog-luxury .bg-muted,
+.ppc-blog-luxury [class*="bg-muted"] {
+  background-color: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Hover states on cards */
+.ppc-blog-luxury [class*="hover\\:shadow"]:hover,
+.ppc-blog-luxury [class*="hover:shadow"]:hover {
+  box-shadow: 0 10px 30px rgba(20, 20, 30, 0.08),
+    0 0 0 1px hsl(var(--primary) / 0.25) inset !important;
+}
+
+/* All-Posts / Featured / Trending highlights bar */
+.ppc-blog-luxury [class*="bg-amber"],
+.ppc-blog-luxury [class*="bg-orange"] {
+  background-color: hsl(var(--primary) / 0.12) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+/* Search input */
+.ppc-blog-luxury input[type="text"],
+.ppc-blog-luxury input[type="search"] {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+.ppc-blog-luxury input[type="text"]:focus,
+.ppc-blog-luxury input[type="search"]:focus {
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15) !important;
+}
+
+/* Headings use cormorant luxury font when available */
+.ppc-blog-luxury h1,
+.ppc-blog-luxury h2,
+.ppc-blog-luxury h3,
+.ppc-blog-luxury .cormorant {
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  letter-spacing: -0.01em;
+  color: hsl(var(--foreground));
+}
+
+.ppc-blog-luxury h1 {
+  font-weight: 700;
+}
+
+.ppc-blog-luxury h2,
+.ppc-blog-luxury h3 {
+  font-weight: 600;
+}
+
+/* Long-form article body: elegant typography for post content */
+.ppc-blog-luxury .prose,
+.ppc-blog-luxury [class*="prose"] {
+  color: hsl(var(--foreground)) !important;
+  max-width: 72ch;
+}
+
+.ppc-blog-luxury .prose a,
+.ppc-blog-luxury [class*="prose"] a {
+  color: hsl(var(--primary)) !important;
+  text-decoration: underline;
+  text-decoration-color: hsl(var(--primary) / 0.4);
+  text-underline-offset: 3px;
+}
+
+.ppc-blog-luxury .prose a:hover,
+.ppc-blog-luxury [class*="prose"] a:hover {
+  text-decoration-color: hsl(var(--primary));
+}
+
+.ppc-blog-luxury .prose blockquote,
+.ppc-blog-luxury [class*="prose"] blockquote {
+  border-left: 3px solid hsl(var(--primary));
+  background: hsl(var(--primary) / 0.05);
+  padding: 1rem 1.25rem;
+  font-style: italic;
+  color: hsl(var(--foreground));
+  border-radius: 0 8px 8px 0;
+}
+
+.ppc-blog-luxury .prose h2,
+.ppc-blog-luxury [class*="prose"] h2,
+.ppc-blog-luxury .prose h3,
+.ppc-blog-luxury [class*="prose"] h3 {
+  color: hsl(var(--foreground)) !important;
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+}
+
+.ppc-blog-luxury .prose code,
+.ppc-blog-luxury [class*="prose"] code {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Breadcrumb on blog pages */
+.ppc-blog-luxury nav[aria-label="Breadcrumb"] a,
+.ppc-blog-luxury nav[aria-label="Breadcrumb"] span {
+  color: hsl(var(--muted-foreground));
+}
+
+.ppc-blog-luxury nav[aria-label="Breadcrumb"] a:hover {
+  color: hsl(var(--primary));
+}
+
+/* Footer CTA sections that use brand-blue gradient — soften to cream */
+.ppc-blog-luxury [class*="from-brand-blue"],
+.ppc-blog-luxury [class*="to-blue-7"],
+.ppc-blog-luxury [class*="from-blue-6"] {
+  background-image: linear-gradient(
+    135deg,
+    hsl(42 38% 96%) 0%,
+    hsl(39 46% 70% / 0.25) 100%
+  ) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.ppc-blog-luxury [class*="from-brand-blue"] *,
+.ppc-blog-luxury [class*="to-blue-7"] *,
+.ppc-blog-luxury [class*="from-blue-6"] * {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Ensure buttons stay readable — primary gets gold, others cream */
+.ppc-blog-luxury button.bg-primary,
+.ppc-blog-luxury a.bg-primary {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Pagination / page numbers */
+.ppc-blog-luxury [class*="border-primary"] {
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* CategoryBadge uses inline style `background-color: rgb(59, 130, 246)`
+ * (brand blue fallback) applied directly to the element. Catch both the
+ * data-testid and any inline style with that color. Use a high-specificity
+ * selector chain + !important to beat the inline style. */
+.ppc-blog-luxury [data-testid^="badge-category-"],
+.ppc-blog-luxury [style*="rgb(59, 130, 246)"],
+.ppc-blog-luxury [style*="#3b82f6"],
+.ppc-blog-luxury [style*="background-color: rgb(59"],
+.ppc-blog-luxury .bg-primary[style] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* Read More button uses bg-brand-blue. Swap to gold-tan. */
+.ppc-blog-luxury [data-testid^="button-read-"],
+.ppc-blog-luxury .bg-brand-blue,
+.ppc-blog-luxury button[class*="bg-brand-blue"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+.ppc-blog-luxury [data-testid^="button-read-"]:hover {
+  background-color: hsl(39 46% 42%) !important;
+}
+
+/* Blog card image wrapper: show image cleanly, hide broken-image alt fallback
+ * overflow. If the featuredImage path doesn't resolve, a cream gradient
+ * placeholder shows instead of the ugly broken-image icon + alt text on top
+ * of the card. */
+.ppc-blog-luxury [class*="aspect-"] img,
+.ppc-blog-luxury [data-testid^="img-post-"] {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Card container: add subtle luxury shadow + gold-tan hover border */
+.ppc-blog-luxury [data-testid^="card-post-"] {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 200ms ease;
+}
+
+.ppc-blog-luxury [data-testid^="card-post-"]:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(20, 20, 30, 0.08);
+}

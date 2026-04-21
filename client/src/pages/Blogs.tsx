@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
+import "@/styles/blog-luxury.css";
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from "@/components/Footer";
 import Breadcrumb from '@/components/Breadcrumb';
@@ -185,22 +186,29 @@ export default function Blogs() {
         ]}
       />
       
-      <div data-page-ready="blogs" className="min-h-screen bg-background">
-        {/* Hero Section */}
+      <div data-page-ready="blogs" className="ppc-blog-luxury min-h-screen">
+        {/* Hero Section — V2 luxury theme (cream + gold-tan accent) */}
         <section
-          className="bg-gradient-to-br from-brand-blue to-blue-600 text-white py-16 md:py-24 animate-in fade-in slide-in-from-top-4 duration-500"
+          className="relative py-16 md:py-24 animate-in fade-in slide-in-from-top-4 duration-500"
+          style={{
+            background:
+              'linear-gradient(135deg, hsl(42 38% 96%) 0%, hsl(42 30% 90%) 50%, hsl(39 46% 70% / 0.15) 100%)',
+            borderBottom: '1px solid hsl(42 22% 78%)',
+          }}
           data-testid="section-hero"
         >
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h1
-                className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150"
+                className="cormorant text-3xl md:text-5xl lg:text-6xl font-bold mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150"
+                style={{ color: 'hsl(240 14% 10%)' }}
                 data-testid="title-hero"
               >
-                Austin Party Boat Blog
+                Austin Party Boat <span style={{ color: 'hsl(39 46% 48%)' }}>Blog</span>
               </h1>
               <p
-                className="text-xl md:text-2xl text-blue-100 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300"
+                className="text-lg md:text-xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300"
+                style={{ color: 'hsl(240 8% 32%)' }}
                 data-testid="subtitle-hero"
               >
                 Expert tips, guides, and stories for planning the ultimate Lake Travis party experience

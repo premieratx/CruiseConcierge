@@ -163,17 +163,36 @@ export function ContactInfoModal({
         }
       };
 
-      console.log('🔄 Creating lead and quote via ContactInfoModal:', payload);
-      
-      try {
-        // apiRequest already returns parsed JSON and throws on HTTP errors
-        const result = await apiRequest('POST', '/api/leads/quote-builder', payload);
-        console.log('✅ Quote Builder creation successful:', result);
-        return result;
-      } catch (error: any) {
-        console.error('❌ Quote Builder API error:', error);
-        throw new Error(error.message || 'Failed to create quote');
+      console.log('🔄 Creating lead via ContactInfoModal (Supabase create-lead):', payload);
+
+      // Ported from /api/leads/quote-builder (Replit) → Supabase create-lead
+      // to keep the site independent of the Replit backend.
+      const { supabase } = await import('@/lib/supabase');
+      const guestCount = payload.eventDetails.groupSize;
+      const eventDate = payload.eventDetails.eventDate; // already YYYY-MM-DD
+      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+      const body: Record<string, unknown> = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        eventDate,
+        partyType: payload.eventDetails.eventType || payload.selectionDetails.eventTypeLabel || 'other',
+        guestCount,
+        quoteUrl: `${origin}/lead-dashboard`,
+        sourceType: 'contact-info-modal',
+        sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
+        // Forward full selection details for downstream automations
+        selectionDetails: payload.selectionDetails,
+      };
+
+      const { data: result, error: fnError } = await supabase.functions.invoke('create-lead', { body });
+      if (fnError) {
+        console.error('❌ Supabase create-lead error:', fnError);
+        throw new Error((fnError as any).message || 'Failed to create lead');
       }
+      console.log('✅ Lead created via Supabase:', result);
+      return result;
     },
     onSuccess: (data) => {
       console.log('🎉 onSuccess handler called:', data);

@@ -186,6 +186,16 @@ export function installStaticBlogShim() {
 
   window.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url;
+
+    // Static endorsements — snapshot served from /static-data
+    if (url.includes('/api/endorsements/homepage')) {
+      try {
+        const r = await realFetch('/static-data/endorsements-homepage.json');
+        if (r.ok) return new Response(await r.text(), { status: 200, headers: { 'content-type': 'application/json' } });
+      } catch {}
+      return jsonResponse([], 200);
+    }
+
     // Only intercept blog public endpoints
     if (!url.includes('/api/blog/public/')) return realFetch(input as RequestInfo, init);
     // Normalize to path + qs

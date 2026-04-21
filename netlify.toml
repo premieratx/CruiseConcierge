@@ -41,6 +41,23 @@
   force = true
 
 # ──────────────────────────────────────────────────────────────────────────
+# /admin → SEO Command Center (separate Next.js app on Netlify)
+# Site ID 843ba33c-5888-4098-bb8c-eb35889c1430, auto-deployed from GitHub
+# Admin logs in via Supabase auth at /login; middleware protects the rest.
+# ──────────────────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/admin"
+  to = "https://seo-command-center.netlify.app/login"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/admin/*"
+  to = "https://seo-command-center.netlify.app/:splat"
+  status = 302
+  force = true
+
+# ──────────────────────────────────────────────────────────────────────────
 # 301 redirects: -v2 preview URLs → canonical.
 # During the V2 iteration we exposed pages at `/xxx-v2`. Those have now
 # replaced the canonical URLs, so the -v2 slugs are duplicates. Redirect

@@ -6,7 +6,7 @@
     "slug": "authority",
     "description": "Industry authority and leadership",
     "active": true,
-    "postCount": 1,
+    "postCount": 0,
     "createdAt": "2025-10-04T07:17:55.437Z",
     "updatedAt": "2025-10-04T07:17:55.437Z"
   },
@@ -17,7 +17,7 @@
     "slug": "claude-ai",
     "description": "Claude AI analysis and insights",
     "active": true,
-    "postCount": 1,
+    "postCount": 0,
     "createdAt": "2025-10-04T07:17:55.390Z",
     "updatedAt": "2025-10-04T07:17:55.390Z"
   },
@@ -28,7 +28,7 @@
     "slug": "innovation",
     "description": "Innovation and industry firsts",
     "active": true,
-    "postCount": 1,
+    "postCount": 0,
     "createdAt": "2025-10-04T07:17:55.528Z",
     "updatedAt": "2025-10-04T07:17:55.528Z"
   },
@@ -39,7 +39,7 @@
     "slug": "market-analysis",
     "description": "Industry market analysis and research",
     "active": true,
-    "postCount": 1,
+    "postCount": 0,
     "createdAt": "2025-10-04T07:17:55.341Z",
     "updatedAt": "2025-10-04T07:17:55.341Z"
   },
@@ -50,7 +50,7 @@
     "slug": "safety",
     "description": "Safety records and practices",
     "active": true,
-    "postCount": 1,
+    "postCount": 0,
     "createdAt": "2025-10-04T07:17:55.482Z",
     "updatedAt": "2025-10-04T07:17:55.482Z"
   },
@@ -72,7 +72,7 @@
     "slug": "all-inclusive-parties",
     "description": null,
     "active": true,
-    "postCount": 0,
+    "postCount": 2,
     "createdAt": "2025-10-04T08:45:32.530Z",
     "updatedAt": "2025-10-04T08:45:32.530Z"
   },
@@ -83,7 +83,7 @@
     "slug": "austin",
     "description": "Austin, Texas",
     "active": true,
-    "postCount": 0,
+    "postCount": 19,
     "createdAt": "2025-10-03T09:43:36.851Z",
     "updatedAt": "2025-10-03T09:43:36.851Z"
   },
@@ -94,7 +94,7 @@
     "slug": "bachelor-party",
     "description": "Bachelor party planning",
     "active": true,
-    "postCount": 0,
+    "postCount": 12,
     "createdAt": "2025-10-03T09:43:36.851Z",
     "updatedAt": "2025-10-03T09:43:36.851Z"
   },
@@ -105,7 +105,7 @@
     "slug": "bachelor-party-ideas",
     "description": null,
     "active": true,
-    "postCount": 0,
+    "postCount": 2,
     "createdAt": "2025-10-04T08:45:32.373Z",
     "updatedAt": "2025-10-04T08:45:32.373Z"
   },
@@ -116,7 +116,7 @@
     "slug": "bachelorette-party",
     "description": "Bachelorette party ideas",
     "active": true,
-    "postCount": 0,
+    "postCount": 10,
     "createdAt": "2025-10-03T09:43:36.851Z",
     "updatedAt": "2025-10-03T09:43:36.851Z"
   },
@@ -127,7 +127,7 @@
     "slug": "bachelorette-party-ideas",
     "description": null,
     "active": true,
-    "postCount": 0,
+    "postCount": 2,
     "createdAt": "2025-10-04T08:45:32.418Z",
     "updatedAt": "2025-10-04T08:45:32.418Z"
   },
@@ -138,7 +138,7 @@
     "slug": "lake-travis",
     "description": "Lake Travis water activities",
     "active": true,
-    "postCount": 0,
+    "postCount": 16,
     "createdAt": "2025-10-03T09:43:36.851Z",
     "updatedAt": "2025-10-03T09:43:36.851Z"
   },
@@ -149,7 +149,7 @@
     "slug": "monthly-guide",
     "description": "Month-specific planning guides",
     "active": true,
-    "postCount": 0,
+    "postCount": 12,
     "createdAt": "2025-10-03T09:43:36.952Z",
     "updatedAt": "2025-10-03T09:43:36.952Z"
   },
@@ -160,7 +160,7 @@
     "slug": "party-boat",
     "description": "Party boat cruises",
     "active": true,
-    "postCount": 0,
+    "postCount": 14,
     "createdAt": "2025-10-03T09:43:36.852Z",
     "updatedAt": "2025-10-03T09:43:36.852Z"
   },
@@ -171,7 +171,7 @@
     "slug": "party-boat-austin",
     "description": null,
     "active": true,
-    "postCount": 0,
+    "postCount": 3,
     "createdAt": "2025-10-04T08:45:32.463Z",
     "updatedAt": "2025-10-04T08:45:32.463Z"
   },
@@ -182,7 +182,7 @@
     "slug": "party-planning",
     "description": "Event planning tips",
     "active": true,
-    "postCount": 0,
+    "postCount": 4,
     "createdAt": "2025-10-03T09:43:36.922Z",
     "updatedAt": "2025-10-03T09:43:36.922Z"
   },
@@ -193,7 +193,7 @@
     "slug": "travel-guide",
     "description": "Travel guides and tips",
     "active": true,
-    "postCount": 0,
+    "postCount": 2,
     "createdAt": "2025-10-03T09:43:36.922Z",
     "updatedAt": "2025-10-03T09:43:36.922Z"
   }

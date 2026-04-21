@@ -46,15 +46,35 @@ async function main() {
   console.log(`  ✓ Index: ${posts.length} posts`);
   write(`${OUT}/posts.json`, { posts, total: posts.length });
 
-  // Categories
+  // Categories + compute real post counts from the index
   const categories = await fetchJson('/api/blog/public/categories');
+  const catCounts = new Map();
+  for (const p of posts) for (const c of (p.categories || [])) {
+    const key = c.id || c.slug;
+    catCounts.set(key, (catCounts.get(key) || 0) + 1);
+  }
+  if (Array.isArray(categories)) {
+    for (const c of categories) {
+      c.postCount = catCounts.get(c.id) || catCounts.get(c.slug) || 0;
+    }
+  }
   write(`${OUT}/categories.json`, categories);
-  console.log(`  ✓ Categories: ${Array.isArray(categories) ? categories.length : 'n/a'}`);
+  console.log(`  ✓ Categories: ${Array.isArray(categories) ? categories.length : 'n/a'} (w/ real post counts)`);
 
-  // Tags
+  // Tags + compute real post counts
   const tags = await fetchJson('/api/blog/public/tags');
+  const tagCounts = new Map();
+  for (const p of posts) for (const t of (p.tags || [])) {
+    const key = t.id || t.slug;
+    tagCounts.set(key, (tagCounts.get(key) || 0) + 1);
+  }
+  if (Array.isArray(tags)) {
+    for (const t of tags) {
+      t.postCount = tagCounts.get(t.id) || tagCounts.get(t.slug) || 0;
+    }
+  }
   write(`${OUT}/tags.json`, tags);
-  console.log(`  ✓ Tags: ${Array.isArray(tags) ? tags.length : 'n/a'}`);
+  console.log(`  ✓ Tags: ${Array.isArray(tags) ? tags.length : 'n/a'} (w/ real post counts)`);
 
   // Each post by slug (full body)
   let ok = 0, fail = 0;

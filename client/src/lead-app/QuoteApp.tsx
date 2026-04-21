@@ -34,7 +34,10 @@ import InnCahootsDashboard from "./pages/InnCahootsDashboard";
 import DashboardCreator from "./pages/DashboardCreator";
 import DynamicDashboard from "./pages/DynamicDashboard";
 import ChatTestApp from "./pages/ChatTestApp";
-import { ChatWidget } from "./components/ChatWidget";
+// Chat widget removed on V2 — backend hit Replit /api/chat which will be
+// unreachable after DNS cutover. Quote builder forms + /quote flow are
+// primary lead channels via Supabase create-lead.
+// import { ChatWidget } from "./components/ChatWidget";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -78,7 +81,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <ChatWidget />
+        {/* <ChatWidget /> — disabled on V2 */}
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

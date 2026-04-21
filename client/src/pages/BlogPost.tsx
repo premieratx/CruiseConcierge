@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useEffect, lazy, Suspense, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
+import "@/styles/blog-luxury.css";
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from "@/components/Footer";
 import Breadcrumb from '@/components/Breadcrumb';
@@ -369,7 +370,7 @@ export default function BlogPostPage() {
           tags: tags.map(t => t.name)
         }}
       />
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <div data-page-ready="blog-post" className="ppc-blog-luxury min-h-screen">
         <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Breadcrumb */}
         <div className="mb-8">
