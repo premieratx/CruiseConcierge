@@ -769,3 +769,104 @@
 .ppc-quote-light [class*="hover:bg-purple-50"]:hover {
   background-color: #faf5ff !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+ * NUKE DARK WRAPPER — the LeadDashboard / CustomerDashboard outer
+ * element uses `min-h-screen bg-gradient-to-b from-slate-900 via-blue-950
+ * to-slate-900` plus a tab bar at `bg-slate-800/90` and tabs at
+ * `bg-slate-700/80`. Those ship with the component and we don't edit
+ * the component, so override them here.
+ * ══════════════════════════════════════════════════════════════════ */
+.ppc-quote-light .bg-gradient-to-b,
+.ppc-quote-light .bg-gradient-to-r,
+.ppc-quote-light .bg-gradient-to-br,
+.ppc-quote-light .bg-gradient-to-tr,
+.ppc-quote-light [class*="from-slate-9"],
+.ppc-quote-light [class*="from-slate-8"],
+.ppc-quote-light [class*="via-blue-9"],
+.ppc-quote-light [class*="via-indigo-9"],
+.ppc-quote-light [class*="to-slate-9"],
+.ppc-quote-light [class*="to-slate-8"] {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+/* Root dashboard wrapper gets the cream surface */
+.ppc-quote-light > div.min-h-screen,
+.ppc-quote-light .min-h-screen[class*="from-slate"] {
+  background-color: hsl(var(--background)) !important;
+  background-image: none !important;
+}
+/* Tab bar + tab triggers (shadcn Tabs with slate-800/700 variants) */
+.ppc-quote-light [class*="bg-slate-700"],
+.ppc-quote-light [class*="bg-slate-800"],
+.ppc-quote-light [class*="bg-slate-900"],
+.ppc-quote-light [class*="bg-blue-950"],
+.ppc-quote-light [class*="bg-indigo-950"],
+.ppc-quote-light [class*="bg-zinc-900"],
+.ppc-quote-light [class*="bg-zinc-800"] {
+  background-color: #ffffff !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+/* Sky/cyan/blue tinted borders and text on labels (header area) */
+.ppc-quote-light [class*="text-sky-"],
+.ppc-quote-light [class*="text-cyan-"],
+.ppc-quote-light [class*="text-blue-200"],
+.ppc-quote-light [class*="text-blue-300"],
+.ppc-quote-light [class*="text-slate-200"],
+.ppc-quote-light [class*="text-slate-300"],
+.ppc-quote-light [class*="text-slate-400"],
+.ppc-quote-light [class*="text-white"] {
+  color: hsl(var(--foreground)) !important;
+}
+/* Sky / purple 10% tinted gradient header card — neutralize to cream */
+.ppc-quote-light [class*="from-sky-500/10"],
+.ppc-quote-light [class*="to-purple-500/10"],
+.ppc-quote-light [class*="from-blue-500/10"],
+.ppc-quote-light [class*="to-blue-500/10"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: hsl(var(--border)) !important;
+}
+/* Tab active state — shadcn uses data-state=active with bg-background.
+ * Make active tab the gold-tan pill. */
+.ppc-quote-light [role="tab"][data-state="active"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  box-shadow: 0 2px 6px rgba(20,20,30,0.12) !important;
+}
+.ppc-quote-light [role="tab"] {
+  color: hsl(var(--foreground)) !important;
+}
+/* Any element with inline gradient background via bg-[linear-gradient...] */
+.ppc-quote-light [style*="linear-gradient"][style*="slate"],
+.ppc-quote-light [style*="linear-gradient"][style*="#0f172a"],
+.ppc-quote-light [style*="linear-gradient"][style*="#020617"] {
+  background-image: none !important;
+  background-color: #ffffff !important;
+}
+/* Catch the 900/950 amber text tokens v2-luxury-root applied that
+ * stay inherited on cream */
+.ppc-quote-light {
+  color: hsl(var(--foreground)) !important;
+}
+.ppc-quote-light h1,
+.ppc-quote-light h2,
+.ppc-quote-light h3,
+.ppc-quote-light h4 {
+  color: hsl(var(--foreground)) !important;
+}
+/* Keep the gold-tan headline accent for the "Quote Summary" h4 that
+ * used an `underline` + text-primary in the original design — already
+ * covered by .text-primary override above, but ensure no inherited
+ * amber-200 from the dark theme sneaks through. */
+.ppc-quote-light [class*="text-amber-"]:not([class*="text-amber-700"]):not([class*="text-amber-800"]):not([class*="text-amber-900"]) {
+  color: hsl(var(--primary)) !important;
+}
+/* Borders left over from the dark theme — make them the soft tan border */
+.ppc-quote-light [class*="border-sky-"],
+.ppc-quote-light [class*="border-blue-"],
+.ppc-quote-light [class*="border-slate-"],
+.ppc-quote-light [class*="border-white"] {
+  border-color: hsl(var(--border)) !important;
+}
