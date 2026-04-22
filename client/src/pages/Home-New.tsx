@@ -2130,6 +2130,7 @@ export default function HomeNew() {
             muted
             loop
             playsInline
+            preload="metadata"
             poster="/attached_assets/clever-girl-50-person-boat.webp"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
