@@ -159,6 +159,36 @@ const AIAssistant = lazy(() => import("./pages/admin/AIAssistant"));
 // Admin Agent Chat - Lazy loaded
 const AgentChat = lazy(() => import("./pages/admin/AgentChat"));
 
+// SEO Command Center - Multi-agent AI system
+const SEOCommandCenterPage = lazy(() => import("./components/admin/SEOCommandCenter"));
+
+// New Homepage V2 - Concierge luxury design + McDowell principles
+const HomeV2 = lazy(() => import("./pages/HomeV2"));
+
+// New ATX Disco Cruise V2 - Same luxury design system
+const DiscoV2 = lazy(() => import("./pages/DiscoV2"));
+
+// New Bachelor V2 - Same luxury design system
+const BachelorV2 = lazy(() => import("./pages/BachelorV2"));
+
+// New Bachelorette V2 - Same luxury design system
+const BacheloretteV2 = lazy(() => import("./pages/BacheloretteV2"));
+
+// New Combined Bach V2 - Same luxury design system
+const CombinedBachV2 = lazy(() => import("./pages/CombinedBachV2"));
+
+// New Private Cruises V2 - Same luxury design system
+const PrivateCruisesV2 = lazy(() => import("./pages/PrivateCruisesV2"));
+
+// New Corporate Events V2 - Same luxury design system
+const CorporateV2 = lazy(() => import("./pages/CorporateV2"));
+
+// New Wedding Parties V2 - Same luxury design system
+const WeddingV2 = lazy(() => import("./pages/WeddingV2"));
+
+// New Birthday Parties V2 - Same luxury design system
+const BirthdayV2 = lazy(() => import("./pages/BirthdayV2"));
+
 // Admin Inventory Management - Lazy loaded
 const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
@@ -354,6 +384,15 @@ function Router() {
       <Switch>
         {/* Public Homepage */}
         <Route path="/" component={Home} />
+        <Route path="/home-v2" component={HomeV2} />
+        <Route path="/disco-v2" component={DiscoV2} />
+        <Route path="/bachelor-v2" component={BachelorV2} />
+        <Route path="/bachelorette-v2" component={BacheloretteV2} />
+        <Route path="/combined-bach-v2" component={CombinedBachV2} />
+        <Route path="/private-cruises-v2" component={PrivateCruisesV2} />
+        <Route path="/corporate-v2" component={CorporateV2} />
+        <Route path="/wedding-v2" component={WeddingV2} />
+        <Route path="/birthday-v2" component={BirthdayV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
@@ -893,6 +932,13 @@ function Router() {
       <Route path="/admin/agent-chat">
         <ProtectedRoute>
           <AgentChat />
+        </ProtectedRoute>
+      </Route>
+
+      {/* SEO Command Center - Multi-agent AI system */}
+      <Route path="/admin/seo-command-center">
+        <ProtectedRoute>
+          <SEOCommandCenterPage />
         </ProtectedRoute>
       </Route>
       
