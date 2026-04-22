@@ -1279,6 +1279,114 @@ html { scroll-behavior: smooth; }
   font-weight: 500;
 }
 
+/* ─── Problem statement band ─── */
+.hp2-problem {
+  padding: 4.5rem 4rem;
+  background: var(--hp2-bg-2, #0d1117);
+  border-top: 1px solid var(--hp2-border-sub);
+  border-bottom: 1px solid var(--hp2-border-sub);
+  text-align: center;
+}
+.hp2-problem__inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.hp2-problem__label {
+  font-family: var(--hp2-font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--hp2-gold);
+  margin-bottom: 1.25rem;
+}
+.hp2-problem__headline {
+  font-family: var(--hp2-font-display);
+  font-size: clamp(1.85rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--hp2-cream);
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+.hp2-problem__headline em {
+  font-style: italic;
+  color: var(--hp2-gold);
+}
+.hp2-problem__body {
+  font-family: var(--hp2-font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--hp2-cream);
+  opacity: 0.82;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .hp2-problem { padding: 3.5rem 1.5rem; }
+  .hp2-problem__body { font-size: 1rem; }
+}
+
+/* ─── Hero CTA hierarchy: demote "Get a Quote" to text link ─── */
+.hp2-hero__ctas .cta-pair__btn--quote {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.75rem 0.5rem !important;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  color: var(--hp2-cream) !important;
+  letter-spacing: 0.12em;
+  box-shadow: none !important;
+}
+.hp2-hero__ctas .cta-pair__btn--quote:hover {
+  color: var(--hp2-gold) !important;
+  text-decoration-thickness: 2px;
+  background: transparent !important;
+}
+body.ppc-light .hp2-hero__ctas .cta-pair__btn--quote,
+.hp2-page.hp2-light .hp2-hero__ctas .cta-pair__btn--quote {
+  color: #1a1a1a !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-decoration: underline !important;
+  text-underline-offset: 6px;
+}
+body.ppc-light .hp2-hero__ctas .cta-pair__btn--quote:hover,
+.hp2-page.hp2-light .hp2-hero__ctas .cta-pair__btn--quote:hover {
+  color: var(--hp2-gold, #b8860b) !important;
+  background: transparent !important;
+}
+
+/* ─── Fleet: horizontal scroll carousel on mobile/tablet ─── */
+@media (max-width: 1024px) {
+  .hp2-fleet-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    gap: 1rem;
+    padding: 0 1.5rem 1.5rem;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+  .hp2-fleet-card {
+    flex: 0 0 78%;
+    max-width: 320px;
+    scroll-snap-align: start;
+  }
+}
+@media (max-width: 768px) {
+  .hp2-fleet-grid {
+    grid-template-columns: none !important;
+  }
+  .hp2-fleet-card {
+    flex: 0 0 82%;
+  }
+}
+
 /* ─── Tabbed pricing (Private | Disco) ─── */
 .hp2-pricing-tabs {
   display: flex;
@@ -2155,29 +2263,6 @@ export default function HomeNew() {
         <div className="hp2-hero__scroll" />
       </section>
 
-      {/* ─── Embedded Quote Builder (party-type chooser + photos inside the iframe app) ─── */}
-      <section className="hp2-quote-embed" id="quote-builder-embed">
-        <div className="hp2-quote-embed__bg" aria-hidden>
-          <ScrollingBackground />
-        </div>
-        <div className="hp2-quote-embed__intro">
-          <p className="hp2-section__label" style={{ marginBottom: '0.75rem' }}>Get a Personalized Quote</p>
-          <h2 className="hp2-quote-embed__headline">
-            Pick your <em>party</em> &middot; see real pricing &middot; lock your date
-          </h2>
-          <p className="hp2-quote-embed__sub">
-            Browse every event type, get instant pricing, and request a personalized quote — takes about 60 seconds.
-          </p>
-          <div className="hp2-quote-embed__cta-row">
-            <CtaPair source="home_quote_embed" />
-          </div>
-        </div>
-
-        <div className="hp2-quote-embed__frame-wrap">
-          <EmbeddedQuoteFlow source="home_embed" />
-        </div>
-      </section>
-
       {/* ─── Trust Bar ─── */}
       <div className="hp2-trust">
         <div className="hp2-trust__item">
@@ -2235,6 +2320,20 @@ export default function HomeNew() {
             <p className="hp2-quick-review__quote">&ldquo;50 people on Clever Girl for our team outing. Booking easy, communication excellent, experience flawless.&rdquo;</p>
             <div className="hp2-quick-review__author">Jennifer L. &middot; Corporate</div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Problem statement band (Wes McDowell: Problem → Solution) ─── */}
+      <section className="hp2-problem">
+        <div className="hp2-problem__inner">
+          <p className="hp2-problem__label">The Austin Party Problem</p>
+          <h2 className="hp2-problem__headline">
+            Planning a lake party is a <em>logistical nightmare</em>.
+          </h2>
+          <p className="hp2-problem__body">
+            Finding a boat. Booking a captain. Sound system. Coolers. Ice. Parking at the marina. Coordinating 30 flaky friends.
+            One missed detail and the whole day unravels. That's why we handle every piece — so you just show up, step on, and celebrate.
+          </p>
         </div>
       </section>
 
@@ -2513,6 +2612,29 @@ export default function HomeNew() {
               <div className="hp2-testimonial-card__author">— Jennifer L., Corporate Team Event</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Embedded Quote Builder (moved after proof — Wes McDowell: close after trust is built) ─── */}
+      <section className="hp2-quote-embed" id="quote-builder-embed">
+        <div className="hp2-quote-embed__bg" aria-hidden>
+          <ScrollingBackground />
+        </div>
+        <div className="hp2-quote-embed__intro">
+          <p className="hp2-section__label" style={{ marginBottom: '0.75rem' }}>Get a Personalized Quote</p>
+          <h2 className="hp2-quote-embed__headline">
+            Pick your <em>party</em> &middot; see real pricing &middot; lock your date
+          </h2>
+          <p className="hp2-quote-embed__sub">
+            Browse every event type, get instant pricing, and request a personalized quote — takes about 60 seconds.
+          </p>
+          <div className="hp2-quote-embed__cta-row">
+            <CtaPair source="home_quote_embed" />
+          </div>
+        </div>
+
+        <div className="hp2-quote-embed__frame-wrap">
+          <EmbeddedQuoteFlow source="home_embed" />
         </div>
       </section>
 
