@@ -145,8 +145,151 @@ body.ppc-light .lux-promo-line--cta {
   text-underline-offset: 3px !important;
   font-weight: 700 !important;
 }
+/* Nested em/strong inside the CTA link — inherit the parent's ONE
+ * continuous underline instead of adding their own. Kills the visual
+ * "break at the em-dash" where it looked like separate underlines. */
+body.ppc-light .lux-promo-line--cta em,
+body.ppc-light .lux-promo-line--cta strong,
+body.ppc-light .lux-promo-banner em,
+body.ppc-light .lux-promo-banner strong {
+  text-decoration: inherit !important;
+  text-decoration-color: inherit !important;
+  font-style: normal !important;
+}
 body.ppc-light .lux-promo-line--cta:hover {
   color: #0A2D54 !important;
+}
+
+/* ─── Nav DROPDOWN (Bach Parties / Private Charters menus) ───
+ * Dark theme uses a deep-navy gradient card. In light mode flip to
+ * a clean white card with a blue accent, dark text, consistent with
+ * the rest of the light UI. */
+body.ppc-light .lux-nav-dropdown {
+  background: #ffffff !important;
+  border: 1px solid var(--ppc-border) !important;
+  box-shadow: 0 18px 48px rgba(14, 75, 143, 0.18),
+    0 0 0 1px rgba(14, 75, 143, 0.08) inset !important;
+  backdrop-filter: none !important;
+}
+body.ppc-light .lux-nav-dropdown-item {
+  color: var(--ppc-text) !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+}
+body.ppc-light .lux-nav-dropdown-item:hover {
+  color: var(--ppc-logo-blue) !important;
+  background: rgba(30, 110, 197, 0.08) !important;
+}
+body.ppc-light .lux-nav-dropdown-section {
+  color: var(--ppc-text-muted) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  border-bottom: 1px solid var(--ppc-border) !important;
+}
+
+/* ─── Quote Lightbox — cleanup: remove excessive outlines ─── */
+/* Modal: one thin border, no extra inner rings */
+body.ppc-light .qlb-modal {
+  background: #ffffff !important;
+  border: 1px solid rgba(14, 75, 143, 0.1) !important;
+  box-shadow: 0 24px 60px rgba(14, 75, 143, 0.2) !important;
+}
+/* Title + sub + eyebrow — no background tint (was pale blue rect) */
+body.ppc-light .qlb-eyebrow,
+body.ppc-light .qlb-title,
+body.ppc-light .qlb-sub,
+body.ppc-light [class*="qlb-step-label"],
+body.ppc-light [class*="qlb-heading"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* STEP 1 · OCCASION and "What are you celebrating?" labels — no
+ * background boxes */
+body.ppc-light .qlb-modal h1,
+body.ppc-light .qlb-modal h2,
+body.ppc-light .qlb-modal h3,
+body.ppc-light .qlb-modal h4,
+body.ppc-light .qlb-modal p,
+body.ppc-light .qlb-modal label,
+body.ppc-light .qlb-modal span {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+/* Option pills — soft thin border, NOT heavy blue stroke */
+body.ppc-light [class*="qlb-option"],
+body.ppc-light [class*="qlb-chip"],
+body.ppc-light [class*="qlb-pill"] {
+  background: #ffffff !important;
+  color: var(--ppc-text) !important;
+  border: 1px solid rgba(14, 75, 143, 0.18) !important;
+  box-shadow: none !important;
+  transition: all 150ms ease;
+}
+body.ppc-light [class*="qlb-option"]:hover,
+body.ppc-light [class*="qlb-chip"]:hover {
+  border-color: var(--ppc-logo-blue) !important;
+  color: var(--ppc-logo-blue) !important;
+  background: rgba(30, 110, 197, 0.04) !important;
+}
+body.ppc-light [class*="qlb-option"][class*="selected"],
+body.ppc-light [class*="qlb-option"][aria-selected="true"] {
+  background: var(--ppc-logo-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--ppc-logo-blue) !important;
+}
+/* Progress dots — thin rounded bars, one filled blue, rest soft grey */
+body.ppc-light .qlb-steps > * {
+  background: rgba(14, 75, 143, 0.12) !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+}
+body.ppc-light .qlb-step--active,
+body.ppc-light [class*="qlb-step"][class*="active"] {
+  background: var(--ppc-logo-blue) !important;
+}
+/* CANCEL button — ghost, no heavy border */
+body.ppc-light .qlb-cancel,
+body.ppc-light [class*="qlb-btn"][class*="cancel"] {
+  background: transparent !important;
+  color: var(--ppc-text-muted) !important;
+  border: 1px solid rgba(14, 75, 143, 0.15) !important;
+  font-weight: 600 !important;
+}
+body.ppc-light .qlb-cancel:hover {
+  color: var(--ppc-text) !important;
+  border-color: var(--ppc-text-muted) !important;
+}
+/* NEXT button — clean yellow fill, no heavy outline */
+body.ppc-light .qlb-next,
+body.ppc-light [class*="qlb-next"],
+body.ppc-light [class*="qlb-btn"][class*="primary"] {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 4px 14px rgba(247, 201, 72, 0.35) !important;
+  font-weight: 700 !important;
+}
+body.ppc-light .qlb-next:hover {
+  background: #F0BC2E !important;
+}
+/* Input fields — thin border, blue on focus, no heavy ring */
+body.ppc-light .qlb-modal input,
+body.ppc-light .qlb-modal select,
+body.ppc-light .qlb-modal textarea {
+  background: #ffffff !important;
+  color: var(--ppc-text) !important;
+  border: 1px solid rgba(14, 75, 143, 0.18) !important;
+  box-shadow: none !important;
+}
+body.ppc-light .qlb-modal input:focus {
+  border-color: var(--ppc-logo-blue) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(30, 110, 197, 0.15) !important;
+}
+/* Kill stray horizontal rules inside the modal */
+body.ppc-light .qlb-modal hr {
+  display: none !important;
 }
 
 /* ─── Buttons (unified across site) ─── */
