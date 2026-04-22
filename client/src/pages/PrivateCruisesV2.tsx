@@ -978,7 +978,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             muted
             loop
             playsInline
-            poster="/attached_assets/clever-girl-50-person-boat.webp"
+            poster="/attached_assets/hero-fallback.jpg"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
@@ -1160,7 +1160,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <div className="hp2-fleet-card__badge">Flagship</div>
                 <img
                   className="hp2-fleet-card__img"
-                  src="/attached_assets/clever-girl-50-person-boat.webp"
+                  src="/attached_assets/hero-fallback.jpg"
                   alt="Clever Girl 50-75 person flagship party boat on Lake Travis"
                   loading="lazy"
                 />
@@ -1357,7 +1357,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             See what a private charter <em>looks like</em>.
           </h2>
           <div className="hp2-gallery">
-            <img src="/attached_assets/clever-girl-50-person-boat.webp" alt="Clever Girl flagship 50-75 person party boat on Lake Travis" loading="lazy" />
+            <img src="/attached_assets/hero-fallback.jpg" alt="Clever Girl flagship 50-75 person party boat on Lake Travis" loading="lazy" />
             <img src="/attached_assets/day-tripper-14-person-boat.webp" alt="Day Tripper intimate 14-person charter boat Lake Travis" loading="lazy" />
             <img src="/attached_assets/meeseeks-25-person-boat.webp" alt="Meeseeks 25-person private charter on Lake Travis" loading="lazy" />
             <img src="/attached_assets/dancing-party-scene.webp" alt="Dancing and party scene on private Lake Travis cruise" loading="lazy" />

@@ -1005,7 +1005,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             muted
             loop
             playsInline
-            poster="/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+            poster="/attached_assets/hero-fallback.jpg"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
@@ -1114,7 +1114,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <div className="hp2-exp-card__img-wrap">
                 <img
                   className="hp2-exp-card__img"
-                  src="/attached_assets/atx-disco-cruise-party.webp"
+                  src="/attached_assets/hero-fallback.jpg"
                   alt="ATX Disco Cruise combined bachelor bachelorette party on Lake Travis"
                   loading="lazy"
                 />
@@ -1139,7 +1139,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <div className="hp2-exp-card__img-wrap">
                 <img
                   className="hp2-exp-card__img"
-                  src="/attached_assets/clever-girl-50-person-boat.webp"
+                  src="/attached_assets/hero-fallback.jpg"
                   alt="Clever Girl private charter for combined bachelor bachelorette party"
                   loading="lazy"
                 />

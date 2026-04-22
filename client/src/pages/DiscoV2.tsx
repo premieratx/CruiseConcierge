@@ -1109,7 +1109,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             muted
             loop
             playsInline
-            poster="/attached_assets/atx-disco-cruise-party.webp"
+            poster="/attached_assets/hero-fallback.jpg"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>

@@ -1029,7 +1029,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
         <div className="hp2-hero__video-wrap">
           <img
             className="hp2-hero__video"
-            src="/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+            src="/attached_assets/hero-fallback.jpg"
             alt="Bachelor party group on Lake Travis party boat"
           />
           <div className="hp2-hero__overlay" />
@@ -1104,7 +1104,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <div className="hp2-exp-card__img-wrap">
                 <img
                   className="hp2-exp-card__img"
-                  src="/attached_assets/atx-disco-cruise-party.webp"
+                  src="/attached_assets/hero-fallback.jpg"
                   alt="ATX Disco Cruise bachelor party on Lake Travis"
                   loading="lazy"
                 />
@@ -1130,7 +1130,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <div className="hp2-exp-card__img-wrap">
                 <img
                   className="hp2-exp-card__img"
-                  src="/attached_assets/clever-girl-50-person-boat.webp"
+                  src="/attached_assets/hero-fallback.jpg"
                   alt="Private bachelor charter on Clever Girl"
                   loading="lazy"
                 />

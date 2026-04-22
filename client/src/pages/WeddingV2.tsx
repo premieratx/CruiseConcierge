@@ -854,7 +854,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             muted
             loop
             playsInline
-            poster="/attached_assets/clever-girl-4-wedding-venue.jpg"
+            poster="/attached_assets/hero-fallback.jpg"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
@@ -1032,7 +1032,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           <div className="hp2-fleet-card">
             <img
               className="hp2-fleet-card__img"
-              src="/attached_assets/clever-girl-4-wedding-venue.jpg"
+              src="/attached_assets/hero-fallback.jpg"
               alt="Clever Girl 75-person wedding venue boat Lake Travis"
               loading="lazy"
             />
@@ -1090,7 +1090,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           Real wedding celebrations on <em>Lake Travis</em>.
         </h2>
         <div className="hp2-gallery">
-          <img src="/attached_assets/clever-girl-4-wedding-venue.jpg" alt="Wedding venue on Clever Girl boat Lake Travis" loading="lazy" />
+          <img src="/attached_assets/hero-fallback.jpg" alt="Wedding venue on Clever Girl boat Lake Travis" loading="lazy" />
           <img src="/attached_assets/clever-girl-8-wedding-reception.jpg" alt="Wedding reception cruise on Lake Travis Austin" loading="lazy" />
           <img src="/attached_assets/clever-girl-5-dance-floor.jpg" alt="Dance floor wedding party boat Lake Travis" loading="lazy" />
           <img src="/attached_assets/clever-girl-6-interior-seating.jpg" alt="Interior seating wedding event boat Austin" loading="lazy" />

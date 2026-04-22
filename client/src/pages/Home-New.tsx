@@ -2131,7 +2131,7 @@ export default function HomeNew() {
             loop
             playsInline
             preload="metadata"
-            poster="/attached_assets/clever-girl-50-person-boat.webp"
+            poster="/attached_assets/hero-fallback.jpg"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
@@ -2466,7 +2466,7 @@ export default function HomeNew() {
             <div className="hp2-fleet-card__img-wrap">
               <img
                 className="hp2-fleet-card__img"
-                src="/attached_assets/clever-girl-50-person-boat.webp"
+                src="/attached_assets/hero-fallback.jpg"
                 alt="Clever Girl - 75 person flagship party boat"
                 loading="lazy"
               />

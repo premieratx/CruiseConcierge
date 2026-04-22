@@ -70,6 +70,28 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ─── Hero video fallback ─────────────────────────────────────────
+ * Every hero video wrap gets a static background image as a safety
+ * net in case the <video> fails to load (iOS low-power mode, data
+ * saver, unsupported codec, etc). The <video poster> attribute
+ * handles the first-frame state while the video is loading; this
+ * CSS backdrop handles the case where the video element itself
+ * never renders.
+ * ───────────────────────────────────────────────────────────────── */
+.hp2-hero__video-wrap {
+  background-image: url('/attached_assets/hero-fallback.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* On touch devices where autoplay is sketchy, force the poster image
+ * and hide the <video> element so the fallback doesn't flash through. */
+@media (hover: none) and (pointer: coarse) {
+  .hp2-hero__video {
+    display: none;
+  }
+}
+
 /* Suppress expensive backdrop-filter in sections below the hero so
  * scroll stays smooth. Backdrop-filter triggers repainting the blurred
  * region on every frame — fine once (hero card) but not in every

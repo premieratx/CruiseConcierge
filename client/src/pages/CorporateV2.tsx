@@ -822,7 +822,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             muted
             loop
             playsInline
-            poster="/attached_assets/clever-girl-50-person-boat.webp"
+            poster="/attached_assets/hero-fallback.jpg"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
@@ -1033,7 +1033,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
         <div className="hp2-gallery">
           <img src="/attached_assets/clever-girl-1-lake-travis-party-boat.jpg" alt="Corporate event on Clever Girl party boat Lake Travis" loading="lazy" />
           <img src="/attached_assets/clever-girl-2-party-boat-austin.jpg" alt="Corporate group on Lake Travis party boat Austin" loading="lazy" />
-          <img src="/attached_assets/clever-girl-4-wedding-venue.jpg" alt="Deck setup for corporate event on Lake Travis boat" loading="lazy" />
+          <img src="/attached_assets/hero-fallback.jpg" alt="Deck setup for corporate event on Lake Travis boat" loading="lazy" />
           <img src="/attached_assets/clever-girl-5-dance-floor.jpg" alt="Dance floor on Clever Girl for corporate celebrations" loading="lazy" />
           <img src="/attached_assets/clever-girl-6-interior-seating.jpg" alt="Interior seating area for corporate meetings on boat" loading="lazy" />
           <img src="/attached_assets/clever-girl-7-flagship-boat.jpg" alt="Clever Girl flagship corporate event boat Lake Travis" loading="lazy" />
