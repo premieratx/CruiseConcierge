@@ -1,0 +1,316 @@
+/* ══════════════════════════════════════════════════════════════════
+ * SITE-WIDE LIGHT FESTIVE THEME
+ *
+ * Scope: `body.ppc-light`. Flipped on/off by the <ThemeToggle />
+ * component (localStorage key: `ppc-site-theme`). Applies to every
+ * page that includes <PublicNavigationLuxury /> since that component
+ * mounts the toggle and sets the body class.
+ *
+ * Palette
+ *   Primary   — logo bright blue  #1E6EC5 (body), #0E4B8F (deep)
+ *   Accent    — logo yellow       #F7C948
+ *   Gold      — classic luxury    #B8914E (continuity w/ dark theme)
+ *   Text      — near-black        #0A0A12 on cream/white surfaces
+ *   Surface 0 — #FFFFFF           (cards, main bg)
+ *   Surface 1 — #F7FAFE           (faint blue-tinted band)
+ *   Surface 2 — #EAF2FB           (stronger blue-tinted band)
+ * ══════════════════════════════════════════════════════════════════ */
+
+body.ppc-light {
+  --ppc-bg-0: #FFFFFF;
+  --ppc-bg-1: #F7FAFE;
+  --ppc-bg-2: #EAF2FB;
+  --ppc-surface-card: #FFFFFF;
+  --ppc-logo-blue: #1E6EC5;
+  --ppc-logo-blue-deep: #0E4B8F;
+  --ppc-logo-blue-soft: #D9E8F8;
+  --ppc-logo-yellow: #F7C948;
+  --ppc-logo-yellow-soft: #FFE8A3;
+  --ppc-gold: #B8914E;
+  --ppc-gold-soft: rgba(184, 145, 78, 0.14);
+  --ppc-text: #0A0A12;
+  --ppc-text-muted: #54546A;
+  --ppc-border: rgba(30, 110, 197, 0.18);
+  background-color: var(--ppc-bg-0);
+  color: var(--ppc-text);
+  color-scheme: light;
+}
+
+/* Smooth anchor-jump scrolling — does NOT fight normal wheel/touch
+ * scroll on modern browsers (they only honor `smooth` for programmatic
+ * scrolls like location.hash navigation). */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Suppress expensive backdrop-filter in sections below the hero so
+ * scroll stays smooth. Backdrop-filter triggers repainting the blurred
+ * region on every frame — fine once (hero card) but not in every
+ * section. */
+body.ppc-light section,
+body.ppc-light [class*="hp2-quote-embed"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  will-change: auto;
+}
+
+/* Remove any transform-based scroll pinning that fights wheel events */
+body.ppc-light .hp2-quote-embed {
+  transform: none !important;
+  overflow: visible;
+}
+
+/* ─── Nav (every page w/ PublicNavigationLuxury) ─── */
+body.ppc-light .lux-nav,
+body.ppc-light nav.lux-nav,
+body.ppc-light header {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid var(--ppc-border) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+body.ppc-light .lux-nav-link {
+  font-size: 0.98rem !important;
+  font-weight: 600 !important;
+  color: var(--ppc-text) !important;
+  letter-spacing: 0.04em !important;
+}
+body.ppc-light .lux-nav-link:hover {
+  color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light .lux-nav-link.active {
+  color: var(--ppc-logo-blue) !important;
+  text-decoration: underline;
+  text-decoration-color: var(--ppc-logo-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+body.ppc-light .lux-nav-link.active::after,
+body.ppc-light .lux-nav-link:hover::after {
+  background: var(--ppc-logo-blue) !important;
+  width: calc(100% - 1.8rem) !important;
+  height: 2px !important;
+}
+body.ppc-light .lux-nav-brand-name {
+  color: var(--ppc-text) !important;
+}
+body.ppc-light .lux-nav-brand-name em {
+  color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light .lux-nav-brand-sub {
+  color: var(--ppc-text-muted) !important;
+}
+
+/* Top yellow promo bar */
+body.ppc-light .lux-promo-banner {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border-bottom: 1px solid rgba(14, 75, 143, 0.25) !important;
+}
+body.ppc-light .lux-promo-banner * {
+  color: var(--ppc-logo-blue-deep) !important;
+  font-weight: 600 !important;
+}
+body.ppc-light .lux-promo-line--cta {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  font-weight: 700 !important;
+}
+body.ppc-light .lux-promo-line--cta:hover {
+  color: #0A2D54 !important;
+}
+
+/* ─── Buttons (unified across site) ─── */
+body.ppc-light .hp2-btn--primary,
+body.ppc-light .cta-pair__btn--book {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border: 2px solid #E8B52E !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 18px rgba(247, 201, 72, 0.4) !important;
+}
+body.ppc-light .hp2-btn--primary:hover,
+body.ppc-light .cta-pair__btn--book:hover {
+  background: #F0BC2E !important;
+}
+body.ppc-light .hp2-btn--outline,
+body.ppc-light .cta-pair__btn--quote {
+  background: #ffffff !important;
+  color: var(--ppc-logo-blue) !important;
+  border: 2px solid var(--ppc-logo-blue) !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+body.ppc-light .hp2-btn--outline:hover,
+body.ppc-light .cta-pair__btn--quote:hover {
+  background: var(--ppc-logo-blue) !important;
+  color: #ffffff !important;
+}
+
+/* Body text default in sections */
+body.ppc-light p,
+body.ppc-light li {
+  color: var(--ppc-text);
+}
+
+/* Default link outside buttons → logo blue with yellow underline */
+body.ppc-light a:not([class*="btn"]):not(.lux-nav-link):not(.lux-nav-brand):not(.lux-promo-line):not(.cta-pair__btn) {
+  color: var(--ppc-logo-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--ppc-logo-yellow);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Headings: near-black with blue italic em */
+body.ppc-light h1,
+body.ppc-light h2,
+body.ppc-light h3,
+body.ppc-light h4 {
+  color: var(--ppc-text);
+}
+body.ppc-light h1 em,
+body.ppc-light h2 em,
+body.ppc-light h3 em {
+  color: var(--ppc-logo-blue);
+  font-style: italic;
+}
+
+/* ─── V2 page surfaces: nuke dark slate/navy/black backgrounds ─── */
+body.ppc-light main,
+body.ppc-light [class*="min-h-screen"],
+body.ppc-light section {
+  background-color: var(--ppc-bg-0);
+}
+
+/* Alternate band color for visual rhythm across sections */
+body.ppc-light section:nth-of-type(even) {
+  background-color: var(--ppc-bg-1);
+}
+
+/* Override every dark slate/navy/indigo bg utility that V2 pages use */
+body.ppc-light [class*="bg-slate-9"],
+body.ppc-light [class*="bg-slate-8"],
+body.ppc-light [class*="bg-slate-7"],
+body.ppc-light [class*="bg-zinc-9"],
+body.ppc-light [class*="bg-zinc-8"],
+body.ppc-light [class*="bg-blue-95"],
+body.ppc-light [class*="bg-blue-9"],
+body.ppc-light [class*="bg-indigo-9"],
+body.ppc-light [class*="bg-neutral-9"],
+body.ppc-light [class*="bg-gray-9"],
+body.ppc-light [class*="bg-black"] {
+  background-color: #ffffff !important;
+  color: var(--ppc-text) !important;
+}
+
+/* Gradients with dark slate/navy from- or to- stops */
+body.ppc-light [class*="from-slate-9"],
+body.ppc-light [class*="from-slate-8"],
+body.ppc-light [class*="to-slate-9"],
+body.ppc-light [class*="via-blue-95"],
+body.ppc-light [class*="via-indigo-9"] {
+  background-image: none !important;
+  background-color: var(--ppc-bg-0) !important;
+}
+
+/* Force white/cream text colors from dark theme back to near-black */
+body.ppc-light [class*="text-slate-2"],
+body.ppc-light [class*="text-slate-3"],
+body.ppc-light [class*="text-slate-4"],
+body.ppc-light [class*="text-sky-"],
+body.ppc-light [class*="text-cyan-"],
+body.ppc-light [class*="text-blue-2"],
+body.ppc-light [class*="text-blue-3"] {
+  color: var(--ppc-text) !important;
+}
+
+/* text-white gets flipped to near-black unless inside a known
+ * blue/gold surface (footer, promo bar, CTA band) */
+body.ppc-light .text-white:not(.lux-promo-banner *):not(footer *):not([class*="cta-band"] *):not([class*="bg-blue"] *):not([class*="bg-sky"] *) {
+  color: var(--ppc-text) !important;
+}
+
+/* Card containers that used dark theme slate/sky tints → clean white */
+body.ppc-light [class*="bg-slate-800/70"],
+body.ppc-light [class*="bg-slate-800/80"],
+body.ppc-light [class*="bg-slate-800/90"],
+body.ppc-light [class*="border-sky-500/20"],
+body.ppc-light [class*="border-yellow-500/20"],
+body.ppc-light [class*="border-emerald-500/20"] {
+  background-color: #ffffff !important;
+  border-color: var(--ppc-border) !important;
+  color: var(--ppc-text) !important;
+}
+
+/* Hero sections that were hard-coded dark → flip to cream with
+ * dark text for V2 pages without their own frosted-card treatment */
+body.ppc-light [class*="hero"]:not(.hp2-hero):not(.hp2-hero__content) {
+  background-color: var(--ppc-bg-0) !important;
+  color: var(--ppc-text) !important;
+}
+
+/* Footer */
+body.ppc-light footer {
+  background-color: var(--ppc-logo-blue-deep) !important;
+  color: #ffffff !important;
+  border-top: 4px solid var(--ppc-logo-yellow);
+}
+body.ppc-light footer * {
+  color: #ffffff !important;
+}
+body.ppc-light footer a:hover {
+  color: var(--ppc-logo-yellow) !important;
+}
+
+/* ─── Floating theme toggle pill (mounted site-wide by ThemeToggle) ─── */
+.ppc-theme-toggle {
+  position: fixed;
+  top: 0.9rem;
+  right: 1rem;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.95rem;
+  background: rgba(26, 26, 40, 0.85);
+  border: 1px solid #C8A96E;
+  border-radius: 999px;
+  color: #C8A96E;
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 180ms ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.ppc-theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(200, 169, 110, 0.95);
+  color: #1A1A26;
+}
+body.ppc-light .ppc-theme-toggle {
+  background: var(--ppc-logo-blue);
+  color: #ffffff;
+  border-color: var(--ppc-logo-blue-deep);
+  box-shadow: 0 6px 18px rgba(30, 110, 197, 0.35);
+}
+body.ppc-light .ppc-theme-toggle:hover {
+  background: var(--ppc-logo-yellow);
+  color: var(--ppc-logo-blue-deep);
+  border-color: #E8B52E;
+}
+.ppc-theme-toggle__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+}

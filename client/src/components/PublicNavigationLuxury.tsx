@@ -3,6 +3,8 @@ import { useLocation } from 'wouter';
 import { Menu, ChevronDown, X } from 'lucide-react';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
 import { XOLA_BUTTON_ID } from '@/components/XolaBookNow';
+import ThemeToggle from '@/components/ThemeToggle';
+import '@/styles/site-light-theme.css';
 
 const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
 
@@ -698,6 +700,9 @@ export default function PublicNavigationLuxury() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: LUX_NAV_STYLES }} />
+
+      {/* Site-wide theme toggle — visible on every page that uses this nav */}
+      <ThemeToggle />
 
       {/* Fixed header stack: promo + nav never overlap */}
       <div className="lux-header-stack">

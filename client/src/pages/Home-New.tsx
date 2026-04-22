@@ -94,15 +94,19 @@ const HP2_STYLES = `
 
 /* Frosted white panel behind the entire hero content block — ONE
  * unified card so the layout doesn't break into stacked boxes. The
- * individual h1 / p keep their original block flow. */
+ * individual h1 / p keep their original block flow.
+ *
+ * No backdrop-filter (expensive to repaint on scroll) and no heavy
+ * drop-shadow (was creating a dark halo blob). Solid near-white
+ * surface + thin blue inset outline reads cleanly on video OR
+ * against plain cream sections. */
 .hp2-page.hp2-light .hp2-hero .hp2-hero__content {
-  background: rgba(255, 255, 255, 0.82) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   padding: 2rem 2.5rem !important;
   border-radius: 14px;
-  box-shadow: 0 18px 50px rgba(14, 75, 143, 0.22),
-    0 0 0 1px rgba(14, 75, 143, 0.1) inset;
+  box-shadow: 0 0 0 1px rgba(14, 75, 143, 0.1) inset !important;
   max-width: 720px;
 }
 .hp2-page.hp2-light .hp2-hero h1,
@@ -1747,16 +1751,8 @@ export default function HomeNew() {
   return (
     <div className={`hp2-page ${theme === 'light' ? 'hp2-light' : ''}`}>
       <style dangerouslySetInnerHTML={{ __html: HP2_STYLES }} />
-      <button
-        type="button"
-        className="hp2-theme-toggle"
-        onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-        data-testid="theme-toggle"
-      >
-        <span className="hp2-theme-toggle__dot" />
-        {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-      </button>
+      {/* ThemeToggle is mounted by PublicNavigation so it appears on
+          every page site-wide, not just here. */}
       <PublicNavigation />
 
       {/* ─── SEO: JSON-LD Structured Data ─── */}
