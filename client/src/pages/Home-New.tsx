@@ -1234,6 +1234,51 @@ html { scroll-behavior: smooth; }
   margin-bottom: 1.5rem;
 }
 
+/* ─── Quick reviews strip (above-the-fold social proof) ─── */
+.hp2-quick-reviews {
+  padding: 3rem 4rem;
+  background: var(--hp2-bg-1);
+  border-top: 1px solid var(--hp2-border-sub);
+  border-bottom: 1px solid var(--hp2-border-sub);
+}
+.hp2-quick-reviews__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 900px) {
+  .hp2-quick-reviews { padding: 2.5rem 1.5rem; }
+  .hp2-quick-reviews__inner { grid-template-columns: 1fr; gap: 1.75rem; }
+}
+.hp2-quick-review {
+  text-align: left;
+}
+.hp2-quick-review__stars {
+  color: var(--hp2-gold);
+  letter-spacing: 0.18em;
+  font-size: 0.95rem;
+  margin-bottom: 0.65rem;
+}
+.hp2-quick-review__quote {
+  font-family: var(--hp2-font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--hp2-cream);
+  margin: 0 0 0.7rem 0;
+}
+.hp2-quick-review__author {
+  font-family: var(--hp2-font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hp2-gold-light);
+  font-weight: 500;
+}
+
 /* ─── Tabbed pricing (Private | Disco) ─── */
 .hp2-pricing-tabs {
   display: flex;
@@ -2170,6 +2215,27 @@ export default function HomeNew() {
           </div>
         </div>
       </div>
+
+      {/* ─── Social proof above-the-fold (Wes McDowell key #4) ─── */}
+      <section className="hp2-quick-reviews">
+        <div className="hp2-quick-reviews__inner">
+          <div className="hp2-quick-review">
+            <div className="hp2-quick-review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p className="hp2-quick-review__quote">&ldquo;Absolutely the best bachelorette ever. DJ was amazing, crew made us feel like VIPs.&rdquo;</p>
+            <div className="hp2-quick-review__author">Sarah M. &middot; Bachelorette</div>
+          </div>
+          <div className="hp2-quick-review">
+            <div className="hp2-quick-review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p className="hp2-quick-review__quote">&ldquo;Booked a private charter for my 40th. Exceeded every expectation &mdash; swimming in Lake Travis off the back of the boat was surreal.&rdquo;</p>
+            <div className="hp2-quick-review__author">David R. &middot; 40th Birthday</div>
+          </div>
+          <div className="hp2-quick-review">
+            <div className="hp2-quick-review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p className="hp2-quick-review__quote">&ldquo;50 people on Clever Girl for our team outing. Booking easy, communication excellent, experience flawless.&rdquo;</p>
+            <div className="hp2-quick-review__author">Jennifer L. &middot; Corporate</div>
+          </div>
+        </div>
+      </section>
 
       {/* ─── The Premier Promise ─── */}
       <section className="hp2-section">

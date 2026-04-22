@@ -863,6 +863,22 @@ body.ppc-light [class*="cta-banner"] .cta-pair__btn--quote:hover {
   border-color: var(--ppc-logo-yellow) !important;
 }
 
+/* ─── Quick reviews strip ─── */
+body.ppc-light .hp2-quick-reviews {
+  background: var(--ppc-bg-1) !important;
+  border-top: 1px solid var(--ppc-border) !important;
+  border-bottom: 1px solid var(--ppc-border) !important;
+}
+body.ppc-light .hp2-quick-review__quote {
+  color: var(--ppc-text) !important;
+}
+body.ppc-light .hp2-quick-review__author {
+  color: var(--ppc-logo-blue-deep) !important;
+}
+body.ppc-light .hp2-quick-review__stars {
+  color: var(--ppc-gold) !important;
+}
+
 /* ─── Tabbed pricing (home) ─── */
 body.ppc-light .hp2-pricing-tabs {
   border-bottom: 1px solid var(--ppc-border) !important;
