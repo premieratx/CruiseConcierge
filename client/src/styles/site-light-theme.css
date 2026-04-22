@@ -278,12 +278,10 @@ body.ppc-light [class*="border-emerald-500/20"] {
   color: var(--ppc-text) !important;
 }
 
-/* Hero sections that were hard-coded dark → flip to cream with
- * dark text for V2 pages without their own frosted-card treatment */
-body.ppc-light [class*="hero"]:not(.hp2-hero):not(.hp2-hero__content) {
-  background-color: var(--ppc-bg-0) !important;
-  color: var(--ppc-text) !important;
-}
+/* (Removed the aggressive [class*="hero"] overrider — it was painting
+ * every .hp2-hero__headline / __eyebrow / __body white since those
+ * match the attribute selector. Hero sections are handled by the
+ * unified .hp2-hero__content card rule further down.) */
 
 /* ═══════════════════════════════════════════════════════════════════
  * Page-specific overrides — shared across all main V2 pages that
@@ -331,37 +329,89 @@ body.ppc-light .disco-pricing-card a[class*="cta"] {
   font-weight: 700 !important;
 }
 
-/* ─── Hero sections across V2 pages (Bachelorette, Bachelor,
- *     Combined, Corporate, Wedding, Birthday, etc.) ───
- * Most use .hp2-page root but have hero text panels with white bg
- * on a dark gradient section. In light mode, strip the dark section
- * gradient so the whole hero is white with dark text (no weird
- * panels-on-dark look). */
-body.ppc-light .hp2-hero-simple,
-body.ppc-light [class*="hp2-hero"]:not(.hp2-hero__content):not(.hp2-hero__video):not(.hp2-hero__overlay):not(.hp2-hero__video-wrap) {
-  background: var(--ppc-bg-0) !important;
-  background-image: none !important;
-  color: var(--ppc-text) !important;
+/* ─── Hero sections on EVERY hp2-* page ───
+ * Apply the home-page-style unified frosted-white CARD treatment to
+ * the .hp2-hero__content wrapper. Leave the outer .hp2-hero section
+ * alone (it keeps its video/gradient). Strip ALL inherited bg/shadow
+ * from the children so nothing renders as a floating white panel.
+ */
+body.ppc-light .hp2-hero {
+  background-color: transparent !important;
 }
-body.ppc-light [class*="hp2-hero"] h1,
-body.ppc-light [class*="hp2-hero"] h2,
-body.ppc-light [class*="hp2-hero"] p {
+body.ppc-light .hp2-hero__overlay {
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.08) 0%,
+    rgba(30, 110, 197, 0.06) 50%,
+    rgba(14, 75, 143, 0.12) 100%) !important;
+}
+body.ppc-light .hp2-hero__video {
+  opacity: 1 !important;
+}
+/* The content wrapper becomes the ONE unified white card */
+body.ppc-light .hp2-hero__content {
+  background: #ffffff !important;
+  padding: 2.5rem 3rem !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 40px rgba(14, 75, 143, 0.18),
+    0 0 0 1px rgba(14, 75, 143, 0.08) inset !important;
+  max-width: 720px !important;
+}
+body.ppc-light .hp2-hero__content::before {
+  display: none !important;
+  content: none !important;
+}
+/* Each child of the hero content is TRANSPARENT (inherits the card bg) */
+body.ppc-light .hp2-hero__eyebrow,
+body.ppc-light .hp2-hero__headline,
+body.ppc-light .hp2-hero__body,
+body.ppc-light .hp2-hero__rule,
+body.ppc-light .hp2-hero__ctas,
+body.ppc-light .hp2-hero__content p,
+body.ppc-light .hp2-hero__content h1,
+body.ppc-light .hp2-hero__content h2,
+body.ppc-light .hp2-hero__content h3 {
   background: transparent !important;
-  color: var(--ppc-text) !important;
-  text-shadow: none !important;
+  background-color: transparent !important;
   box-shadow: none !important;
+  text-shadow: none !important;
   padding: 0 !important;
   border-radius: 0 !important;
+  color: var(--ppc-text) !important;
 }
-body.ppc-light [class*="hp2-hero"] em {
-  color: var(--ppc-logo-blue) !important;
-  background: transparent !important;
-}
-body.ppc-light [class*="eyebrow"],
-body.ppc-light [class*="__eyebrow"] {
-  background: transparent !important;
+body.ppc-light .hp2-hero__eyebrow {
   color: var(--ppc-logo-blue-deep) !important;
   font-weight: 700 !important;
+  margin-bottom: 1.25rem !important;
+}
+body.ppc-light .hp2-hero__headline em,
+body.ppc-light .hp2-hero__content h1 em {
+  color: var(--ppc-logo-blue) !important;
+  background: transparent !important;
+  font-style: italic !important;
+}
+body.ppc-light .hp2-hero__rule {
+  border-color: var(--ppc-logo-yellow) !important;
+  background: var(--ppc-logo-yellow) !important;
+  margin: 1rem 0 1.5rem !important;
+}
+
+/* Headline / body must keep original typography — reset anything that
+ * had nested bg/padding from aggressive earlier rules. */
+body.ppc-light .hp2-hero__headline {
+  line-height: 0.96 !important;
+}
+body.ppc-light .hp2-hero__body {
+  line-height: 1.7 !important;
+  color: var(--ppc-text-muted) !important;
+}
+
+/* CTAs row — transparent, buttons keep their own styling via the
+ * unified button system */
+body.ppc-light .hp2-hero__ctas {
+  display: flex !important;
+  gap: 1rem !important;
+  flex-wrap: wrap;
+  margin-top: 1.25rem !important;
 }
 
 /* ─── QuoteLightbox modal (the "Get a Quote" popup) ───
@@ -608,6 +658,66 @@ body.ppc-light *:focus-visible {
 body.ppc-light .disco-pricing-card__slot,
 body.ppc-light .disco-pricing-card__tagline {
   color: var(--ppc-text) !important;
+}
+
+/* ─── CTA BAND (the "Get a quote or book your date" section) ───
+ * This is intentionally a dark-navy visual break between white
+ * sections. Keep the navy bg and flip text to WHITE so everything
+ * is legible; em accent in yellow; eyebrow in yellow. */
+body.ppc-light .hp2-cta-band,
+body.ppc-light [class*="hp2-cta-band"],
+body.ppc-light .cta-banner,
+body.ppc-light [class*="cta-banner"] {
+  background: linear-gradient(135deg, #0E4B8F 0%, #153E75 50%, #0A2D54 100%) !important;
+  color: #ffffff !important;
+}
+body.ppc-light .hp2-cta-band *,
+body.ppc-light [class*="hp2-cta-band"] *,
+body.ppc-light .cta-banner *,
+body.ppc-light [class*="cta-banner"] * {
+  color: #ffffff !important;
+  text-shadow: none !important;
+}
+body.ppc-light .hp2-cta-band em,
+body.ppc-light [class*="hp2-cta-band"] em,
+body.ppc-light .cta-banner em,
+body.ppc-light [class*="cta-banner"] em,
+body.ppc-light [class*="cta-band"] h2 em,
+body.ppc-light [class*="cta-band"] h3 em {
+  color: var(--ppc-logo-yellow) !important;
+  font-style: italic !important;
+}
+body.ppc-light [class*="cta-band"] [class*="eyebrow"],
+body.ppc-light [class*="cta-banner"] [class*="eyebrow"],
+body.ppc-light [class*="cta-band"] [class*="__label"],
+body.ppc-light [class*="cta-banner"] [class*="__label"] {
+  color: var(--ppc-logo-yellow) !important;
+  font-weight: 700 !important;
+}
+/* Buttons inside the dark CTA band: primary = yellow filled, secondary
+ * = white outline so both read on navy */
+body.ppc-light [class*="cta-band"] a[class*="primary"],
+body.ppc-light [class*="cta-banner"] a[class*="primary"],
+body.ppc-light [class*="cta-band"] button[class*="primary"],
+body.ppc-light [class*="cta-band"] .hp2-btn--primary,
+body.ppc-light [class*="cta-band"] .cta-pair__btn--book,
+body.ppc-light [class*="cta-banner"] .cta-pair__btn--book {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border: 2px solid #E8B52E !important;
+}
+body.ppc-light [class*="cta-band"] .hp2-btn--outline,
+body.ppc-light [class*="cta-band"] .cta-pair__btn--quote,
+body.ppc-light [class*="cta-banner"] .cta-pair__btn--quote {
+  background: #ffffff !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border: 2px solid #ffffff !important;
+}
+body.ppc-light [class*="cta-band"] .cta-pair__btn--quote:hover,
+body.ppc-light [class*="cta-banner"] .cta-pair__btn--quote:hover {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border-color: var(--ppc-logo-yellow) !important;
 }
 
 /* Footer */
