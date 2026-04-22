@@ -36,6 +36,33 @@ body.ppc-light {
   color-scheme: light;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+ * ROOT CAUSE FIX — Override the dark-theme CSS variables used by
+ * Home-New, TestimonialsFAQV2, DiscoV2, Pricing, Gallery, and every
+ * other page that builds cards/text from `var(--hp2-*)`. By flipping
+ * these at body.ppc-light, every page instantly inherits a readable
+ * light palette without per-page rules.
+ * ═══════════════════════════════════════════════════════════════════ */
+body.ppc-light,
+body.ppc-light .hp2-page,
+body.ppc-light .hp2-page.hp2-light {
+  --hp2-bg-0: #FFFFFF;
+  --hp2-bg-1: #F7FAFE;
+  --hp2-bg-2: #EAF2FB;
+  --hp2-bg-card: #FFFFFF;
+  --hp2-gold: #B8914E;
+  --hp2-gold-light: #B8914E;        /* was pale-yellow text, now brown — readable on cream */
+  --hp2-gold-pale: #D7B275;
+  --hp2-gold-dim: rgba(184, 145, 78, 0.12);
+  --hp2-gold-dim2: rgba(30, 110, 197, 0.22);  /* borders flip to blue-tinted */
+  --hp2-cream: #0A0A12;             /* "cream" (body text) now near-black */
+  --hp2-cream-muted: #54546A;
+  --hp2-ltext: #0A0A12;
+  --hp2-text-muted: #54546A;
+  --hp2-border: rgba(30, 110, 197, 0.22);
+  --hp2-border-sub: rgba(10, 10, 18, 0.08);
+}
+
 /* Smooth anchor-jump scrolling — does NOT fight normal wheel/touch
  * scroll on modern browsers (they only honor `smooth` for programmatic
  * scrolls like location.hash navigation). */
@@ -181,13 +208,18 @@ body.ppc-light h3 em {
 
 /* ─── V2 page surfaces: nuke dark slate/navy/black backgrounds ─── */
 body.ppc-light main,
-body.ppc-light [class*="min-h-screen"],
-body.ppc-light section {
+body.ppc-light [class*="min-h-screen"] {
   background-color: var(--ppc-bg-0);
 }
 
-/* Alternate band color for visual rhythm across sections */
-body.ppc-light section:nth-of-type(even) {
+/* Sections get cream bg by default, BUT exclude hero sections with
+ * video backgrounds so the drone footage shows through. */
+body.ppc-light section:not(.hp2-hero):not([class*="hero"]) {
+  background-color: var(--ppc-bg-0);
+}
+
+/* Alternate band color for visual rhythm across non-hero sections */
+body.ppc-light section:not(.hp2-hero):not([class*="hero"]):nth-of-type(even) {
   background-color: var(--ppc-bg-1);
 }
 
@@ -250,6 +282,331 @@ body.ppc-light [class*="border-emerald-500/20"] {
  * dark text for V2 pages without their own frosted-card treatment */
 body.ppc-light [class*="hero"]:not(.hp2-hero):not(.hp2-hero__content) {
   background-color: var(--ppc-bg-0) !important;
+  color: var(--ppc-text) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * Page-specific overrides — shared across all main V2 pages that
+ * were hard-coded to dark slate/navy in their inline styles.
+ * ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── ATX Disco Cruise pricing cards ─── */
+body.ppc-light .disco-pricing-card {
+  background: #ffffff !important;
+  border: 2px solid var(--ppc-border) !important;
+  color: var(--ppc-text) !important;
+  box-shadow: 0 10px 30px rgba(14, 75, 143, 0.08) !important;
+}
+body.ppc-light .disco-pricing-card * {
+  color: var(--ppc-text) !important;
+}
+body.ppc-light .disco-pricing-card__badge {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border-color: #E8B52E !important;
+}
+body.ppc-light .disco-pricing-card__price {
+  color: var(--ppc-logo-blue-deep) !important;
+}
+body.ppc-light .disco-pricing-card__total {
+  color: var(--ppc-text-muted) !important;
+}
+body.ppc-light .disco-pricing-card__includes li {
+  color: var(--ppc-text) !important;
+}
+body.ppc-light .disco-pricing-card__includes li::before {
+  color: var(--ppc-gold) !important;
+}
+body.ppc-light .disco-pricing-card--popular,
+body.ppc-light .disco-pricing-card--best-value {
+  border-color: var(--ppc-logo-blue) !important;
+  box-shadow: 0 14px 36px rgba(30, 110, 197, 0.18),
+    0 0 0 1px var(--ppc-logo-blue) inset !important;
+}
+body.ppc-light .disco-pricing-card__cta,
+body.ppc-light .disco-pricing-card a[class*="cta"] {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border: 2px solid #E8B52E !important;
+  font-weight: 700 !important;
+}
+
+/* ─── Hero sections across V2 pages (Bachelorette, Bachelor,
+ *     Combined, Corporate, Wedding, Birthday, etc.) ───
+ * Most use .hp2-page root but have hero text panels with white bg
+ * on a dark gradient section. In light mode, strip the dark section
+ * gradient so the whole hero is white with dark text (no weird
+ * panels-on-dark look). */
+body.ppc-light .hp2-hero-simple,
+body.ppc-light [class*="hp2-hero"]:not(.hp2-hero__content):not(.hp2-hero__video):not(.hp2-hero__overlay):not(.hp2-hero__video-wrap) {
+  background: var(--ppc-bg-0) !important;
+  background-image: none !important;
+  color: var(--ppc-text) !important;
+}
+body.ppc-light [class*="hp2-hero"] h1,
+body.ppc-light [class*="hp2-hero"] h2,
+body.ppc-light [class*="hp2-hero"] p {
+  background: transparent !important;
+  color: var(--ppc-text) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+body.ppc-light [class*="hp2-hero"] em {
+  color: var(--ppc-logo-blue) !important;
+  background: transparent !important;
+}
+body.ppc-light [class*="eyebrow"],
+body.ppc-light [class*="__eyebrow"] {
+  background: transparent !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  font-weight: 700 !important;
+}
+
+/* ─── QuoteLightbox modal (the "Get a Quote" popup) ───
+ * Original uses deep-black bg + gold accents for dark luxury feel.
+ * Light version: cream-white modal + dark text + blue accents. */
+body.ppc-light .qlb-overlay {
+  background: rgba(14, 75, 143, 0.45) !important;
+}
+body.ppc-light .qlb-modal {
+  background: #ffffff !important;
+  color: var(--ppc-text) !important;
+  border: 1px solid var(--ppc-border) !important;
+  box-shadow: 0 24px 60px rgba(14, 75, 143, 0.28) !important;
+}
+body.ppc-light .qlb-modal,
+body.ppc-light .qlb-modal * {
+  color: var(--ppc-text) !important;
+}
+body.ppc-light .qlb-eyebrow {
+  color: var(--ppc-logo-blue-deep) !important;
+  font-weight: 700 !important;
+}
+body.ppc-light .qlb-title em {
+  color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light .qlb-sub {
+  color: var(--ppc-text-muted) !important;
+}
+body.ppc-light .qlb-close {
+  color: var(--ppc-text-muted) !important;
+}
+body.ppc-light .qlb-close:hover {
+  color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light .qlb-steps > *,
+body.ppc-light [class*="qlb-step"]:not(.qlb-step--active) {
+  background: rgba(14, 75, 143, 0.12) !important;
+}
+body.ppc-light .qlb-step--active,
+body.ppc-light [class*="qlb-step"][class*="active"] {
+  background: var(--ppc-logo-blue) !important;
+}
+body.ppc-light [class*="qlb-option"],
+body.ppc-light [class*="qlb-chip"],
+body.ppc-light [class*="qlb-pill"] {
+  background: #ffffff !important;
+  color: var(--ppc-text) !important;
+  border: 2px solid var(--ppc-border) !important;
+}
+body.ppc-light [class*="qlb-option"]:hover,
+body.ppc-light [class*="qlb-chip"]:hover {
+  border-color: var(--ppc-logo-blue) !important;
+  color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light [class*="qlb-option"][class*="selected"],
+body.ppc-light [class*="qlb-option"][aria-selected="true"],
+body.ppc-light [class*="qlb-chip"][class*="selected"] {
+  background: var(--ppc-logo-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light .qlb-next,
+body.ppc-light [class*="qlb-btn"][class*="primary"],
+body.ppc-light [class*="qlb-next"] {
+  background: var(--ppc-logo-yellow) !important;
+  color: var(--ppc-logo-blue-deep) !important;
+  border: 2px solid #E8B52E !important;
+  font-weight: 700 !important;
+}
+body.ppc-light .qlb-cancel,
+body.ppc-light [class*="qlb-btn"][class*="cancel"],
+body.ppc-light [class*="qlb-btn"][class*="secondary"] {
+  background: transparent !important;
+  color: var(--ppc-text-muted) !important;
+  border: 2px solid var(--ppc-border) !important;
+}
+body.ppc-light .qlb-input,
+body.ppc-light .qlb-modal input,
+body.ppc-light .qlb-modal select,
+body.ppc-light .qlb-modal textarea {
+  background: #ffffff !important;
+  color: var(--ppc-text) !important;
+  border: 2px solid var(--ppc-border) !important;
+}
+body.ppc-light .qlb-input:focus,
+body.ppc-light .qlb-modal input:focus {
+  border-color: var(--ppc-logo-blue) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 110, 197, 0.15) !important;
+}
+
+/* ─── Generic: any card/container with dark bg utilities gets
+ *     flipped white so pages with stacked card grids (reviews,
+ *     testimonials, FAQ, feature lists, etc.) become readable. ─── */
+body.ppc-light [class*="rounded"][class*="bg-slate"],
+body.ppc-light [class*="rounded"][class*="bg-zinc"],
+body.ppc-light [class*="rounded"][class*="bg-neutral"],
+body.ppc-light [class*="rounded"][class*="bg-gray-9"],
+body.ppc-light [class*="rounded"][class*="bg-gray-8"] {
+  background: #ffffff !important;
+  color: var(--ppc-text) !important;
+  border: 1px solid var(--ppc-border) !important;
+}
+body.ppc-light [class*="rounded"][class*="bg-slate"] *,
+body.ppc-light [class*="rounded"][class*="bg-zinc"] * {
+  color: var(--ppc-text) !important;
+}
+
+/* ─── Gold/amber text that was readable on dark but low-contrast on
+ *     cream: bump to near-black or blue. ─── */
+body.ppc-light [class*="text-amber-2"],
+body.ppc-light [class*="text-amber-3"],
+body.ppc-light [class*="text-yellow-2"],
+body.ppc-light [class*="text-yellow-3"],
+body.ppc-light [class*="text-gold"] {
+  color: var(--ppc-logo-blue-deep) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * NUCLEAR CONTRAST PASS
+ * User requirement: every piece of text must be readable at rest,
+ * on hover, and when selected. No ghost gold-on-cream. Home page
+ * style is the reference — match it on every page.
+ * ═══════════════════════════════════════════════════════════════════ */
+
+/* hp2-* typography used by Home + many V2 pages. Force near-black
+ * body text, blue em accents, gold only for DECORATIVE strokes (hr),
+ * not for readable copy. */
+body.ppc-light .hp2-section__label,
+body.ppc-light [class*="__label"],
+body.ppc-light [class*="__eyebrow"],
+body.ppc-light [class*="section-label"] {
+  color: var(--ppc-logo-blue-deep) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2em !important;
+}
+
+body.ppc-light .hp2-faq-q,
+body.ppc-light [class*="faq-q"],
+body.ppc-light [class*="faq__question"],
+body.ppc-light [class*="accordion-trigger"],
+body.ppc-light summary {
+  color: var(--ppc-text) !important;
+  font-weight: 600 !important;
+}
+
+body.ppc-light .hp2-faq-a,
+body.ppc-light [class*="faq-a"],
+body.ppc-light [class*="faq__answer"],
+body.ppc-light [class*="accordion-content"] {
+  color: var(--ppc-text) !important;
+}
+
+/* hp2-* colored text utilities from Home-New's CSS vars that don't
+ * have a cream fallback. Map gold-muted → near-black muted. */
+body.ppc-light [style*="--hp2-text-muted"],
+body.ppc-light [style*="var(--hp2-text-muted)"],
+body.ppc-light [style*="--hp2-cream"],
+body.ppc-light [style*="--hp2-gold-light"],
+body.ppc-light [style*="--hp2-cream-muted"] {
+  color: var(--ppc-text) !important;
+}
+
+/* ALL h1/h2/h3/h4/h5 — near-black with blue italic em. Nothing
+ * should be gold-on-cream. */
+body.ppc-light h1,
+body.ppc-light h2,
+body.ppc-light h3,
+body.ppc-light h4,
+body.ppc-light h5,
+body.ppc-light h6 {
+  color: var(--ppc-text) !important;
+}
+body.ppc-light h1 em,
+body.ppc-light h2 em,
+body.ppc-light h3 em {
+  color: var(--ppc-logo-blue) !important;
+  background: transparent !important;
+}
+
+/* ALL paragraphs + body text — near-black. */
+body.ppc-light p,
+body.ppc-light li,
+body.ppc-light dd,
+body.ppc-light dt,
+body.ppc-light span:not([class*="badge"]):not([class*="chip"]):not([class*="pill"]):not(.lux-promo-icon):not(.lux-promo-sep),
+body.ppc-light div[class*="text-"]:not([class*="text-white"]) {
+  color: var(--ppc-text);
+}
+
+/* Gallery page — FAQ + any section that was rendering ghost gold */
+body.ppc-light [class*="gallery"] h1,
+body.ppc-light [class*="gallery"] h2,
+body.ppc-light [class*="gallery"] h3,
+body.ppc-light [class*="gallery"] p,
+body.ppc-light [class*="gallery"] li,
+body.ppc-light [class*="gallery"] button {
+  color: var(--ppc-text) !important;
+}
+
+/* Accordion icons / + signs */
+body.ppc-light [class*="accordion"] svg,
+body.ppc-light summary::marker,
+body.ppc-light [class*="faq"] svg {
+  color: var(--ppc-logo-blue) !important;
+}
+
+/* Decorative hr/divider strokes stay gold — they're not text */
+body.ppc-light hr,
+body.ppc-light [class*="divider"],
+body.ppc-light [class*="__rule"] {
+  border-color: var(--ppc-logo-yellow) !important;
+  background: var(--ppc-logo-yellow) !important;
+  opacity: 1 !important;
+}
+
+/* Any remaining gold color on text body elements */
+body.ppc-light [style*="color: #C8A96E"],
+body.ppc-light [style*="color: #DFC08A"],
+body.ppc-light [style*="color:#C8A96E"],
+body.ppc-light [style*="color: rgb(200, 169, 110)"],
+body.ppc-light [style*="color:var(--hp2-gold)"],
+body.ppc-light [style*="color: var(--hp2-gold)"] {
+  color: var(--ppc-text) !important;
+}
+
+/* Hover states — never become invisible. */
+body.ppc-light a:hover,
+body.ppc-light button:hover {
+  color: var(--ppc-logo-blue) !important;
+}
+body.ppc-light button:hover[class*="primary"],
+body.ppc-light a:hover[class*="primary"] {
+  color: var(--ppc-logo-blue-deep) !important;
+}
+
+/* Focus rings — blue */
+body.ppc-light *:focus-visible {
+  outline: 3px solid rgba(30, 110, 197, 0.4) !important;
+  outline-offset: 2px;
+}
+
+/* Disco / pricing card SLOT headings (Friday 12-4 PM etc) */
+body.ppc-light .disco-pricing-card__slot,
+body.ppc-light .disco-pricing-card__tagline {
   color: var(--ppc-text) !important;
 }
 

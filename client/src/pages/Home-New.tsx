@@ -92,58 +92,59 @@ const HP2_STYLES = `
   opacity: 1 !important;
 }
 
-/* Frosted white panel behind the entire hero content block — ONE
- * unified card so the layout doesn't break into stacked boxes. The
- * individual h1 / p keep their original block flow.
- *
- * No backdrop-filter (expensive to repaint on scroll) and no heavy
- * drop-shadow (was creating a dark halo blob). Solid near-white
- * surface + thin blue inset outline reads cleanly on video OR
- * against plain cream sections. */
+/* ─── Hero in light mode — clean, simple, no drama ───
+ * Single opaque white card, zero nested panels, zero dark blob,
+ * zero backdrop-filter. Video plays behind with full opacity so
+ * the drone footage is visible on either side of the card. */
 .hp2-page.hp2-light .hp2-hero .hp2-hero__content {
-  background: rgba(255, 255, 255, 0.94) !important;
+  background: #ffffff !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  padding: 2rem 2.5rem !important;
-  border-radius: 14px;
-  box-shadow: 0 0 0 1px rgba(14, 75, 143, 0.1) inset !important;
+  padding: 2.5rem 3rem !important;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(14, 75, 143, 0.18),
+    0 0 0 1px rgba(14, 75, 143, 0.08) inset !important;
   max-width: 720px;
 }
-.hp2-page.hp2-light .hp2-hero h1,
-.hp2-page.hp2-light .hp2-hero .hp2-hero__headline {
-  color: var(--hp2-ltext) !important;
-  text-shadow: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  display: block !important;
-  max-width: none !important;
-  box-shadow: none !important;
-}
-.hp2-page.hp2-light .hp2-hero p {
-  color: var(--hp2-ltext) !important;
-  text-shadow: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+
+/* KILL the ::before dark radial blob in light mode — it was
+ * rendering a dark halo left of the content card. */
+.hp2-page.hp2-light .hp2-hero .hp2-hero__content::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  filter: none !important;
 }
 
+/* Every hero text element: clear dark-theme text-shadow, reset any
+ * background leftover, render dark on the opaque card. */
+.hp2-page.hp2-light .hp2-hero__eyebrow,
+.hp2-page.hp2-light .hp2-hero__headline,
+.hp2-page.hp2-light .hp2-hero__body,
+.hp2-page.hp2-light .hp2-hero h1,
+.hp2-page.hp2-light .hp2-hero p {
+  text-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--hp2-ltext) !important;
+}
+.hp2-page.hp2-light .hp2-hero__headline em,
 .hp2-page.hp2-light .hp2-hero h1 em {
   color: var(--hp2-logo-blue) !important;
-  text-shadow: none !important;
-  background: transparent;
-}
-
-/* Hero eyebrow — small blue text inside the frosted panel */
-.hp2-page.hp2-light .hp2-hero [class*="eyebrow"],
-.hp2-page.hp2-light .hp2-hero [style*="letter-spacing: 0.25em"] {
-  color: var(--hp2-logo-blue-deep) !important;
   background: transparent !important;
-  padding: 0 !important;
   text-shadow: none !important;
+}
+.hp2-page.hp2-light .hp2-hero__eyebrow {
+  color: var(--hp2-logo-blue-deep) !important;
   font-weight: 700 !important;
   letter-spacing: 0.2em !important;
+  margin-bottom: 1.25rem !important;
+}
+.hp2-page.hp2-light .hp2-hero__rule {
+  border-color: var(--hp2-logo-yellow) !important;
+  margin: 1.25rem 0 !important;
 }
 
 /* Headings: near-black for max contrast on white */
