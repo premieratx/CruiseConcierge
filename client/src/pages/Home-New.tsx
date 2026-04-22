@@ -1234,6 +1234,228 @@ html { scroll-behavior: smooth; }
   margin-bottom: 1.5rem;
 }
 
+/* ─── Tabbed pricing (Private | Disco) ─── */
+.hp2-pricing-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 2rem 0 2.5rem;
+  border-bottom: 1px solid var(--hp2-border);
+  flex-wrap: wrap;
+}
+.hp2-pricing-tab {
+  flex: 1;
+  min-width: 220px;
+  background: transparent;
+  border: none;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--hp2-font-display);
+  font-size: 1.3rem;
+  color: var(--hp2-cream-muted);
+  border-bottom: 3px solid transparent;
+  transition: all 180ms ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.hp2-pricing-tab:hover {
+  color: var(--hp2-cream);
+}
+.hp2-pricing-tab.active {
+  color: var(--hp2-cream);
+  border-bottom-color: var(--hp2-gold);
+  font-weight: 500;
+}
+.hp2-pricing-tab__sub {
+  font-family: var(--hp2-font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hp2-text-muted);
+}
+.hp2-pricing-tab.active .hp2-pricing-tab__sub {
+  color: var(--hp2-gold);
+}
+
+.hp2-pricing-panel {
+  margin-top: 2rem;
+  animation: hp2-panel-in 280ms ease;
+}
+@keyframes hp2-panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Private: 4-boat grid */
+.hp2-pricing-boats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 1100px) {
+  .hp2-pricing-boats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .hp2-pricing-boats { grid-template-columns: 1fr; }
+}
+.hp2-pricing-boat {
+  background: var(--hp2-bg-card);
+  border: 1px solid var(--hp2-border);
+  border-radius: 10px;
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  transition: all 220ms ease;
+}
+.hp2-pricing-boat:hover {
+  border-color: var(--hp2-gold);
+  transform: translateY(-2px);
+}
+.hp2-pricing-boat--featured {
+  border-color: var(--hp2-gold);
+  box-shadow: 0 0 0 1px var(--hp2-gold) inset;
+}
+.hp2-pricing-boat__badge {
+  display: inline-block;
+  background: var(--hp2-gold);
+  color: var(--hp2-bg-0);
+  padding: 0.2rem 0.55rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+}
+.hp2-pricing-boat__name {
+  font-family: var(--hp2-font-display);
+  font-size: 1.55rem;
+  color: var(--hp2-cream);
+  margin: 0 0 0.3rem 0;
+  font-weight: 400;
+}
+.hp2-pricing-boat__cap {
+  font-family: var(--hp2-font-body);
+  font-size: 0.85rem;
+  color: var(--hp2-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.85rem;
+}
+.hp2-pricing-boat__price {
+  font-family: var(--hp2-font-display);
+  font-size: 1.1rem;
+  color: var(--hp2-gold-light);
+  margin-bottom: 0.75rem;
+}
+.hp2-pricing-boat__price strong {
+  font-size: 1.85rem;
+  color: var(--hp2-gold);
+  font-weight: 500;
+}
+.hp2-pricing-boat__desc {
+  font-size: 0.92rem;
+  color: var(--hp2-text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Disco: 3-slot grid */
+.hp2-pricing-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .hp2-pricing-slots { grid-template-columns: 1fr; }
+}
+.hp2-pricing-slot {
+  background: var(--hp2-bg-card);
+  border: 1px solid var(--hp2-border);
+  border-radius: 10px;
+  padding: 2rem 1.75rem;
+  position: relative;
+  transition: all 220ms ease;
+}
+.hp2-pricing-slot:hover {
+  border-color: var(--hp2-gold);
+  transform: translateY(-2px);
+}
+.hp2-pricing-slot--featured {
+  border-color: var(--hp2-gold);
+  box-shadow: 0 0 0 1px var(--hp2-gold) inset,
+    0 12px 32px rgba(200, 169, 110, 0.18);
+}
+.hp2-pricing-slot__badge {
+  position: absolute;
+  top: -0.6rem;
+  left: 1.5rem;
+  background: var(--hp2-gold);
+  color: var(--hp2-bg-0);
+  padding: 0.25rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+.hp2-pricing-slot__badge--value {
+  background: var(--hp2-cream);
+  color: var(--hp2-bg-0);
+}
+.hp2-pricing-slot__day {
+  font-family: var(--hp2-font-body);
+  font-size: 0.85rem;
+  color: var(--hp2-text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.hp2-pricing-slot__time {
+  font-family: var(--hp2-font-display);
+  font-size: 1.5rem;
+  color: var(--hp2-cream);
+  margin-bottom: 1rem;
+}
+.hp2-pricing-slot__price {
+  font-family: var(--hp2-font-display);
+  font-size: 1.1rem;
+  color: var(--hp2-gold-light);
+  margin-bottom: 0.75rem;
+}
+.hp2-pricing-slot__price strong {
+  font-size: 2.6rem;
+  color: var(--hp2-gold);
+  font-weight: 500;
+}
+.hp2-pricing-slot__price span {
+  font-size: 0.95rem;
+  color: var(--hp2-text-muted);
+  margin-left: 0.25rem;
+}
+.hp2-pricing-slot__desc {
+  font-size: 0.95rem;
+  color: var(--hp2-text-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.hp2-pricing-panel__meta {
+  font-size: 0.88rem;
+  color: var(--hp2-text-muted);
+  line-height: 1.65;
+  max-width: 820px;
+  margin: 0 0 2rem 0;
+}
+.hp2-pricing-panel__ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 /* ─── Fleet Grid ──────────────────────────────────────────────── */
 .hp2-fleet-grid {
   display: grid;
@@ -1725,6 +1947,9 @@ export default function HomeNew() {
   const { openQuote } = useQuoteLightbox();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openDetails, setOpenDetails] = useState<string | null>(null);
+  // Tabbed pricing: Private default (home is for everyone; Disco is a
+  // specific bach-group product and lives as tab 2).
+  const [pricingTab, setPricingTab] = useState<'private' | 'disco'>('private');
   // Theme toggle — dark (default) vs. light festive daytime theme.
   // Persists across page reloads via localStorage.
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -1981,66 +2206,136 @@ export default function HomeNew() {
       </section>
 
       {/* ─── Two Experiences ─── */}
-      <section className="hp2-section--alt">
-        <div className="hp2-section__inner" style={{ padding: '9rem 4rem' }}>
+      <section className="hp2-section--alt" id="pricing-tabs">
+        <div className="hp2-section__inner" style={{ padding: '6rem 4rem' }}>
           <div className="hp2-section__label">Choose Your Cruise</div>
           <h2 className="hp2-section__headline">
-            Two ways to <em>celebrate</em> on Lake Travis.
+            Pricing &amp; <em>availability</em>.
           </h2>
+          <p className="hp2-section__body" style={{ maxWidth: '720px', marginBottom: '2.5rem' }}>
+            Private charters for any event, year-round. The ATX Disco Cruise is our all-inclusive multi-group party cruise exclusively for bachelor &amp; bachelorette groups, March&ndash;October.
+          </p>
 
-          <div className="hp2-experiences">
-            <div className="hp2-exp-card">
-              <div className="hp2-exp-card__img-wrap">
-                <img
-                  className="hp2-exp-card__img"
-                  src="/attached_assets/atx-disco-cruise-party.webp"
-                  alt="ATX Disco Cruise party on Lake Travis"
-                  loading="lazy"
-                />
-              </div>
-              <div className="hp2-exp-card__content">
-                <h3 className="hp2-exp-card__title">ATX Disco Cruise</h3>
-                <div className="hp2-exp-card__meta">
-                  <span className="hp2-exp-card__tag">Shared Party</span>
-                  <span className="hp2-exp-card__tag">Bach Only</span>
-                  <span className="hp2-exp-card__tag">March–Oct</span>
-                </div>
-                <p className="hp2-exp-card__desc">
-                  The ultimate bachelorette and bachelor party experience on Lake Travis. Join other groups on our flagship Clever Girl for a DJ-powered dance party with a professional photographer, 14 disco balls, LED lighting, and an unforgettable swim stop.
-                </p>
-                <div className="hp2-exp-card__price">From $85 / person</div>
-                <Link href="/atx-disco-cruise">
-                  <a className="hp2-btn hp2-btn--primary">Learn More &rarr;</a>
-                </Link>
-              </div>
-            </div>
-
-            <div className="hp2-exp-card">
-              <div className="hp2-exp-card__img-wrap">
-                <img
-                  className="hp2-exp-card__img"
-                  src="/attached_assets/clever-girl-50-person-boat.webp"
-                  alt="Private Charter on Clever Girl boat"
-                  loading="lazy"
-                />
-              </div>
-              <div className="hp2-exp-card__content">
-                <h3 className="hp2-exp-card__title">Private Charters</h3>
-                <div className="hp2-exp-card__meta">
-                  <span className="hp2-exp-card__tag">Exclusive</span>
-                  <span className="hp2-exp-card__tag">Any Event</span>
-                  <span className="hp2-exp-card__tag">Year-Round</span>
-                </div>
-                <p className="hp2-exp-card__desc">
-                  The entire boat is yours. Birthdays, corporate events, proposals, family reunions, or just a day on the lake with friends. Choose from 4 boats accommodating 14 to 75 guests with a dedicated captain and crew.
-                </p>
-                <div className="hp2-exp-card__price">From $200 / hour &middot; 4 boats</div>
-                <Link href="/private-charters">
-                  <a className="hp2-btn hp2-btn--primary">Explore Charters &rarr;</a>
-                </Link>
-              </div>
-            </div>
+          {/* Tab switcher */}
+          <div className="hp2-pricing-tabs" role="tablist">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={pricingTab === 'private'}
+              className={`hp2-pricing-tab ${pricingTab === 'private' ? 'active' : ''}`}
+              onClick={() => setPricingTab('private')}
+              data-testid="tab-private"
+            >
+              Private Charters
+              <span className="hp2-pricing-tab__sub">Any event &middot; Year-round</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={pricingTab === 'disco'}
+              className={`hp2-pricing-tab ${pricingTab === 'disco' ? 'active' : ''}`}
+              onClick={() => setPricingTab('disco')}
+              data-testid="tab-disco"
+            >
+              ATX Disco Cruise
+              <span className="hp2-pricing-tab__sub">Bach groups only &middot; Mar&ndash;Oct</span>
+            </button>
           </div>
+
+          {/* Private tab panel */}
+          {pricingTab === 'private' && (
+            <div className="hp2-pricing-panel" role="tabpanel">
+              <div className="hp2-pricing-boats">
+                <div className="hp2-pricing-boat">
+                  <h4 className="hp2-pricing-boat__name">Day Tripper</h4>
+                  <div className="hp2-pricing-boat__cap">Up to 14 guests</div>
+                  <div className="hp2-pricing-boat__price">From <strong>$200</strong>/hr</div>
+                  <p className="hp2-pricing-boat__desc">Intimate cruises for small groups. Perfect for birthdays, date days, and close friend gatherings.</p>
+                </div>
+                <div className="hp2-pricing-boat">
+                  <h4 className="hp2-pricing-boat__name">Meeseeks</h4>
+                  <div className="hp2-pricing-boat__cap">Up to 25 guests</div>
+                  <div className="hp2-pricing-boat__price">From <strong>$225</strong>/hr</div>
+                  <p className="hp2-pricing-boat__desc">Our most popular mid-size boat. Great sound, spacious deck, and the perfect platform for any celebration.</p>
+                </div>
+                <div className="hp2-pricing-boat">
+                  <h4 className="hp2-pricing-boat__name">The Irony</h4>
+                  <div className="hp2-pricing-boat__cap">25&ndash;30 guests</div>
+                  <div className="hp2-pricing-boat__price">From <strong>$225</strong>/hr</div>
+                  <p className="hp2-pricing-boat__desc">Versatile and comfortable. A fantastic option for corporate outings, team events, and medium-sized parties.</p>
+                </div>
+                <div className="hp2-pricing-boat hp2-pricing-boat--featured">
+                  <div className="hp2-pricing-boat__badge">Flagship</div>
+                  <h4 className="hp2-pricing-boat__name">Clever Girl</h4>
+                  <div className="hp2-pricing-boat__cap">50&ndash;75 guests</div>
+                  <div className="hp2-pricing-boat__price">From <strong>$250</strong>/hr</div>
+                  <p className="hp2-pricing-boat__desc">Our flagship. 14 disco balls, LED lighting, massive dance floor, premium sound. The ultimate Lake Travis party vessel.</p>
+                </div>
+              </div>
+              <div className="hp2-pricing-panel__meta">
+                All private charters include a licensed captain, premium sound system, coolers, and shade. 4-hour minimum Fri&ndash;Sun, 3-hour Mon&ndash;Thu. Always BYOB.
+              </div>
+              <div className="hp2-pricing-panel__ctas">
+                <button
+                  type="button"
+                  className="hp2-btn hp2-btn--primary"
+                  onClick={() => {
+                    document.getElementById('quote-builder-embed')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                >
+                  Get Your Quote &rarr;
+                </button>
+                <Link href="/private-cruises">
+                  <a className="hp2-btn hp2-btn--outline">See All Charter Details</a>
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Disco tab panel */}
+          {pricingTab === 'disco' && (
+            <div className="hp2-pricing-panel" role="tabpanel">
+              <div className="hp2-pricing-slots">
+                <div className="hp2-pricing-slot">
+                  <div className="hp2-pricing-slot__day">Friday</div>
+                  <div className="hp2-pricing-slot__time">12:00 &ndash; 4:00 PM</div>
+                  <div className="hp2-pricing-slot__price"><strong>$95</strong><span>/person</span></div>
+                  <p className="hp2-pricing-slot__desc">Kickstart your weekend.</p>
+                </div>
+                <div className="hp2-pricing-slot hp2-pricing-slot--featured">
+                  <div className="hp2-pricing-slot__badge">Most popular</div>
+                  <div className="hp2-pricing-slot__day">Saturday</div>
+                  <div className="hp2-pricing-slot__time">11:00 AM &ndash; 3:00 PM</div>
+                  <div className="hp2-pricing-slot__price"><strong>$105</strong><span>/person</span></div>
+                  <p className="hp2-pricing-slot__desc">Peak energy, peak vibes.</p>
+                </div>
+                <div className="hp2-pricing-slot">
+                  <div className="hp2-pricing-slot__badge hp2-pricing-slot__badge--value">Best value</div>
+                  <div className="hp2-pricing-slot__day">Saturday</div>
+                  <div className="hp2-pricing-slot__time">3:30 &ndash; 7:30 PM</div>
+                  <div className="hp2-pricing-slot__price"><strong>$85</strong><span>/person</span></div>
+                  <p className="hp2-pricing-slot__desc">Catch the sunset.</p>
+                </div>
+              </div>
+              <div className="hp2-pricing-panel__meta">
+                All Disco tickets include the DJ, pro photographer, 14 disco balls, giant floats, coolers, tax &amp; 20% gratuity. Bach groups only. March&ndash;October.
+              </div>
+              <div className="hp2-pricing-panel__ctas">
+                <button
+                  type="button"
+                  className="hp2-btn hp2-btn--primary"
+                  onClick={() => {
+                    document.getElementById('quote-builder-embed')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                >
+                  Book a Disco Slot &rarr;
+                </button>
+                <Link href="/atx-disco-cruise">
+                  <a className="hp2-btn hp2-btn--outline">See All Disco Details</a>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
