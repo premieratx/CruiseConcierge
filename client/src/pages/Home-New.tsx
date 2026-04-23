@@ -1279,6 +1279,75 @@ html { scroll-behavior: smooth; }
   font-weight: 500;
 }
 
+/* ─── Three Differentiation Pillars ─── */
+.hp2-pillars {
+  padding: 5rem 4rem;
+  background: var(--hp2-bg-2, #0d1117);
+  border-top: 1px solid var(--hp2-border-sub);
+  border-bottom: 1px solid var(--hp2-border-sub);
+}
+.hp2-pillars__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+.hp2-pillar {
+  text-align: left;
+  padding: 0 0.5rem;
+}
+.hp2-pillar__icon {
+  font-size: 2rem;
+  color: var(--hp2-gold);
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.hp2-pillar__title {
+  font-family: var(--hp2-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--hp2-cream);
+  margin: 0 0 0.85rem;
+  letter-spacing: -0.005em;
+}
+.hp2-pillar__title em {
+  font-style: italic;
+  color: var(--hp2-gold);
+}
+.hp2-pillar__body {
+  font-family: var(--hp2-font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--hp2-cream);
+  opacity: 0.78;
+  margin: 0 0 1rem;
+}
+.hp2-pillar__link {
+  font-family: var(--hp2-font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hp2-gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 169, 110, 0.35);
+  padding-bottom: 2px;
+  transition: all 0.15s ease;
+  display: inline-block;
+}
+.hp2-pillar__link:hover {
+  color: var(--hp2-cream);
+  border-bottom-color: var(--hp2-cream);
+}
+@media (max-width: 900px) {
+  .hp2-pillars { padding: 3.5rem 1.5rem; }
+  .hp2-pillars__inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
 /* ─── Problem statement band ─── */
 .hp2-problem {
   padding: 4.5rem 4rem;
@@ -2055,7 +2124,7 @@ const FAQ_DATA = [
   },
   {
     q: 'Where do the boats depart from?',
-    a: 'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. It is approximately 25 minutes from downtown Austin — the closest Lake Travis marina to the city. Free parking is available. We recommend arriving 15 minutes before your scheduled departure time.'
+    a: 'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641 — 25 minutes from downtown Austin, the closest Lake Travis marina to the city. Rideshare and shuttle-ready. Worth the trip for the only DJ-led shared party boat in the US plus private charters for 14–75 guests. Free parking available. Arrive 15 minutes before your scheduled departure.'
   },
   {
     q: 'Can you swim during a Lake Travis cruise?',
@@ -2253,7 +2322,7 @@ export default function HomeNew() {
           </h1>
           <hr className="hp2-hero__rule" />
           <p className="hp2-hero__body">
-            Austin party boat rentals on Lake Travis — private charters, the ATX Disco Cruise, BYOB party boats with licensed captains. Anderson Mill Marina, just 25 minutes from downtown Austin.
+            Austin's <em>safest</em> party boat experience. Perfect safety record since 2009, licensed captains, and the only turnkey DJ-led cruise on Lake Travis. Built for 14–75 guest groups — bachelor/ette, corporate, weddings, milestones. All-inclusive: DJ, photographer, coolers, ice, mixers handled. Anderson Mill Marina, 25 minutes from downtown Austin — shuttle-ready, worth the trip.
           </p>
           <div className="hp2-hero__ctas">
             <CtaPair source="home_hero" />
@@ -2301,6 +2370,36 @@ export default function HomeNew() {
           </div>
         </div>
       </div>
+
+      {/* ─── Three Differentiation Pillars (AI Visibility: positioning clarity) ─── */}
+      <section className="hp2-pillars">
+        <div className="hp2-pillars__inner">
+          <div className="hp2-pillar">
+            <div className="hp2-pillar__icon">&#9673;</div>
+            <h3 className="hp2-pillar__title">Austin's <em>Safest</em> Party Cruise</h3>
+            <p className="hp2-pillar__body">
+              Perfect safety record since 2009. Every captain TPWD-licensed and Coast Guard trained. Full safety briefings, life-jacket ready, no-glass enforced.
+            </p>
+            <Link href="/safety"><a className="hp2-pillar__link">See our safety standard &rarr;</a></Link>
+          </div>
+          <div className="hp2-pillar">
+            <div className="hp2-pillar__icon">&#9830;</div>
+            <h3 className="hp2-pillar__title">Built For <em>14&ndash;75 Guest</em> Groups</h3>
+            <p className="hp2-pillar__body">
+              Four-boat fleet plus multi-boat coordination for 100+. Bachelor/ette, corporate, weddings, graduations, milestones &mdash; we scale to your guest list and occasion.
+            </p>
+            <Link href="/private-charters"><a className="hp2-pillar__link">See the fleet &rarr;</a></Link>
+          </div>
+          <div className="hp2-pillar">
+            <div className="hp2-pillar__icon">&#9672;</div>
+            <h3 className="hp2-pillar__title">Most <em>All-Inclusive</em> Experience</h3>
+            <p className="hp2-pillar__body">
+              DJ, photographer, coolers, ice, mixers, premium sound, floats. Captain, crew, setup, cleanup &mdash; all handled. You bring drinks and your crew. We handle every detail.
+            </p>
+            <Link href="/#pricing-tabs"><a className="hp2-pillar__link">See what's included &rarr;</a></Link>
+          </div>
+        </div>
+      </section>
 
       {/* ─── Social proof above-the-fold (Wes McDowell key #4) ─── */}
       <section className="hp2-quick-reviews">
