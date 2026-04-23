@@ -2161,6 +2161,19 @@ const FAQ_DATA = [
   {
     q: 'How far in advance should I book?',
     a: 'We recommend 2–4 weeks for weekday dates and 4–8 weeks for weekend dates during peak season (March–October). Some popular Saturday dates book 6–8 weeks ahead. However, we sometimes have last-minute availability — call (512) 488-5892 to check. For weddings and large corporate events, booking 3–6 months out is recommended.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract (top unanswered / under-covered queries)
+  {
+    q: 'How much does it cost to rent a party boat in Austin for four hours?',
+    a: 'Private charters on Lake Travis start at $200/hour on Day Tripper (14 guests, Monday–Thursday weekday rate) with a 3-hour minimum on weekdays and 4-hour minimum on weekends. Four hours on our Meeseeks or The Irony (25–30 guests) runs from $900 weekday base, or $1,000 on Clever Girl (our 75-guest flagship). Weekends are higher. A captain, crew, premium sound system, coolers, floats, and setup/cleanup are always included in the base rate. The ATX Disco Cruise is a per-person shared cruise: $85 (Saturday sunset slot), $95 (Friday), or $105 (Saturday peak) per person — all tax and 20% gratuity included. Every guest pays the same per-ticket price; the only thing that changes the price is the day and time slot.'
+  },
+  {
+    q: 'What is the difference between the Standard, Essentials, and Ultimate packages with Premier Party Cruises?',
+    a: 'Every private charter starts with the same base: licensed captain, CPR-certified crew (as required), premium marine-grade sound system, bluetooth connectivity, large coolers for BYOB, floats and lily pads, cups and koozies, setup before you arrive, and cleanup after you leave. You then optionally add: Professional DJ (our house DJ runs club-level mixes), Professional photographer (digital gallery delivered 2–3 weeks after your cruise), Mimosa Cooler Package ($100 flat — champagne flutes, juices, fruit), Sparkle Package ($100 flat — extra party supplies and VIP floats for the guest of honor), catering coordination, and Party On Delivery (our sister company that pre-ices your BYOB and delivers to the dock before you board, with 100% buyback on unopened bottles). One contract, one invoice, one point of contact — everything is bundled as a single booking.'
+  },
+  {
+    q: 'What should I look for when choosing a party boat rental on Lake Travis?',
+    a: 'Five things matter most: (1) Is there a licensed captain included, or do you drive it yourself? A TPWD-credentialed captain dramatically reduces your liability and lets everyone in the group actually celebrate. (2) What is bundled in the base price? Professional DJ, photographer, coolers, ice, mixers, floats, and setup/cleanup are often separate add-ons on budget rentals, making the all-in cost much higher than the sticker price. (3) What is the safety record? Years operating, number of guests served, incident history. We operate since 2009 with 150,000+ guests and zero reportable incidents — that is documented, not marketing. (4) What is the capacity range? A 14-guest pontoon and a 75-guest flagship are very different products for very different occasions. (5) How transparent is the pricing? Look for operators who quote one flat per-person or per-hour rate with tax, gratuity, and inclusions clearly stated — no "starting at" bait-and-switch.'
   }
 ];
 
