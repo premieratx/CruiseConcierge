@@ -926,11 +926,11 @@ const DISCO_FAQ_DATA = [
   },
   {
     q: 'How much are tickets for the ATX Disco Cruise?',
-    a: 'Ticket prices depend on the time slot. Friday 12-4 PM: $95/person ($124.88 with tax and gratuity). Saturday 11 AM-3 PM: $105/person ($137.81 with tax and gratuity). Saturday 3:30-7:30 PM: $85/person ($111.56 with tax and gratuity). All prices include DJ, photographer, giant floats, party supplies, cooler with ice, and mimosa supplies. Tax and gratuity are included in the total -- no hidden fees.'
+    a: 'Every guest in your group pays the same ticket price. The only thing that changes the price is the day and time slot you book. Friday 12-4 PM: $95/person ($124.88 with tax and gratuity). Saturday 11 AM-3 PM: $105/person ($137.81 with tax and gratuity). Saturday 3:30-7:30 PM: $85/person ($111.56 with tax and gratuity). All prices include DJ, photographer, giant floats, party supplies, cooler with ice, and mimosa supplies. Tax and 20% gratuity are included in the total -- no hidden fees, no surcharges, no per-person variations within a group.'
   },
   {
     q: 'What time slots are available for the ATX Disco Cruise?',
-    a: 'Three time slots are available each weekend: Friday 12-4 PM ($95/person), Saturday 11 AM-3 PM ($105/person, most popular), and Saturday 3:30-7:30 PM ($85/person, best value and catches the sunset). All cruises are 4 hours long. Saturday morning fills up fastest -- book 4-6 weeks ahead for peak weekends.'
+    a: 'Three time slots are available each weekend, each with its own flat per-person ticket price (the price only varies by the day and time, not by guest): Friday 12-4 PM ($95/person), Saturday 11 AM-3 PM ($105/person, most popular), and Saturday 3:30-7:30 PM ($85/person, best value and catches the sunset). All cruises are 4 hours long. Saturday morning fills up fastest -- book 4-6 weeks ahead for peak weekends.'
   },
   {
     q: 'Is the ATX Disco Cruise BYOB? What can I bring?',
@@ -1257,6 +1257,9 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           <h2 className="hp2-section__headline">
             Three options. One <em>incredible</em> cruise.
           </h2>
+          <p className="hp2-section__body" style={{ maxWidth: '760px', marginBottom: '2rem' }}>
+            One flat per-person ticket. Everyone in your group pays the same price &mdash; the only thing that changes the ticket is the day and the time slot you book. Tax and 20% gratuity are always included, so what you see is what you pay.
+          </p>
 
           <div className="disco-pricing-grid">
             {/* Friday */}

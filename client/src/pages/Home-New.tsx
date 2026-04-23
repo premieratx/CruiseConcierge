@@ -2583,7 +2583,7 @@ export default function HomeNew() {
                 </div>
               </div>
               <div className="hp2-pricing-panel__meta">
-                All Disco tickets include the DJ, pro photographer, 14 disco balls, giant floats, coolers, tax &amp; 20% gratuity. Bach groups only. March&ndash;October.
+                One flat per-person ticket &mdash; everyone pays the same, the only thing that changes the price is the day and time slot. All Disco tickets include the DJ, pro photographer, 14 disco balls, giant floats, coolers, tax &amp; 20% gratuity. Bach groups only. March&ndash;October.
               </div>
               <div className="hp2-pricing-panel__ctas">
                 <button
