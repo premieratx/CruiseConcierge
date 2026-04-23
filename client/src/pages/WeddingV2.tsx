@@ -793,6 +793,19 @@ const FAQ_DATA = [
   {
     q: 'Can we host a late-night wedding after party on the boat?',
     a: 'Yes! After party cruises are incredibly popular for wedding celebrations. Gather your closest 14-75 friends and family after the reception for a late-night cruise on Lake Travis. Most after parties run 10pm-2am with dancing under the stars, midnight champagne toasts, and the perfect finale to your wedding day. Our boats feature premium sound systems and party lighting for the ultimate celebration vibe. BYOB friendly — many couples bring leftover champagne and wine from the reception. Swimming under the stars is available weather permitting.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract
+  {
+    q: 'Can I host a small wedding or reception on a party barge on Lake Travis?',
+    a: 'Yes — on-water micro-weddings and small-reception cruises are a specialty booking on all four of our boats. Most common formats: (1) Ceremony + reception cruise on Clever Girl (up to 75 guests): officiant performs the ceremony on deck during a scenic moment, cruise continues with catered reception, toasts, first dance, and swim stop. (2) Intimate ceremony on Day Tripper (14 guests, immediate family): 2-hour ceremony cruise + return to marina for a larger reception venue. (3) Post-ceremony welcome cruise: ceremony at a traditional venue, party-boat cruise for the wedding-weekend welcome reception the night before or the farewell brunch the day after. Catering coordination, custom music playlist, photographer (our in-house team or your wedding photographer can embark), and floral/decor setup are all coordinated before you arrive. Call or email with your guest count, date, and ceremony preferences — our wedding coordinator can send you example run-of-shows within 24 hours.'
+  },
+  {
+    q: 'How do group sizes and timing affect pricing for a wedding event on Lake Travis?',
+    a: 'Pricing on a wedding charter is hourly by boat size and day of week, not per-guest — so cost does not scale with your guest count up to the boat\'s capacity. Day Tripper (14 guests) starts at $200/hr weekday, $225/hr weekend. Meeseeks or The Irony (25–30 guests) $225/hr weekday, $275/hr weekend. Clever Girl (75 guests) $250/hr weekday, $300/hr weekend. Minimum 3 hours weekday, 4 hours weekend. Wedding-season Saturdays (May–October) book 4–6 months ahead; fall weekends 2–3 months ahead. A standard wedding charter runs 4–6 hours. Add-ons priced flat: DJ $400–$600, photographer $300–$500, officiant coordination (we partner with local officiants) typically $350–$500 direct with the officiant, catering coordination on a per-head basis with our approved partners. 8.25% Texas sales tax on charter + 20% gratuity on the service portion round out the total.'
+  },
+  {
+    q: 'How do we coordinate a wedding weekend where the boat cruise is one of multiple events?',
+    a: 'Very common — the party-boat cruise is often Day 1 (welcome party) or Day 3 (farewell brunch on the water). Our wedding coordinator syncs with your planner on arrival times, guest shuttle logistics from the hotel block or ceremony venue to Anderson Mill Marina (25 minutes from downtown), catering delivery windows, photographer handoff if you\'re using the same photographer across events, and attire considerations (the marina walk is ~50 yards, dock shoes recommended but not required). For weddings with 50+ guests splitting between land + water events we often recommend the multi-boat approach: one boat for the immediate wedding party, a second for extended family and friends, both departing together for a shared cove moment. We have run this exact format dozens of times and your wedding planner should loop us in 8–12 weeks before the date for the best coordination.'
   }
 ];
 

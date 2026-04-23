@@ -912,6 +912,19 @@ const FAQ_DATA = [
   {
     q: 'How does pricing work for larger groups?',
     a: 'For groups of 26-30 guests on Meeseeks or The Irony, there is an additional crew fee of $50-$75 to ensure adequate staffing for a larger group. For groups of 51-75 guests on Clever Girl, the additional crew fee is $100-$150. The hourly boat rate remains the same regardless of how many guests board (up to the boat\'s maximum capacity). This means the per-person cost actually decreases as your group size increases — a 4-hour Clever Girl charter at $300/hour is $16/person with 75 guests versus $24/person with 50 guests. Additional costs to factor in: 8.25% Texas sales tax on the charter total, a suggested 20% gratuity for the captain and crew, and optional package upgrades (Essentials at $100-$200 flat, Ultimate at $250-$350 flat). A deposit is required at booking to secure your date.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract
+  {
+    q: 'How much does it typically cost to rent a private party boat on Lake Travis for four hours?',
+    a: 'Four-hour private charter rates on Lake Travis range from $800 (Day Tripper, 14 guests, weekday) to $1,200 (Clever Girl flagship, 75 guests, weekday base) before tax, gratuity, and add-ons. Weekend rates run roughly 20–30% higher. Every rate includes the licensed captain, CPR-certified crew, premium marine-grade sound system, large coolers for BYOB, floats, cups, koozies, and setup + cleanup. Optional add-ons: professional DJ ($400–$600), professional photographer ($300–$500), Mimosa Package ($100 flat), Sparkle Package ($100 flat), catering coordination, Party On Delivery BYOB setup. One contract, one invoice, one point of contact — compare this to stitching together a DIY pontoon rental + separate DJ + separate photographer + BYOB runs, which usually costs more once you total it.'
+  },
+  {
+    q: 'What\'s the difference between a private charter and hiring a regular pontoon rental with a captain?',
+    a: 'A Premier private charter is a fully-produced celebration day: purpose-built party boats (14, 25, 30, or 75 guest capacity), TPWD-licensed captain included on every sailing, CPR-certified crew, premium marine-grade sound system with Bluetooth, pre-sailing safety briefing, coolers and floats ready when you board, and setup + cleanup handled by our crew. A regular pontoon rental (even one that bundles a captain) typically means a smaller boat, bring-your-own sound, bring-your-own coolers, bring-your-own floats, and cleanup on you. The Premier difference is that the day arrives already done — you step on and celebrate. For groups of 14+ guests or any event where the day cannot have logistical hiccups (bachelorette weekend, wedding weekend, corporate outing), the full-service format reliably outperforms DIY.'
+  },
+  {
+    q: 'Can Premier coordinate a large corporate event with multiple boats for 100+ guests?',
+    a: 'Yes — multi-boat group charters are a recurring booking type. Typical structure: 2–3 of our boats depart from Anderson Mill Marina at staggered times to spread the load across the dock, anchor together at a cove for swimming + lunch, then cruise back. For a 100-guest corporate outing we often pair Clever Girl (75) with Meeseeks or The Irony (25–30). Captain teams coordinate via marine radio. Catering and BYOB are coordinated across all vessels through our sister company Party On Delivery so everyone gets ice, mixers, and setup at the same moment. We handle the logistics complexity — your HR or events coordinator gets one point of contact, one invoice, and one arrival window.'
   }
 ];
 

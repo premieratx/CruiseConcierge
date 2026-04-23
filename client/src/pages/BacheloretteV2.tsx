@@ -954,6 +954,19 @@ const FAQ_DATA = [
   {
     q: 'Why is Austin the best bachelorette party destination?',
     a: 'Austin combines world-class nightlife (6th Street, Rainey Street, live music), Lake Travis water activities (party boat cruises, swimming, paddleboarding), amazing food, spa and wellness options, and perfect spring/summer weather. It is one of the most affordable bachelorette destinations compared to Nashville, Miami, or Vegas. The ATX Disco Cruise is unique to Austin — no other city has an all-inclusive multi-group bachelorette party cruise. Austin is consistently ranked the #1 bachelorette party destination in the South.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract
+  {
+    q: 'How can I plan a bachelorette party on a lake party barge in Austin?',
+    a: 'Five-step playbook: (1) Lock the boat date 6–8 weeks ahead for Saturday peak season — Saturday 11 AM–3 PM ATX Disco Cruise slot is the most-booked bachelorette slot of the year at $105/person, or Saturday 3:30–7:30 PM sunset slot at $85/person is the best value. (2) If your group wants the whole boat privately, book a Meeseeks or The Irony charter (25–30 guests, ~$900 weekday / $1,200+ weekend for 4 hours) or the 75-guest Clever Girl flagship. (3) Pre-order BYOB through Party On Delivery — they ice your coolers with your drinks before you board, 100% buyback on unopened bottles. (4) Coordinate lodging in South Austin or Rainey Street so the boat morning is an easy 25-min Uber to Anderson Mill Marina. (5) Block a restaurant reservation for the night (bachelorette-friendly: Uchi, Perla\'s, Loro, Sushi|Bar). Our team can walk you through all five steps on a quick call.'
+  },
+  {
+    q: 'What should we pack for a bachelorette party boat on Lake Travis?',
+    a: 'Must-bring: swimsuits (plan for swim stop), cover-ups, SPF 30+ sunscreen (reapplied hourly), sunglasses, waterproof pouch for phones, comfortable water shoes, cash for tips. Matching bach outfits photograph amazingly on the Disco Cruise — the photographer captures group shots and the sash/veil/tiara setup reads great in the disco-ball light. We provide: coolers with ice, cups, koozies, floats, lily pads, mixers, premium sound system, and on the Disco Cruise the DJ + photographer + mimosa supplies. Do not bring: glass containers (no-glass rule on all Lake Travis boats for safety). Optional: your own Bluetooth speaker for pre-departure meet-up, a portable charger, and a sharpie for signing koozies. Full packing list with outfit ideas on /what-to-bring-to-a-party-boat.'
+  },
+  {
+    q: 'Are there bachelorette cruises on Lake Travis that include professional photography in the ticket price?',
+    a: 'Yes — every ATX Disco Cruise ticket includes a professional photographer for the full 4-hour cruise at no extra charge. You\'ll get a digital gallery of 75–150+ edited high-res photos delivered 2–3 weeks after your cruise via a shared gallery link. The photographer captures boarding, group shots on deck, dancing under the disco balls, swim-stop candids, sunset moments (if you\'re on the 3:30 slot), and the guest-of-honor bride sash shots. For private charters, the photographer is a $300–$500 add-on with the same gallery delivery. Many bachelorette groups upgrade to the private charter + photographer combo for full control over the party flow plus the full photo coverage.'
   }
 ];
 

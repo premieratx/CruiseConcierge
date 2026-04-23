@@ -975,6 +975,27 @@ const DISCO_FAQ_DATA = [
   {
     q: 'What add-ons are available for the ATX Disco Cruise?',
     a: 'Popular add-ons include: alcohol and food delivery through our partner Party On Delivery (drinks and snacks waiting on the boat), custom decorations and banners, extra cooler service, and upgrades to our Essentials or Ultimate packages. The Essentials upgrade adds $100-$200 flat per cruise and the Ultimate package adds $250-$350 flat per cruise. Contact us for details on specific add-ons for your group.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract — high-frequency unanswered queries
+  {
+    q: 'How does ATX Disco Cruise pricing actually work — do men and women pay different prices?',
+    a: 'Every guest in your group pays the same flat per-person ticket price. The only variables that change the price are the day and the time slot you book — not guest gender, not group size, not any other factor. Current pricing: Friday 12–4 PM is $95/person ($124.88 all-in with tax and 20% gratuity), Saturday 11 AM–3 PM is $105/person ($137.81 all-in), Saturday 3:30–7:30 PM is $85/person ($111.56 all-in and catches the sunset). That is the complete price — no per-guest surcharges, no gender variations, no hidden fees.'
+  },
+  {
+    q: 'How far in advance should we book the ATX Disco Cruise for a bachelorette party?',
+    a: 'For peak-season Saturdays (May–September), book 6–8 weeks ahead — the most popular Saturday 11 AM slot routinely fills that far out. For Fridays and the Saturday sunset slot, 3–4 weeks is usually enough. For September–October weekends, 4–6 weeks is safe. You can sometimes get last-minute weekday availability with 2–7 days notice — call (512) 488-5892 to check. For combined bachelor/bachelorette bookings where both groups want the same slot, add an extra 2–3 weeks of lead time to the normal window.'
+  },
+  {
+    q: 'Is the ATX Disco Cruise suitable for corporate team-building or only bachelor/bachelorette parties?',
+    a: 'The shared ATX Disco Cruise is specifically designed for bachelor and bachelorette groups — the multi-group party energy, 21+ age requirement, and music-forward format are intentionally bach-focused. For corporate team-building, client entertainment, company offsites, or family events, a private charter on one of our four boats (Day Tripper 14 guests, Meeseeks or The Irony 25–30 guests, Clever Girl 75 guests) is the right format. Private charters run year-round with flexible start times, the same captain and crew quality, and optional DJ + photographer add-ons — without the shared multi-group structure.'
+  },
+  {
+    q: 'What if it rains on the day of our ATX Disco Cruise?',
+    a: 'Safety is the captain\'s sole call — revenue never overrides safety. If the captain cancels for thunderstorms, high winds, or lake advisories, every guest gets a free reschedule to any future cruise, or a full refund if preferred. No argument, no fees. Light rain does not cancel — our boats have covered areas and Lake Travis weather typically moves through quickly. For the very rare severe-weather cancellation of a Saturday peak slot, we also offer a move to our Lemonade Disco land venue (same DJ, same energy, same photographer). Weather is never the customer\'s fault, so we never charge you for it.'
+  },
+  {
+    q: 'Can we book a private photographer or DJ for our private charter?',
+    a: 'Every private charter includes a professional DJ and photographer as optional add-ons booked directly through Premier — same DJ roster and photographer team that runs the ATX Disco Cruise. DJ runs $400–$600 for a 4-hour cruise depending on boat size, photographer runs $300–$500 with a 2–3 week digital gallery delivery. Both bundle together at a discount when booked with the charter. Many corporate and wedding groups book both; many family groups book just the photographer. If you\'d rather bring your own DJ or photographer, that\'s also welcome — we provide the premium marine-grade sound system and connectivity on every boat regardless.'
   }
 ];
 

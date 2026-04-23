@@ -946,6 +946,19 @@ const FAQ_DATA = [
   {
     q: "What's the best time slot for bachelor parties?",
     a: 'The Saturday 11 AM-3 PM slot ($105/person) is the most popular for bachelor parties — peak energy, the best party atmosphere, and premium boat positioning. The Saturday 3:30-7:30 PM slot ($85/person) is the best value and includes a sunset cruise over Lake Travis, which is incredible. The Friday 12-4 PM slot ($95/person) is great for groups arriving Thursday night who want to kick off the weekend early with more availability. All three slots include the same professional DJ, photographer, floats, and full 4-hour experience. Choose based on your weekend schedule and group vibe.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract
+  {
+    q: 'How do I plan a full-day bachelor party in Austin that includes a boat party?',
+    a: 'The winning formula: anchor the day on a 4-hour Lake Travis boat cruise (11 AM–3 PM Saturday slot is the most popular for bachelor parties; $105/person on the ATX Disco Cruise), then book 6th Street or Rainey Street bar reservations for the evening. Typical run of show — 10 AM meet at the Airbnb or hotel, 10:30 Uber/shuttle to Anderson Mill Marina (25 min from downtown), 11 AM board the boat with coolers already iced by Party On Delivery, 11–3 cruise with a 30–45 min swim stop at a cove, 3 PM return to the dock, 4 PM back downtown for Capital Cruises sunset beer run or a late lunch, 7 PM dinner reservation, 9 PM bar crawl or private karaoke room. For combined bachelor/bachelorette weekends we also coordinate multi-boat charters so both groups can cruise at the same time. Call (512) 488-5892 and we can build the day around your group size and budget.'
+  },
+  {
+    q: 'What are the best options for a bachelor party boat trip near Austin if we have a mixed budget group?',
+    a: 'The ATX Disco Cruise is specifically designed for this: per-person pricing ($85–$105/guest, all-inclusive), every guest pays the same so nobody gets stuck covering more. DJ, photographer, floats, coolers, mixers — all included, no hidden splits. For a 15-person bach group, that\'s $1,275–$1,575 total divided evenly — often less than renting a DIY pontoon, hiring a DJ ($500+), a photographer ($400+), and buying floats and mixers separately. Pre-iced BYOB through Party On Delivery with 100% buyback on unopened bottles keeps the alcohol spend efficient too. If the group wants privacy, a weekday private charter on Meeseeks (25-guest capacity) runs about $900 weekday base for 4 hours — roughly $60/person for a whole-boat experience.'
+  },
+  {
+    q: 'Are there bachelor party boat companies in Austin that also coordinate alcohol and food delivery to the dock?',
+    a: 'Yes — our sister company Party On Delivery coordinates alcohol and food setup directly to your boat before you board. Submit your drink order through the booking app or by text, they pre-ice your coolers with your selections, and it\'s all on the boat when you arrive. Retail pricing (no markup over liquor store), 100% buyback on unopened bottles at the end of the cruise. For food, they partner with multiple Austin caterers (tacos, pizza, BBQ, full catering trays) that deliver to the dock at a specific time during your cruise. This is the easiest way to do BYOB without stopping at a store on the way — and it means your bach group gets to the boat already celebrating, not running errands.'
   }
 ];
 

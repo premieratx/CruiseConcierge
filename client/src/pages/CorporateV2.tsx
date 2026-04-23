@@ -761,6 +761,19 @@ const FAQ_DATA = [
   {
     q: 'Can we bring our own alcohol for a corporate event?',
     a: 'Yes. All Premier Party Cruises are fully BYOB. You can bring beer, wine, spirits, seltzers, mixers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every charter. Many corporate groups use our delivery partner, Party On Delivery, to have beverages and food waiting on the boat when they arrive. For corporate events where alcohol liability is a concern, we recommend designating a drink coordinator within your team and ensuring all guests are 21+ with valid ID.'
+  },
+  // AI Visibility: seeded from SEMRush Questions extract
+  {
+    q: 'Are lake party cruises in Austin suitable for corporate team-building events?',
+    a: 'Yes — corporate team-building is one of the most common private charter bookings we handle. The format works because: (1) a captained vessel eliminates DIY liability and safety risk for HR and legal teams, (2) 14–75 guest capacity fits most team sizes (4-person executive offsites to 100+ all-hands via multi-boat), (3) structured but relaxed — cruising, swim stops, catering breaks, optional DJ for late-afternoon energy or premium sound with presentation capability for morning strategy sessions, (4) weekday rates (Monday–Thursday) are 20–30% below weekend rates and the lake is dramatically less crowded, which matters for conversation-focused offsites. Recent corporate clients have used us for quarterly offsites, client entertainment, client appreciation, employee recognition, summer Sunday Fundays, conference after-parties, and new-hire welcome events.'
+  },
+  {
+    q: 'Are there quiet, more relaxed lake cruises available for corporate networking events?',
+    a: 'Yes — the private charter format is the right fit for this. Unlike the shared ATX Disco Cruise (which is intentionally high-energy and music-forward for bachelor/bachelorette groups), a private charter lets you set the vibe entirely. For a relaxed corporate networking format, we recommend: Day Tripper (14 guests, intimate), a morning or mid-afternoon slot when the lake is quieter, premium Bluetooth sound with a curated background playlist (no DJ), swim stop at a quiet cove rather than Party Cove, and catering delivery at the mid-point for a proper lunch. Many corporate groups also do a "cruise + present" format — 2 hours of networking/presentations with coffee and pastries, followed by 2 hours of social time and swimming. Weekday mornings (9 AM–1 PM) are especially quiet on Lake Travis.'
+  },
+  {
+    q: 'Can I book a boat party as part of a conference or convention in Austin?',
+    a: 'Yes — conference party-cruise bookings are a recurring use case, especially during SXSW, F1 Race Week, ACL, and major Austin conferences. Typical format: one or multiple boats leave Anderson Mill Marina on a weekday evening (5:30–9:30 PM sunset slot) or a weekend afternoon, attendees are shuttled from the conference venue to the marina (we coordinate transportation quotes with our partners), cruise includes catering setup, premium sound for any welcome remarks or recognition moments, and a photographer add-on for branded content + attendee photos. For 50+ attendee conferences we typically book Clever Girl + a second boat so your registration-list size doesn\'t limit the experience. Call (512) 488-5892 with your date, headcount, and venue — we can have a quote and logistics framework back within a business day.'
   }
 ];
 
