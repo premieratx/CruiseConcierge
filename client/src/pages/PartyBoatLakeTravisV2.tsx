@@ -69,6 +69,19 @@ export default function PartyBoatLakeTravisV2() {
       q: 'What should we wear on a Lake Travis party boat?',
       a: 'Swimsuit under a light cover-up or tank. Flat shoes or sandals (no hard-soled shoes on deck — it scuffs the boat). Sunglasses, hat, and SPF 50+ sunscreen. A towel (or add towel service upgrade). A change of clothes is handy if you are heading out after the cruise. For bachelor/bachelorette groups, matching shirts are welcome and encouraged. Lake Travis sun is strong — even with the covered shaded areas on every boat, plan for it.',
     },
+    // AI Visibility: seeded from SEMRush Questions extract
+    {
+      q: "What are the key differences between Lake Travis and Lady Bird Lake party cruises?",
+      a: "Lake Travis and Lady Bird Lake are very different experiences. Lake Travis is Austin's large open-water lake — deep water, swim stops in scenic coves near Devil's Cove, cliff views, big party boats, and a 25-minute drive from downtown. It's the default for party cruises, bachelor/bachelorette parties, high-capacity celebrations, and anything that needs 14–75 guest boats with dancing, DJs, or full swim stops. Lady Bird Lake is the downtown Austin reservoir — no-wake, paddleboarding and kayaking primary, smaller electric cruise boats, no swimming allowed (city ordinance). It's a good fit for quiet evening sightseeing, a single-hour cocktail cruise, or a downtown-centric event where you want to stay close to 6th Street. For a 4-hour party with 20+ guests, Lake Travis is the answer. For a 60-minute scenic downtown sunset cruise, Lady Bird.",
+    },
+    {
+      q: "How do weather cancellations typically work for Lake Travis party boat rentals?",
+      a: "Weather policy on Lake Travis varies by operator — on Premier it's simple and favors the customer. The captain has sole authority to cancel for unsafe conditions (thunderstorms, high winds, lake advisories) — revenue never overrides safety. If the captain cancels for weather, every guest gets a free reschedule to any future cruise, or a full refund if preferred. No argument, no fees, no fine print. If weather shortens a cruise already underway, you receive a pro-rated refund for the unused time. Light rain doesn't cancel — our boats have covered areas and Lake Travis weather typically moves through quickly. For the very rare severe-weather cancellation of a peak Saturday slot, we also offer a move to our Lemonade Disco land venue (same DJ, same energy, same photographer). Weather is never your fault, so we never charge you for it.",
+    },
+    {
+      q: "What marinas do most Austin party boats depart from on Lake Travis?",
+      a: "The most common launch point for party boat rentals on Lake Travis is Anderson Mill Marina (13993 FM 2769, Leander, TX 78641). This is where Premier Party Cruises' entire fleet departs from — it's the closest purpose-built party-boat marina to downtown Austin, 25 minutes via 183 North. Free parking directly adjacent to the dock, rideshare and shuttle-friendly, no stairs between parking and the boat. Other Lake Travis marinas (Lakeway, Volente, Hurst Creek) primarily serve individual boat slips, fishing boats, or self-drive pontoon rentals — not large-capacity party charters. If you're coordinating a multi-boat group charter for 100+ guests, single-dock operation from Anderson Mill removes a huge logistics headache compared to trying to split groups across multiple marinas.",
+    },
   ];
 
   return (

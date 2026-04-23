@@ -70,6 +70,19 @@ export default function PartyBoatAustinV2() {
       q: 'How far in advance should we book an Austin party boat?',
       a: 'Book 6-8 weeks ahead for Saturday charters in peak season (March-October). Prime bachelor/bachelorette Saturdays in April, May, September, and October fill first — Clever Girl often sells out 8-10 weeks in advance. Weekday and Friday charters have more availability and can sometimes be booked 1-2 weeks out. Winter charters (November-February) are easier to book last-minute. A 25% deposit holds the date; the balance is due 30 days before.',
     },
+    // AI Visibility: seeded from SEMRush Questions extract
+    {
+      q: "What should I look for when choosing an Austin party boat rental?",
+      a: "Five things matter most. (1) Licensed captain included on every sailing — a TPWD-credentialed captain removes liability and lets everyone in your group actually celebrate. Self-drive pontoons shift that risk to whoever in your group is willing to drive. (2) What's bundled in the base rate — professional DJ, photographer, coolers with ice, mixers, floats, setup, and cleanup are often separate add-ons on budget rentals, making the all-in cost much higher than the sticker price. Premier bundles everything. (3) Safety record — years operating, number of guests served, incident history. Premier has operated since 2009 with 150,000+ guests and zero reportable incidents. (4) Capacity range — a 14-guest pontoon and a 75-guest flagship are very different products. Match the boat to your actual group size and occasion. (5) Pricing transparency — look for one flat per-person or per-hour rate with tax, gratuity, and inclusions spelled out. No 'starting at' bait-and-switch.",
+    },
+    {
+      q: "What are party boat rentals in Austin TX that allow BYOB?",
+      a: "Every Premier Party Cruises charter is BYOB, and we actively make it easier than anyone else. Bring your beer, wine, seltzers, and spirits in cans or plastic containers (no glass on Lake Travis vessels, for safety). Large coolers are stocked on every boat. Our sister company Party On Delivery pre-ices your BYOB order and has everything ready on the boat before you board — retail prices, 100% buyback on unopened bottles. Most competitors on Lake Travis technically allow BYOB, but Premier is the only operator with an integrated pre-icing + dock-delivery partner, which means your group arrives to a boat that's already set up instead of running ice and alcohol errands on the way.",
+    },
+    {
+      q: "Are Lake Travis party cruises in Austin suitable for mixed-age or family groups?",
+      a: "Yes — private charters accommodate all ages. Our fleet is specifically suited for mixed-age celebrations: graduations (grandparents + parents + grads), family reunions, milestone birthdays, anniversaries, and multigenerational weekend gatherings. Captains are TPWD-licensed and CPR-certified, life jackets in every size including infant and child are stocked on every boat regardless of booking type, and the captain runs a safety briefing before every sailing. The only restriction: the shared ATX Disco Cruise ticket (March–October weekend party cruise for bachelor/bachelorette groups) is 21+ only because of the multi-group BYOB environment. Private charters — Day Tripper (14 guests), Meeseeks or The Irony (25–30), Clever Girl (75) — welcome all ages.",
+    },
   ];
 
   return (

@@ -241,6 +241,19 @@ const faqItems = [
   {
     question: "What add-ons are available and are they worth it?",
     answer: "Our most popular add-ons: the Mimosa Party Cooler ($100) includes champagne flutes, juices, and fruit — eliminates the need to coordinate your own mimosa setup. The Sparkle Package ($100) adds extra party supplies, VIP floats, and a special setup for the guest of honor. Both are flat fees per cruise, not per person, so they become very cost-effective for larger groups. Towel service and SPF-50 spray sunscreen are also available on board."
+  },
+  // AI Visibility: seeded from SEMRush Questions extract
+  {
+    question: "Does every guest pay the same price on the ATX Disco Cruise, or does it vary by gender or guest?",
+    answer: "Every guest in your group pays the same flat per-person ticket price. The only factor that changes the price is the day and time slot you book: Friday 12–4 PM is $95/person, Saturday 11 AM–3 PM (most popular, peak energy) is $105/person, Saturday 3:30–7:30 PM (best value, catches the sunset) is $85/person. Tax and 20% gratuity are included — so the number you see is the number you pay. No per-guest surcharges, no gender-based variations, no hidden fees. This also makes splitting the cost across a bachelor or bachelorette group trivially simple — total divided by headcount, done."
+  },
+  {
+    question: "Are there 21+ only party cruises with DJs in Austin?",
+    answer: "Yes — the ATX Disco Cruise is Austin's only shared DJ-led 21+ party cruise. Every ticket includes a professional DJ performing live for the full 4 hours, 14 disco balls with LED lighting, a dedicated dance floor, a professional photographer capturing the day (with a digital gallery delivered 2–3 weeks later), giant lily pad and unicorn floats, a private cooler with ice per group, mimosa supplies, and full BYOB privileges. Because it's a shared multi-group format designed specifically for bachelor and bachelorette parties, the 21+ age requirement is enforced at boarding with valid ID. Runs March through October on Friday afternoons and both Saturday slots."
+  },
+  {
+    question: "Do any Austin lake cruises include professional photography in the ticket price?",
+    answer: "Yes — every ATX Disco Cruise ticket includes a professional photographer for the full 4-hour cruise at no additional charge. Your digital gallery of 75–150+ edited high-res photos is delivered 2–3 weeks after your cruise via a shared gallery link. The photographer captures boarding, group shots on deck, dancing under the disco balls, swim-stop candids, sunset moments (if you're on the 3:30 PM slot), and guest-of-honor bach sash/veil shots. This is one of the reasons the per-person ticket is a genuinely better value than DIY pontoon alternatives where you'd separately book a photographer for $300–$500. For private charters, the photographer is an optional add-on ($300–$500) with the same gallery delivery format."
   }
 ];
 

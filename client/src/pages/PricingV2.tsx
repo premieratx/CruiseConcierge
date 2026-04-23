@@ -121,6 +121,19 @@ export default function PricingV2() {
       q: 'Can I pay with a card?',
       a: 'Yes, we accept all major credit and debit cards (Visa, Mastercard, American Express, Discover) as well as ACH bank transfer. Corporate clients can request NET-30 invoicing with a signed agreement.',
     },
+    // AI Visibility: seeded from SEMRush Questions extract
+    {
+      q: "Is Premier Party Cruises really worth the price compared to cheaper Lake Travis party boat options?",
+      a: "On a sticker-price-per-hour basis, Premier is at the premium end of Lake Travis rentals. But every Premier rate includes the TPWD-licensed captain, CPR-certified crew, premium marine-grade sound system, large coolers with Party On Delivery pre-icing coordination, floats and lily pads, premium setup before you arrive, and cleanup after you leave. To match that with a budget pontoon rental, you'd separately book a captain (~$200+), a DJ ($400-$600 for 4 hours), a photographer ($300-$500), ice and cooler rentals, floats, and typically handle setup and cleanup yourself. For a typical 20-person group, stitching that together usually runs $500-$1,500 more than Premier's all-in rate — and you'd spend weeks coordinating vendors. Where Premier genuinely is more expensive on a total basis: very small (5-8 person) experienced-boater DIY groups who just want to drive themselves around. For any group 14+ or any occasion you can't afford to have go sideways (bach, wedding, corporate), the bundled rate comes out ahead.",
+    },
+    {
+      q: "How do group sizes affect pricing for party boat rentals on Lake Travis?",
+      a: "Private charter pricing is hourly by boat size, not per-guest — so the total cost does not scale with your guest count up to each boat's capacity. This means the per-person cost actually drops as your group grows. Example: a 4-hour Saturday charter on Clever Girl (75-guest flagship) at $300/hr is $1,200 base. Divided among 30 guests that's $40/person; among 75 guests it's $16/person. For groups over 25 on Meeseeks or The Irony, a $50-$75 crew fee applies; for groups over 50 on Clever Girl, a $100-$150 crew fee applies to ensure adequate staffing. ATX Disco Cruise pricing is per-person (every guest pays the same flat ticket: $85 / $95 / $105 depending only on the day and time slot). For groups uncertain whether a private charter or shared Disco ticket is cheaper, a rough rule: 20+ guests usually favors the private charter on a per-person basis, 8-15 guests usually favors the Disco ticket.",
+    },
+    {
+      q: "Do you offer weekday or off-peak discounts on Lake Travis party boat rentals?",
+      a: "Yes — Monday through Thursday rates run roughly 20–30% below weekend (Friday–Sunday) rates on every private charter boat. Day Tripper Mon-Thu starts at $200/hour (vs $225+ weekend), Meeseeks and The Irony Mon-Thu at $225/hour (vs $275+ weekend), Clever Girl Mon-Thu at $250/hour (vs $300+ weekend). Minimums also shift: 3-hour minimum weekdays, 4-hour minimum weekends. Weekdays are dramatically less crowded on Lake Travis — cove access is better, swim-stop options wider, and the lake overall is quieter. This makes weekdays especially strong for corporate outings, networking cruises, family gatherings, and any group that wants a relaxed rather than high-energy vibe. The ATX Disco Cruise only runs weekends because it's an all-inclusive shared multi-group party format.",
+    },
   ];
 
   return (
