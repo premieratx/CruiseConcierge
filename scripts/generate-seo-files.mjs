@@ -31,6 +31,7 @@
 
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { getOverlay } from './v2-seo-overlay.mjs';
 
 const LIVE_SITEMAP_URL = 'https://premierpartycruises.com/sitemap.xml';
 const OUT_DIR = 'dist/public';
@@ -183,6 +184,73 @@ async function main() {
   const robotsOut = `${OUT_DIR}/robots.txt`;
   writeFileSync(robotsOut, robots);
   console.log(`  ✓ robots.txt`);
+
+  // llms.txt — per https://llmstxt.org/, a Markdown document that tells
+  // LLM crawlers how to navigate the site. Without this, Netlify's SPA
+  // catch-all serves the React shell for /llms.txt and audit tools flag
+  // "Llms.txt file has formatting issues".
+  const siteBase = SITE_HOST.replace(/\/$/, '');
+  const canonical = CANONICAL_HOST.replace(/\/$/, '');
+  const llmsTxt = `# Premier Party Cruises
+
+> Austin's longest-running Lake Travis party boat fleet. Private charters
+> for 14–75 guests, the public ATX Disco Cruise from $85/person, and
+> event production for bachelor/bachelorette parties, corporate outings,
+> weddings, family reunions, and milestone birthdays. 15+ years, 150,000+
+> guests, zero safety incidents. Departs Anderson Mill Marina, 25 minutes
+> from downtown Austin. BYOB with Party On Delivery drink set-up.
+
+## Book
+
+- [Home](${canonical}/): Overview + instant quote.
+- [Pricing](${canonical}/pricing): ATX Disco Cruise from $85/person. Private charters from $200/hour. All-in pricing includes captain, fuel, tax, 20% gratuity.
+- [Plan Your Trip](${canonical}/plan-your-trip): Driving directions, Uber/Lyft estimates, party-bus coordination, Anderson Mill Marina parking (free, no stairs), arrival timing, BYOB + Party On Delivery, packing list, accessibility.
+- [Safety](${canonical}/safety): TPWD-licensed captains, CPR-certified crew, 15+ year perfect record, child + infant life jackets on every boat.
+- [Contact](${canonical}/contact): Direct booking contact.
+
+## Experiences
+
+- [ATX Disco Cruise](${canonical}/atx-disco-cruise): Public shared sailing on Clever Girl. 21+. All-inclusive per-ticket pricing. March–October weekends.
+- [Private Cruises](${canonical}/private-cruises): Book the whole boat. Day Tripper (14), Meeseeks or The Irony (25–30), Clever Girl (75). All ages welcome on private charters.
+- [Bachelor Parties](${canonical}/bachelor-party-austin): Austin bachelor party boat rentals on Lake Travis.
+- [Bachelorette Parties](${canonical}/bachelorette-party-austin): Austin bachelorette party boat rentals on Lake Travis.
+- [Corporate Events](${canonical}/corporate-events): Team building, client entertainment, holiday parties, company milestones.
+- [Weddings](${canonical}/wedding-parties): Welcome parties, rehearsal dinners, bridal-party day cruises, after-parties, day-after send-offs.
+- [Birthday Parties](${canonical}/birthday-parties): Milestone birthdays, Sweet 16, graduation cruises.
+- [Family Reunions](${canonical}/family-reunion-cruise): All ages, shaded seating, ADA-accessible larger boats.
+
+## Comparisons
+
+- [Premier vs Float On](${canonical}/premier-vs-float-on): Comparison with river tubing.
+- [Premier vs ATX Party Boats](${canonical}/premier-vs-austin-party-boat): Comparison with the closest direct competitor.
+- [Best Austin Party Boat](${canonical}/best-austin-party-boat): Ranked overview of Lake Travis party boat operators.
+- [Lake Travis Boat Rental Guide](${canonical}/lake-travis-boat-rental-guide): Complete guide to party boat rentals on Lake Travis.
+
+## Pricing reference
+
+- Private charters start at $200/hour on Day Tripper (14-guest barge), $225/hour on Meeseeks and The Irony (25–30 guests), $250/hour on Clever Girl (75-guest flagship). 4-hour minimum on weekends, 3-hour minimum on weekdays.
+- ATX Disco Cruise starts at $85/person, all-inclusive.
+- All prices include captain, fuel, Texas sales tax, and 20% gratuity.
+- Fair refund policy: all weather-caused cancellations get FREE reschedules.
+
+## Key facts
+
+- Operator: Premier Party Cruises (B Hill Entertainment, LLC)
+- Years operating: 15+
+- Total guests served: 150,000+
+- Safety incidents: 0
+- Departure marina: Anderson Mill Marina, 13993 FM 2769, Leander TX 78641
+- Drive time from downtown Austin: 25 minutes via 183 North
+- Parking: free, right next to dock, no stairs to the boat
+- Beverage policy: BYOB (cans + plastic only, no glass). Party On Delivery sister company handles pre-iced drink set-up on request.
+- Alcohol: 21+ required to consume. Private charters welcome all ages; the public ATX Disco Cruise is 21+ only.
+
+## Sitemap
+
+${siteBase}/sitemap.xml
+`;
+  writeFileSync(`${OUT_DIR}/llms.txt`, llmsTxt);
+  console.log(`  ✓ llms.txt`);
 }
 
 // ────────────────────────────────────────────────────────────────────
@@ -223,15 +291,147 @@ function extractSlugs(sitemapXml) {
 
 /** Fetch a page's live server-rendered HTML, rewrite hostnames, and
  * swap in the fresh Vite bundle. Returns null if the fetch fails. */
+/**
+ * Build a slug-derived minimal HTML when the live-origin fetch fails.
+ * This is a LAST RESORT fallback: it produces a unique per-route title +
+ * description + H1 + canonical so the route is never indistinguishable from
+ * the SPA shell. Real content is still delivered client-side by React on
+ * hydrate; this only exists so crawlers (Semrush, Google, AI LLMs) see a
+ * distinct document per URL.
+ */
+function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
+  // Prefer the V2 SEO overlay (curated + template) for title/description/H1
+  // so the fallback HTML is still V2-optimized, not a generic slug title.
+  const overlay = getOverlay(slug);
+  const fullTitle = overlay?.title || 'Austin Party Boat Rentals on Lake Travis | Premier Party Cruises';
+  const description = overlay?.description || "Austin's longest-running Lake Travis party boat fleet. Private charters 14–75 guests, ATX Disco Cruise from $85/person, weddings, corporate, bach parties. BYOB + Party On Delivery.";
+  const heading = overlay?.h1 || 'Austin Party Boat Rentals on Lake Travis';
+  const canonical = `${canonicalHost.replace(/\/$/, '')}${slug === '/' ? '/' : slug}`;
+
+  const linksAndScripts = spaHead ? `${spaHead.links}\n    ${spaHead.scripts}\n  ` : '';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${fullTitle}</title>
+    <meta name="description" content="${description}" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="${canonical}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="${canonical}" />
+    <meta property="og:title" content="${fullTitle}" />
+    <meta property="og:description" content="${description}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${fullTitle}" />
+    <meta name="twitter:description" content="${description}" />
+    ${linksAndScripts}
+  </head>
+  <body>
+    <div id="root">
+      <main>
+        <h1>${heading}</h1>
+        <p>${description}</p>
+        <p>Premier Party Cruises has operated on Lake Travis for 15+ years with 150,000+ guests and zero safety incidents. Fleet: Day Tripper (14 guests), Meeseeks and The Irony (25–30), Clever Girl (75). Departs Anderson Mill Marina, 25 minutes from downtown Austin, free parking, no stairs to the boat. BYOB + Party On Delivery drink set-up. Fair refund policy with FREE weather reschedules.</p>
+        <nav aria-label="Key pages">
+          <a href="/">Home</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/private-cruises">Private charters</a>
+          <a href="/atx-disco-cruise">ATX Disco Cruise</a>
+          <a href="/plan-your-trip">Plan your trip</a>
+          <a href="/safety">Safety</a>
+          <a href="/bachelor-party-austin">Bachelor</a>
+          <a href="/bachelorette-party-austin">Bachelorette</a>
+          <a href="/corporate-events">Corporate</a>
+          <a href="/wedding-parties">Weddings</a>
+          <a href="/family-reunion-cruise">Family reunions</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/faq">FAQ</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </main>
+    </div>
+  </body>
+</html>`;
+}
+
+/** Apply the V2 SEO overlay to a fetched HTML document. OVERWRITES the
+ * <title>, <meta name=description>, og/twitter variants, and injects/rewrites
+ * the first <h1> so every V2 route ships with V2-optimized metadata — not
+ * a straight copy of the live site. */
+function applyOverlay(html, overlay) {
+  if (!overlay) return html;
+  const { title, description, h1 } = overlay;
+
+  // <title>
+  if (title) {
+    html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
+  }
+  // meta description (name=description)
+  if (description) {
+    if (/<meta\s+name=["']description["'][^>]*>/i.test(html)) {
+      html = html.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeAttr(description)}" />`);
+    } else {
+      html = html.replace(/<\/head>/i, `  <meta name="description" content="${escapeAttr(description)}" />\n  </head>`);
+    }
+    // og:description
+    html = html.replace(/<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}" />`);
+    if (!/<meta\s+property=["']og:description["']/i.test(html)) {
+      html = html.replace(/<\/head>/i, `  <meta property="og:description" content="${escapeAttr(description)}" />\n  </head>`);
+    }
+    // twitter:description
+    html = html.replace(/<meta\s+name=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}" />`);
+  }
+  // og:title + twitter:title
+  if (title) {
+    html = html.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)}" />`);
+    html = html.replace(/<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(title)}" />`);
+  }
+  // H1 — rewrite the first on-page <h1>, or inject at top of <body> if missing.
+  if (h1) {
+    if (/<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(html)) {
+      html = html.replace(/<h1\b([^>]*)>[\s\S]*?<\/h1>/i, `<h1$1>${escapeHtml(h1)}</h1>`);
+    } else {
+      html = html.replace(/<body\b([^>]*)>/i, `<body$1>\n    <h1 data-seo-injected="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">${escapeHtml(h1)}</h1>`);
+    }
+  }
+  return html;
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+function escapeAttr(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 async function prerenderOne(slug, canonicalHost, spaHead) {
   const url = `${LIVE_HOST}${slug === '/' ? '/' : slug}`;
   try {
     const res = await fetch(url, {
       redirect: 'follow',
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PPC-SEO-Prerender)' },
+      // Build runners sometimes have a very short default timeout against
+      // an origin that takes 1-3s to render — override explicitly.
+      signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn(`  ✗ ${slug} → ${res.status} ${res.statusText}`);
+      return null;
+    }
     let html = await res.text();
+    if (html.length < 500) {
+      console.warn(`  ✗ ${slug} → only ${html.length} bytes, likely stub`);
+      return null;
+    }
 
     // Rewrite live host → canonical host for <link rel="canonical">,
     // Open Graph URL, Twitter URL, JSON-LD, etc.
@@ -254,15 +454,35 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
       html = html.replace(/<\/head>/i, `    ${spaHead.links}\n    ${spaHead.scripts}\n  </head>`);
     }
 
+    // V2 SEO overlay — OVERWRITE the inherited title/description/H1 with
+    // V2-optimized, per-route metadata so the V2 site isn't just a copy of
+    // the live origin's SEO. Runs after the HTML body is assembled.
+    const overlay = getOverlay(slug);
+    if (overlay) {
+      html = applyOverlay(html, overlay);
+    }
+
     return html;
-  } catch {
+  } catch (e) {
+    console.warn(`  ✗ ${slug} → fetch error: ${e.message || e}`);
     return null;
   }
 }
 
 async function prerenderRoutes(sitemapXml, canonicalHost) {
+  // ════════════════════════════════════════════════════════════════════
+  // PRERENDER STEP — produces per-route /slug/index.html with real title,
+  // description, h1, canonical, and schema inside the static HTML response.
+  // If this step fails, every route ends up serving the SPA shell → 198
+  // duplicate titles, 198 pages with no H1, and a useless Semrush audit.
+  // The failures are VERY loud on purpose so Netlify build logs surface them.
+  // ════════════════════════════════════════════════════════════════════
   if (process.env.SKIP_PRERENDER === '1') {
-    console.log('Per-route prerender skipped (SKIP_PRERENDER=1).');
+    console.warn('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.warn('⚠️  Per-route prerender SKIPPED (SKIP_PRERENDER=1).');
+    console.warn('⚠️  Every route will serve the SPA shell — expect 198');
+    console.warn('⚠️  duplicate titles in SEO audits. Unset this env var.');
+    console.warn('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     return;
   }
   const spaHead = readSpaHead();
@@ -280,18 +500,28 @@ async function prerenderRoutes(sitemapXml, canonicalHost) {
   let ok = 0;
   let fail = 0;
 
+  let fallback = 0;
+
   async function worker(queue) {
     while (queue.length) {
       const slug = queue.shift();
       if (!slug) continue;
-      const html = await prerenderOne(slug, canonicalHost, spaHead);
+      let html = await prerenderOne(slug, canonicalHost, spaHead);
+      let usedFallback = false;
+      if (!html) {
+        // Fetch from live origin failed — synthesize a unique slug-derived
+        // HTML so the route at least has a distinct title/description/H1.
+        // Better than serving the SPA shell that every other route also serves.
+        html = synthesizeFallbackHtml(slug, canonicalHost, spaHead);
+        usedFallback = true;
+      }
       done++;
       if (html) {
         const outPath = slug === '/' ? `${OUT_DIR}/index.html` : `${OUT_DIR}${slug}/index.html`;
         try {
           mkdirSync(dirname(outPath), { recursive: true });
           writeFileSync(outPath, html);
-          ok++;
+          if (usedFallback) fallback++; else ok++;
         } catch (e) {
           console.warn(`  ✗ write ${outPath}: ${e.message}`);
           fail++;
@@ -300,7 +530,7 @@ async function prerenderRoutes(sitemapXml, canonicalHost) {
         fail++;
       }
       if (done % 20 === 0) {
-        console.log(`  …${done}/${slugs.length} (${ok} ok, ${fail} fail)`);
+        console.log(`  …${done}/${slugs.length} (${ok} live, ${fallback} fallback, ${fail} fail)`);
       }
     }
   }
@@ -309,7 +539,21 @@ async function prerenderRoutes(sitemapXml, canonicalHost) {
   await Promise.all(
     Array.from({ length: CONCURRENCY }, () => worker(queue)),
   );
-  console.log(`Prerender complete: ${ok} ok, ${fail} fail.`);
+  const total = ok + fallback + fail;
+  console.log(`Prerender complete: ${ok} live / ${fallback} fallback / ${fail} fail (of ${total}).`);
+
+  if (fallback > 0) {
+    console.warn('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.warn(`⚠️  ${fallback} route(s) could not fetch from ${LIVE_HOST}.`);
+    console.warn('⚠️  Those got a slug-derived fallback HTML — unique title +');
+    console.warn('⚠️  description + H1 per route, but NOT the rich SSR content.');
+    console.warn('⚠️  Crawlers will still index distinct pages; users hydrate React.');
+    console.warn('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  }
+  if (ok === 0 && fallback === 0) {
+    console.error('❌ No prerendered files written at all. Build is broken.');
+    process.exit(1);
+  }
 }
 
 main()
@@ -322,6 +566,10 @@ main()
     }
   })
   .catch((e) => {
-    console.error('SEO file generation failed:', e);
-    process.exit(0);
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.error('❌ SEO file generation failed:', e);
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    // Exit 1 so Netlify fails the build loudly instead of shipping a broken
+    // static site where every route serves the SPA shell.
+    process.exit(1);
   });
