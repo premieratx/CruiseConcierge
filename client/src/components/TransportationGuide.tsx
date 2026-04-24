@@ -75,7 +75,7 @@ export function TransportationGuide({
                     <div>
                       <p className="font-semibold">Uber / Lyft</p>
                       <p className="text-sm text-gray-700 dark:text-gray-300">
-                        Most convenient option. Approximately $60-80 round trip from downtown Austin to Anderson Mill Marina (30-40 min each way).
+                        Most convenient option. Approximately $60-80 round trip from downtown Austin to Anderson Mill Marina (~25 min each way).
                       </p>
                     </div>
                   </div>
@@ -191,7 +191,7 @@ export function TransportationGuide({
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                       <Hotel className="h-6 w-6 text-brand-blue" />
-                      Downtown Austin (30-40 min)
+                      Downtown Austin (~25 min)
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">

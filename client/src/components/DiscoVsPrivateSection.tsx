@@ -112,7 +112,7 @@ export function DiscoVsPrivateSection({ className = '' }: DiscoVsPrivateSectionP
                   </div>
                   <div className="flex items-start gap-2">
                     <X className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-600">No weather backup plan</span>
+                    <span className="text-sm text-gray-600">Fair refund policy — weather cancellations get FREE reschedules</span>
                   </div>
                 </div>
               </div>

@@ -31,7 +31,7 @@ export default function BirthdayPartyBoatRentalV2() {
     },
     {
       q: 'Do you require a deposit to book a birthday boat?',
-      a: 'Yes. A 25% non-refundable deposit secures your birthday boat rental date. The balance is due 30 days before the cruise. Deposits can be paid by credit card, debit card, or ACH. Your date is not held until the deposit clears. Weather cancellations (called by the captain) are rescheduled at no charge.',
+      a: 'Yes. A 25% deposit secures your birthday boat rental date. The balance is due 30 days before the cruise. Deposits can be paid by credit card, debit card, or ACH. Your date is not held until the deposit clears. We have a fair refund policy — all weather-caused cancellations get FREE reschedules.',
     },
     {
       q: 'What boats can I rent for a birthday party?',
@@ -186,9 +186,9 @@ export default function BirthdayPartyBoatRentalV2() {
               <div className="hp2-feature-card__num">02</div>
               <h3 className="hp2-feature-card__title">Pay the Deposit</h3>
               <p className="hp2-feature-card__desc">
-                A 25% non-refundable deposit secures your date. Pay by card or
+                A 25% deposit secures your date. Pay by card or
                 ACH. You receive a confirmation email with itinerary, marina
-                directions, and the planning checklist.
+                directions, and the planning checklist. Fair refund policy — all weather-caused cancellations get FREE reschedules.
               </p>
             </div>
             <div className="hp2-feature-card">

@@ -25,7 +25,7 @@ export default function FAQV2() {
     },
     {
       q: 'Do you require a deposit?',
-      a: 'Yes, we require a 50% non-refundable deposit to secure your date, with the balance due 7 days before your cruise. Deposits can be paid by credit card, debit card, or ACH. Your date is not held until the deposit is received.',
+      a: 'Yes, we require a 50% deposit to secure your date, with the balance due 7 days before your cruise. Deposits can be paid by credit card, debit card, or ACH. Your date is not held until the deposit is received. We have a fair refund policy — all weather-caused cancellations get FREE reschedules.',
     },
     {
       q: 'Can I get a quote without committing?',
@@ -53,7 +53,7 @@ export default function FAQV2() {
     },
     {
       q: "What's your cancellation policy?",
-      a: 'Deposits are non-refundable, but you can reschedule once within the same season with 14+ days notice at no charge. Cancellations inside 14 days forfeit the deposit; inside 7 days the balance is due. Weather cancellations (determined by the captain) are fully rescheduled at no cost.',
+      a: 'We have a fair refund policy — all weather-caused cancellations get FREE reschedules, always. For non-weather changes, you can reschedule once within the same season with 14+ days notice at no charge. The captain calls weather cancellations and we reschedule those 100% free.',
     },
     {
       q: 'What happens if it rains or storms?',

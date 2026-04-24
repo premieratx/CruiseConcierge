@@ -103,7 +103,7 @@ export default function PricingV2() {
     },
     {
       q: "What's the cancellation policy?",
-      a: 'Deposits (50% of total) are non-refundable, but you can reschedule once within the same season with 14+ days notice at no charge. Weather cancellations called by the captain are rescheduled 100% free.',
+      a: 'Fair refund policy — all weather-caused cancellations get FREE reschedules, always. The 50% deposit secures your date and you can reschedule once within the same season with 14+ days notice at no charge.',
     },
     {
       q: 'Do I pay per hour or per person?',
@@ -115,7 +115,7 @@ export default function PricingV2() {
     },
     {
       q: "What's the deposit?",
-      a: 'A 50% non-refundable deposit secures your date. The remaining balance is due 7 days before your cruise. Both can be paid by credit card, debit card, or ACH.',
+      a: 'A 50% deposit secures your date. The remaining balance is due 7 days before your cruise. Both can be paid by credit card, debit card, or ACH. Fair refund policy — all weather-caused cancellations get FREE reschedules.',
     },
     {
       q: 'Can I pay with a card?',

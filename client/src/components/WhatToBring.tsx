@@ -55,7 +55,7 @@ const generalCategories: WhatToBringCategory[] = [
     icon: Shield,
     color: 'text-blue-600',
     items: [
-      { icon: Shield, text: 'Valid ID (21+ only)', required: true },
+      { icon: Shield, text: 'Valid ID (21+ for alcohol)', required: true },
       { icon: Sun, text: 'Sunscreen SPF 30+', required: true },
       { icon: Waves, text: 'Swimsuit & towel', required: true },
       { icon: Glasses, text: 'Sunglasses', required: true },
@@ -106,7 +106,7 @@ const discoCategories: WhatToBringCategory[] = [
     icon: Sparkles,
     color: 'text-purple-600',
     items: [
-      { icon: Shield, text: 'Valid ID (21+ only)', required: true },
+      { icon: Shield, text: 'Valid ID (21+ for alcohol)', required: true },
       { icon: PartyPopper, text: 'Party attire for themed night', required: true },
       { icon: Footprints, text: 'Dancing shoes', required: true },
       { icon: ShoppingBag, text: 'Small bag for personal items', tooltip: 'Limited storage on boat' },

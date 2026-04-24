@@ -296,7 +296,7 @@ export function PricingPolicyDisplay({
                     <li>• Contact us immediately for cancellations</li>
                     <li>• Weather cancellations receive full refund</li>
                     <li>• Emergency situations evaluated case-by-case</li>
-                    <li>• Deposits are non-refundable except for weather</li>
+                    <li>• Fair refund policy — all weather-caused cancellations get FREE reschedules</li>
                   </ul>
                 </div>
               </div>

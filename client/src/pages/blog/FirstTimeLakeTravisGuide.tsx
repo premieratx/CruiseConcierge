@@ -498,7 +498,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <MapPin className="text-red-500" /> 4. Plan Transportation to/from Marina
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Lake Travis marinas are <strong>30-45 minutes from downtown Austin</strong>. Arrange rideshares, 
+                Anderson Mill Marina is <strong>about 25 minutes from downtown Austin</strong> via 183 North. Arrange rideshares, 
                 party buses, or designate drivers. <strong>Do NOT drink and drive</strong> – your safety and others' 
                 depends on it.
               </p>

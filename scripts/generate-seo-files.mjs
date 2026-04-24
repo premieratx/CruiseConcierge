@@ -35,13 +35,33 @@ import { dirname, join } from 'node:path';
 const LIVE_SITEMAP_URL = 'https://premierpartycruises.com/sitemap.xml';
 const OUT_DIR = 'dist/public';
 
-// If deploying for a custom domain, set CANONICAL_HOST=https://premierpartycruises.com
-// in Netlify env vars. Otherwise we use the Netlify preview URL.
-const CANONICAL_HOST =
-  process.env.CANONICAL_HOST ||
+// TWO separate hosts:
+//
+// SITE_HOST — the host the site is actually being SERVED from (Netlify deploy
+//   URL). Used for the sitemap.xml URLs and robots.txt Sitemap: line so that
+//   crawlers / audit tools (Semrush, Ahrefs, Screaming Frog, AI LLM crawlers)
+//   pointed at the V2 Netlify domain find a sitemap full of same-domain URLs
+//   they can actually fetch. Previously this was conflated with CANONICAL_HOST,
+//   which caused V2 Netlify's sitemap to list premierpartycruises.com URLs —
+//   which Semrush correctly treated as off-domain and skipped, so V2 audits
+//   saw only the homepage + whatever was reachable via internal links.
+//
+// CANONICAL_HOST — the host that should appear in <link rel="canonical">,
+//   <meta property="og:url">, JSON-LD @id, etc. inside each prerendered page.
+//   Stays on the production domain so Google doesn't treat V2 Netlify and the
+//   Replit production origin as duplicate content.
+//
+// If the deploy IS the production canonical (DNS flipped, Netlify is apex),
+// set CANONICAL_HOST env var equal to SITE_HOST. Otherwise leave it pointed at
+// the production apex and V2 will be audit-crawlable without polluting SERPs.
+const SITE_HOST =
+  process.env.SITE_HOST ||
   process.env.DEPLOY_PRIME_URL ||
   process.env.URL ||
   'https://premier-party-cruises-v2.netlify.app';
+const CANONICAL_HOST =
+  process.env.CANONICAL_HOST ||
+  SITE_HOST;
 
 function ensureDir(path) {
   mkdirSync(dirname(path), { recursive: true });
@@ -54,7 +74,7 @@ async function fetchText(url) {
 }
 
 async function main() {
-  console.log(`Generating SEO files for ${CANONICAL_HOST}...`);
+  console.log(`Generating SEO files — site=${SITE_HOST} canonical=${CANONICAL_HOST}...`);
 
   let sitemap;
   try {
@@ -65,16 +85,18 @@ async function main() {
     sitemap =
       `<?xml version="1.0" encoding="UTF-8"?>\n` +
       `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-      `  <url><loc>${CANONICAL_HOST}/</loc></url>\n` +
+      `  <url><loc>${SITE_HOST}/</loc></url>\n` +
       `</urlset>\n`;
   }
 
-  // Rewrite every URL to match the target canonical host. This turns
-  // https://premierpartycruises.com/... into $CANONICAL_HOST/... so the
-  // sitemap always reflects the host the site is being served from.
+  // Rewrite every URL in the sitemap to the ACTUAL SERVING HOST (SITE_HOST),
+  // not the canonical production host. This way Semrush / AI LLM audit bots
+  // pointed at V2 Netlify find same-domain URLs in the sitemap and crawl them.
+  // Canonical link tags inside each page still point to CANONICAL_HOST —
+  // see prerenderOne() below.
   sitemap = sitemap.replace(
     /https?:\/\/(?:www\.)?premierpartycruises\.com/g,
-    CANONICAL_HOST.replace(/\/$/, ''),
+    SITE_HOST.replace(/\/$/, ''),
   );
 
   // V2-only routes that don't exist on the Replit main site yet.
@@ -94,7 +116,7 @@ async function main() {
     '/combined-bach-itinerary',
     '/austin-corporate-event-guide',
   ];
-  const host = CANONICAL_HOST.replace(/\/$/, '');
+  const host = SITE_HOST.replace(/\/$/, '');
   const today = new Date().toISOString().slice(0, 10);
   const alreadyPresent = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
   const v2Urls = V2_ONLY_ROUTES
@@ -115,14 +137,43 @@ async function main() {
   const urlCount = (sitemap.match(/<loc>/g) || []).length;
   console.log(`  ✓ sitemap.xml (${urlCount} URLs)`);
 
+  // robots.txt targets the SERVING host (SITE_HOST) — crawlers auditing V2
+  // Netlify need the Sitemap: line to point to the sitemap on the same host
+  // they're auditing, not the production canonical.
   const robots =
-    `# robots.txt for ${CANONICAL_HOST}\n` +
+    `# robots.txt for ${SITE_HOST}\n` +
+    `# (canonical production host: ${CANONICAL_HOST})\n` +
     `User-agent: *\n` +
     `Allow: /\n\n` +
-    `# Prevent crawling of admin routes\n` +
+    `# Prevent crawling of admin + API routes\n` +
     `Disallow: /admin/\n` +
     `Disallow: /api/admin/\n\n` +
-    `Sitemap: ${CANONICAL_HOST.replace(/\/$/, '')}/sitemap.xml\n`;
+    `# Explicit allowances for major audit / AI LLM crawlers so the V2\n` +
+    `# Netlify deploy can be fully analyzed (Semrush, Ahrefs, ChatGPT,\n` +
+    `# Perplexity, Google-Extended, Google AI Mode, Bing, etc).\n` +
+    `User-agent: SemrushBot\nAllow: /\n\n` +
+    `User-agent: SiteAuditBot\nAllow: /\n\n` +
+    `User-agent: AhrefsBot\nAllow: /\n\n` +
+    `User-agent: AhrefsSiteAudit\nAllow: /\n\n` +
+    `User-agent: Screaming Frog SEO Spider\nAllow: /\n\n` +
+    `User-agent: GPTBot\nAllow: /\n\n` +
+    `User-agent: ChatGPT-User\nAllow: /\n\n` +
+    `User-agent: OAI-SearchBot\nAllow: /\n\n` +
+    `User-agent: PerplexityBot\nAllow: /\n\n` +
+    `User-agent: Perplexity-User\nAllow: /\n\n` +
+    `User-agent: Google-Extended\nAllow: /\n\n` +
+    `User-agent: Googlebot\nAllow: /\n\n` +
+    `User-agent: Bingbot\nAllow: /\n\n` +
+    `User-agent: Applebot\nAllow: /\n\n` +
+    `User-agent: Applebot-Extended\nAllow: /\n\n` +
+    `User-agent: ClaudeBot\nAllow: /\n\n` +
+    `User-agent: Claude-Web\nAllow: /\n\n` +
+    `User-agent: anthropic-ai\nAllow: /\n\n` +
+    `User-agent: cohere-ai\nAllow: /\n\n` +
+    `User-agent: CCBot\nAllow: /\n\n` +
+    `User-agent: FacebookBot\nAllow: /\n\n` +
+    `User-agent: Amazonbot\nAllow: /\n\n` +
+    `Sitemap: ${SITE_HOST.replace(/\/$/, '')}/sitemap.xml\n`;
 
   const robotsOut = `${OUT_DIR}/robots.txt`;
   writeFileSync(robotsOut, robots);

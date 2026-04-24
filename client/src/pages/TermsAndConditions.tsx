@@ -66,7 +66,7 @@ export default function TermsAndConditions() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Cancellations made well in advance may be eligible for a full or partial refund.</li>
-              <li>Cancellations made close to the event date may be subject to a cancellation fee or may be non-refundable.</li>
+              <li>Cancellations made close to the event date may be subject to a cancellation fee. We operate a fair refund policy — all weather-caused cancellations get FREE reschedules.</li>
               <li>Cancellations due to weather or safety conditions at our discretion will be rescheduled or refunded.</li>
             </ul>
             <p className="mt-3">

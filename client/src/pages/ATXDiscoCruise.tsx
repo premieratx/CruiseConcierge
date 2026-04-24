@@ -867,8 +867,8 @@ export default function ATXDiscoCruise() {
                 <div className="flex gap-3 p-5 bg-white rounded-xl border-2 border-blue-200">
                   <XCircle className="h-6 w-6 text-blue-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-bold text-gray-900 text-sm">No Refunds Policy</p>
-                    <p className="text-gray-600 text-sm">All sales final — but your party is always guaranteed to happen.</p>
+                    <p className="font-bold text-gray-900 text-sm">Fair Refund Policy</p>
+                    <p className="text-gray-600 text-sm">Fair refund policy — all weather-caused cancellations get FREE reschedules.</p>
                   </div>
                 </div>
                 <div className="flex gap-3 p-5 bg-white rounded-xl border-2 border-gray-200">

@@ -49,7 +49,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'capacity',
         question: 'How many people can you accommodate on Lake Travis cruises?',
-        answer: 'We accommodate groups from 14 to 75 guests per boat. Private boats range from Day Tripper (14 guests) to Clever Girl (75 guests). The ATX Disco Cruise handles groups of 20-40 comfortably, with a maximum capacity of 100 guests total per cruise. For larger corporate events, we can coordinate multiple boats departing together.'
+        answer: 'We accommodate groups from 14 to 75 guests per boat. Private boats range from Day Tripper (14 guests) to Clever Girl (75 guests). The ATX Disco Cruise handles groups of 20-40 comfortably, with a maximum capacity of 90 guests total per cruise. For larger corporate events, we can coordinate multiple boats departing together.'
       }
     ]
   },
@@ -195,7 +195,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'cancellation-policy',
         question: 'What\'s your cancellation policy for boat rentals?',
-        answer: 'Cancel 48+ hours after booking for a full refund. After that, deposits are non-refundable but can be applied to rescheduling within 12 months. If we cancel for weather or safety, you receive a full refund. We understand plans change and work with reasonable requests.'
+        answer: 'Fair refund policy — all weather-caused cancellations get FREE reschedules, always. Cancel 48+ hours after booking for a full refund. After that, deposits can be applied to rescheduling within 12 months. We understand plans change and work with reasonable requests.'
       },
       {
         id: 'rescheduling',
@@ -305,7 +305,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'disco-capacity',
         question: 'How many people are on the ATX Disco Cruise?',
-        answer: 'The Disco Cruise accommodates up to 100 guests total, typically 3-5 different bachelor/bachelorette groups. Your group maintains its own space and identity while enjoying the collective party energy. Groups of 20-40 find it perfect - large enough for epic parties, intimate enough to stay connected.'
+        answer: 'The Disco Cruise accommodates up to 90 guests total, typically 3-5 different bachelor/bachelorette groups. Your group maintains its own space and identity while enjoying the collective party energy. Groups of 20-40 find it perfect - large enough for epic parties, intimate enough to stay connected.'
       }
     ]
   }

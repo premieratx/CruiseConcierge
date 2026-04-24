@@ -297,7 +297,7 @@ const faqCategories = {
       },
       {
         question: 'How far is Lake Travis from downtown Austin?',
-        answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas). Round-trip transportation available from downtown hotels and Airbnbs.'
+        answer: 'Anderson Mill Marina is about 25 minutes from downtown Austin via 183 North — the closest purpose-built party-boat marina to downtown. Free parking right next to the dock, no stairs from parking to the boat. Round-trip transportation available from downtown hotels and Airbnbs.'
       }
     ]
   }

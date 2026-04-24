@@ -73,7 +73,7 @@ export const discoCruiseFAQs: FAQItem[] = [
   {
     id: 'disco-capacity',
     question: 'How many people are on the ATX Disco Cruise?',
-    answer: 'The boat holds up to 100 guests total, typically 3-5 different celebration groups. Your group gets its own space while enjoying the collective party energy. Groups of 20-40 find it perfect - large enough for epic energy, intimate enough to stay together. The vibe is unmatched!'
+    answer: 'The boat holds up to 90 guests total, typically 3-5 different celebration groups. Your group gets its own space while enjoying the collective party energy. Groups of 20-40 find it perfect - large enough for epic energy, intimate enough to stay together. The vibe is unmatched!'
   },
   {
     id: 'disco-packages',
