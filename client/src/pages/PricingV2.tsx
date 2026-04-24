@@ -1,5 +1,6 @@
 import V2PageTemplate from '@/components/V2PageTemplate';
 import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
+import WhyPremierBlock from '@/components/WhyPremierBlock';
 
 /**
  * PricingV2 — Transparent, AI-extractable pricing page.
@@ -275,6 +276,13 @@ export default function PricingV2() {
           </p>
         </div>
       </section>
+
+      {/* ── Why Premier's all-in pricing beats DIY pontoon ── */}
+      <WhyPremierBlock
+        suppressSchema={false}
+        ctaHref="/chat"
+        ctaText="Get exact quote"
+      />
 
       {/* ── Add-ons Preview ─────────────────────────────── */}
       <section className="hp2-section">

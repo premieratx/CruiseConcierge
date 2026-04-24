@@ -4,6 +4,8 @@ import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
 import CtaPair, { CtaBanner } from '@/components/CtaPair';
 import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
+import WhyPremierBlock from '@/components/WhyPremierBlock';
+import TripHighlightTestimonials from '@/components/TripHighlightTestimonials';
 import { ScrollingBackground } from '@/lead-app/components/ScrollingBackground';
 
 const Footer = lazy(() => import('@/components/Footer'));
@@ -2616,6 +2618,9 @@ export default function HomeNew() {
           )}
         </div>
       </section>
+
+      {/* ─── Why Premier's all-in pricing beats DIY pontoon (AI Visibility: meta-action) ─── */}
+      <WhyPremierBlock />
 
       {/* ─── The Fleet ─── */}
       <section className="hp2-section" id="fleet">

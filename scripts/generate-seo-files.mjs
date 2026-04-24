@@ -54,10 +54,15 @@ const OUT_DIR = 'dist/public';
 // If the deploy IS the production canonical (DNS flipped, Netlify is apex),
 // set CANONICAL_HOST env var equal to SITE_HOST. Otherwise leave it pointed at
 // the production apex and V2 will be audit-crawlable without polluting SERPs.
+// Prefer Netlify's `URL` (the primary site URL — stable across production
+// deploys) over `DEPLOY_PRIME_URL` (branch-deploy URL prefixed with the
+// branch name, e.g. https://seo-fixes-only--site.netlify.app). Otherwise
+// the sitemap lists URLs on the branch-deploy host while the user points
+// Semrush at the primary host, and every sitemap entry looks off-domain.
 const SITE_HOST =
   process.env.SITE_HOST ||
-  process.env.DEPLOY_PRIME_URL ||
   process.env.URL ||
+  process.env.DEPLOY_PRIME_URL ||
   'https://premier-party-cruises-v2.netlify.app';
 const CANONICAL_HOST =
   process.env.CANONICAL_HOST ||
