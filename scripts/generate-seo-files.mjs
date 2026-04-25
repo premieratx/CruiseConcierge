@@ -32,6 +32,7 @@
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { getOverlay } from './v2-seo-overlay.mjs';
+import { getRichContent } from './v2-rich-content.mjs';
 
 const LIVE_SITEMAP_URL = 'https://premierpartycruises.com/sitemap.xml';
 const OUT_DIR = 'dist/public';
@@ -320,12 +321,49 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
   // Prefer the V2 SEO overlay (curated + template) for title/description/H1
   // so the fallback HTML is still V2-optimized, not a generic slug title.
   const overlay = getOverlay(slug);
+  const rich = getRichContent(slug);
   const fullTitle = overlay?.title || 'Austin Party Boat Rentals on Lake Travis | Premier Party Cruises';
   const description = overlay?.description || "Austin's longest-running Lake Travis party boat fleet. Private charters 14–75 guests, ATX Disco Cruise from $85/person, weddings, corporate, bach parties. BYOB + Party On Delivery.";
   const heading = overlay?.h1 || 'Austin Party Boat Rentals on Lake Travis';
   const canonical = `${canonicalHost.replace(/\/$/, '')}${slug === '/' ? '/' : slug}`;
 
   const linksAndScripts = spaHead ? `${spaHead.links}\n    ${spaHead.scripts}\n  ` : '';
+
+  // Build rich body content if we have it for this route. This is what fixes
+  // "low word count" / "low text-HTML ratio" findings on V2-only routes that
+  // the live origin can't produce.
+  let richHtml = '';
+  let faqSchema = '';
+  if (rich) {
+    const intro = rich.intro ? `<p>${rich.intro}</p>` : '';
+    const sections = (rich.sections || [])
+      .map((s) => {
+        const ps = (s.paragraphs || []).map((p) => `<p>${p}</p>`).join('\n        ');
+        return `<section>\n        <h2>${s.heading}</h2>\n        ${ps}\n      </section>`;
+      })
+      .join('\n      ');
+    const faqs = rich.faqs || [];
+    const faqsHtml = faqs.length
+      ? `<section>\n        <h2>Frequently asked questions</h2>\n        ${faqs
+          .map((f) => `<div>\n          <h3>${f.q}</h3>\n          <p>${f.a}</p>\n        </div>`)
+          .join('\n        ')}\n      </section>`
+      : '';
+    richHtml = `${intro}\n      ${sections}\n      ${faqsHtml}`;
+    if (faqs.length) {
+      const faqJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      };
+      faqSchema = `<script type="application/ld+json">${JSON.stringify(faqJsonLd)}</script>`;
+    }
+  } else {
+    richHtml = `<p>Premier Party Cruises has operated on Lake Travis for 15+ years with 150,000+ guests and zero safety incidents. Fleet: Day Tripper (14 guests), Meeseeks and The Irony (25–30), Clever Girl (75). Departs Anderson Mill Marina, 25 minutes from downtown Austin, free parking, no stairs to the boat. BYOB + Party On Delivery drink set-up. Fair refund policy with FREE weather reschedules.</p>`;
+  }
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -343,14 +381,15 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${fullTitle}" />
     <meta name="twitter:description" content="${description}" />
+    ${faqSchema}
     ${linksAndScripts}
   </head>
   <body>
     <div id="root">
       <main>
         <h1>${heading}</h1>
-        <p>${description}</p>
-        <p>Premier Party Cruises has operated on Lake Travis for 15+ years with 150,000+ guests and zero safety incidents. Fleet: Day Tripper (14 guests), Meeseeks and The Irony (25–30), Clever Girl (75). Departs Anderson Mill Marina, 25 minutes from downtown Austin, free parking, no stairs to the boat. BYOB + Party On Delivery drink set-up. Fair refund policy with FREE weather reschedules.</p>
+        <p><em>${description}</em></p>
+        ${richHtml}
         <nav aria-label="Key pages">
           <a href="/">Home</a>
           <a href="/pricing">Pricing</a>
@@ -526,14 +565,23 @@ async function prerenderRoutes(sitemapXml, canonicalHost) {
     while (queue.length) {
       const slug = queue.shift();
       if (!slug) continue;
-      let html = await prerenderOne(slug, canonicalHost, spaHead);
+      let html;
       let usedFallback = false;
-      if (!html) {
-        // Fetch from live origin failed — synthesize a unique slug-derived
-        // HTML so the route at least has a distinct title/description/H1.
-        // Better than serving the SPA shell that every other route also serves.
+      // V2-only routes (the ones Replit's origin doesn't have a real React
+      // page for — /safety, /plan-your-trip, /premier-vs-*, etc) hit Replit's
+      // SPA shell which returns 200 + a generic title and no H1. Detect that
+      // case by preferring our hand-written rich content if we have it for
+      // the slug. This is what fixes "low word count" / "low text-HTML
+      // ratio" findings on those V2-only pages.
+      if (getRichContent(slug)) {
         html = synthesizeFallbackHtml(slug, canonicalHost, spaHead);
         usedFallback = true;
+      } else {
+        html = await prerenderOne(slug, canonicalHost, spaHead);
+        if (!html) {
+          html = synthesizeFallbackHtml(slug, canonicalHost, spaHead);
+          usedFallback = true;
+        }
       }
       done++;
       if (html) {
