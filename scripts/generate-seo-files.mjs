@@ -105,17 +105,16 @@ async function main() {
     SITE_HOST.replace(/\/$/, ''),
   );
 
-  // Netlify with pretty URLs ON 301-redirects /path → /path/ when only
-  // /path/index.html exists. Semrush flags those 301s as "incorrect pages
-  // in sitemap.xml". Normalize every <loc> to a TRAILING-SLASH URL so the
-  // sitemap matches the canonical serving form on Netlify (root / stays /).
+  // Netlify with pretty URLs ON serves /pricing as 200 (from /pricing.html
+  // or /pricing/index.html), and 301-redirects /pricing/ → /pricing. So the
+  // canonical serving form on Netlify is NO trailing slash. Strip trailing
+  // slashes in <loc> entries so the sitemap matches what's actually served
+  // and Semrush doesn't flag every entry as a 301-redirected URL.
   sitemap = sitemap.replace(/<loc>([^<]+)<\/loc>/g, (m, url) => {
     try {
       const u = new URL(url);
-      if (u.pathname === '/' || u.pathname.endsWith('/')) return m;
-      // Skip URLs that already point to a file extension (sitemap, robots, etc).
-      if (/\.[a-z0-9]+$/i.test(u.pathname)) return m;
-      u.pathname = u.pathname + '/';
+      if (u.pathname === '/' || /\.[a-z0-9]+$/i.test(u.pathname)) return m;
+      u.pathname = u.pathname.replace(/\/+$/, '');
       return `<loc>${u.toString()}</loc>`;
     } catch {
       return m;
