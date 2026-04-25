@@ -27,35 +27,35 @@
 export const CURATED_OVERLAY = {
   '/': {
     title: 'Austin Party Boat Rentals on Lake Travis | Premier Party Cruises',
-    description: 'Austin\'s longest-running Lake Travis party boat fleet — 15+ years, 150,000+ guests, zero safety incidents. Private charters $200/hr, ATX Disco Cruise from $85/person. BYOB + Party On Delivery.',
+    description: 'Austin\'s longest-running Lake Travis party boat fleet — 15+ years, 150,000+ guests, zero incidents. Private charters from $200/hour, ATX Disco Cruise from $85/$95/$105 per person (base rates, plus tax + 20% gratuity). BYOB + Party On Delivery.',
     h1: 'Austin Party Boat Rentals on Lake Travis — Private Charters & the ATX Disco Cruise',
     keywords: ['austin party boat rentals', 'lake travis party boat', 'party boat austin', 'lake travis boat rental'],
     audience: 'all',
   },
   '/pricing': {
-    title: 'Lake Travis Party Boat Pricing — All-In from $85/Person or $200/Hour',
-    description: 'Transparent Austin party boat pricing: ATX Disco Cruise from $85/person, private charters from $200/hour on Day Tripper (14 guests) up to $250/hour on Clever Girl (75). Captain, fuel, tax, 20% gratuity included. Free weather reschedules.',
-    h1: 'Transparent Lake Travis Party Boat Pricing',
+    title: 'Lake Travis Party Boat Pricing — From $85/Person or $200/Hour',
+    description: 'Starting Austin party boat rates: ATX Disco Cruise $85/$95/$105 per person by time slot, private charters from $200/hr on Day Tripper up to $250/hr on Clever Girl (75). Base rates include captain + fuel; Texas tax (8.25%) and 20% gratuity added on top.',
+    h1: 'Transparent Lake Travis Party Boat Pricing — Base Rates + Line-Item Tax & Gratuity',
     keywords: ['lake travis party boat pricing', 'austin party boat cost', 'lake travis boat rental price'],
     audience: 'price-shopper',
   },
   '/pricing-breakdown': {
     title: 'Party Boat Pricing Breakdown — Per-Hour + Per-Person Math | Premier',
-    description: 'Exactly what a Lake Travis party boat costs with Premier: per-hour boat rates, per-guest math on every boat (Day Tripper ~$57/guest, Meeseeks $48, Clever Girl $27), add-on pricing, and the all-in comparison vs a DIY pontoon.',
+    description: 'Exactly what a Lake Travis party boat costs with Premier: per-hour boat base rates, per-guest math (Day Tripper ~$57/guest, Meeseeks $48, Clever Girl $27 at base), add-ons, plus the line-item tax + 20% gratuity that complete the total.',
     h1: 'Lake Travis Party Boat Pricing Breakdown',
     keywords: ['party boat pricing breakdown', 'lake travis boat rental cost per person'],
     audience: 'price-shopper',
   },
   '/atx-disco-cruise': {
     title: 'ATX Disco Cruise — Lake Travis\' Floating Disco from $85/Person',
-    description: 'Austin\'s signature public party cruise on Clever Girl, 75-guest flagship. Disco lights, pro sound, captain + crew, BYOB, 21+. Fri 12–4pm, Sat 11am–3pm, Sat 3:30–7:30pm. All-inclusive per-ticket pricing.',
+    description: 'Austin\'s signature public party cruise on Clever Girl, 75-guest flagship. Disco lights, pro sound, captain + crew, BYOB, 21+. Starting prices: $85 (Fri 12–4pm), $95 (Sat 11am–3pm), $105 (Sat 3:30–7:30pm) per person — plus Texas tax + 20% gratuity at checkout.',
     h1: 'The ATX Disco Cruise — Lake Travis\' Floating Dance Floor',
     keywords: ['atx disco cruise', 'lake travis disco cruise', 'austin party cruise', 'public party boat austin'],
     audience: 'bach-small-group',
   },
   '/private-cruises': {
     title: 'Private Lake Travis Party Boat Charters — 14 to 75 Guests | Premier',
-    description: 'Book the whole boat on Lake Travis. 14-guest Day Tripper, 25–30-guest Meeseeks or The Irony, 75-guest Clever Girl. All ages welcome on private charters. Captain, fuel, audio, coolers, tax, gratuity all included. From $200/hour.',
+    description: 'Book the whole boat on Lake Travis. 14-guest Day Tripper from $200/hr, 25–30-guest Meeseeks or The Irony from $225/hr, 75-guest Clever Girl from $250/hr — base rates with captain + fuel + audio + coolers included. Texas tax (8.25%) and 20% gratuity added on top. All ages welcome.',
     h1: 'Private Lake Travis Party Boat Charters by Group Size',
     keywords: ['private party boat lake travis', 'lake travis private charter', 'austin private boat rental'],
     audience: 'planner',
@@ -83,7 +83,7 @@ export const CURATED_OVERLAY = {
   },
   '/corporate-events': {
     title: 'Lake Travis Corporate Events — Team Building & Client Entertainment',
-    description: 'Austin corporate boat charters that run like a produced event: licensed captain, pro audio for awards/remarks, catering-friendly, insurance-verifiable. 14–75 guest boats, weekday discounts 20–30%, W-9 on file, NET-30 invoicing for corporate clients.',
+    description: 'Austin corporate boat charters that run like a produced event: licensed captain, pro audio for awards/remarks, catering-friendly, insurance-verifiable. 14–75 guest boats from $200/hr base. Weekday discounts 20–30%. W-9 + NET-30 invoicing available; tax + gratuity itemized.',
     h1: 'Corporate Events & Team Building on Lake Travis',
     keywords: ['corporate events austin', 'team building lake travis', 'corporate boat rental austin'],
     audience: 'corporate',
@@ -181,7 +181,7 @@ export const CURATED_OVERLAY = {
   },
   '/austin-party-boat-pricing-guide': {
     title: 'Austin Party Boat Pricing Guide — 2026 Rates + Per-Person Math',
-    description: 'Austin party boat pricing explained: per-hour vs per-person, weekday vs weekend rates, group-size discounts, add-on costs (DJ, photographer, floating bar), and the DIY-pontoon math that makes Premier actually cheaper.',
+    description: 'Austin party boat pricing explained: per-hour vs per-person base rates (from $200/hr or $85–$105/person), how Texas tax (8.25%) + 20% gratuity layer on top, weekday vs weekend pricing, group-size discounts, add-on costs, plus DIY-pontoon comparison math.',
     h1: 'Austin Party Boat Pricing Guide',
     keywords: ['austin party boat pricing', 'lake travis boat rental rates'],
     audience: 'price-shopper',
@@ -307,7 +307,7 @@ export function templateOverlay(slug) {
     ? `${pretty} — Austin Party Boat Guide | Premier`
     : `${pretty} — Lake Travis Party Boat | Premier`;
 
-  const description = `${pretty} on Lake Travis with Premier Party Cruises. Designed for ${audienceHint} — all-in private charters from $200/hr, captain + fuel + tax + gratuity included, BYOB with Party On Delivery drink setup, Anderson Mill Marina (25 min from downtown Austin, free parking, no stairs).`;
+  const description = `${pretty} on Lake Travis with Premier Party Cruises. Designed for ${audienceHint} — private charters starting at $200/hr (base rate, captain + fuel included; Texas tax + 20% gratuity added on top). BYOB with Party On Delivery drink setup, Anderson Mill Marina (25 min from downtown Austin, free parking, no stairs).`;
 
   const h1 = pretty;
 

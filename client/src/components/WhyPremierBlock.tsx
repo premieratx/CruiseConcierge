@@ -40,7 +40,7 @@ export interface WhyPremierBlockProps {
 
 const DEFAULT_INCLUDED: Array<{ label: string; detail?: string }> = [
   { label: 'TPWD-licensed captain', detail: 'You never drive. 15+ years, 150,000+ guests, 0 incidents.' },
-  { label: 'Fuel + gratuity + tax', detail: 'Zero surprise line items. The quoted price is the out-the-door price.' },
+  { label: 'Fuel — included in base rate', detail: 'No mid-cruise fuel surcharges. Texas sales tax (8.25%) and 20% gratuity are added as transparent line items on top.' },
   { label: 'Premium Bluetooth sound system', detail: 'Pro-grade audio on every boat — no renting or hauling speakers.' },
   { label: 'Large coolers on board', detail: 'We provide coolers; BYOB with your own ice or upgrade to Party On Delivery pre-iced.' },
   { label: 'BYOB-friendly set-up', detail: 'Bring your own beer, seltzers, canned cocktails, wine (cans/plastic only).' },
@@ -64,19 +64,19 @@ const DIY_PONTOON_MISSING: string[] = [
 
 const DEFAULT_FAQS: Array<{ question: string; answer: string }> = [
   {
-    question: "What's actually included in the Premier Party Cruises price?",
+    question: "What's included in the Premier Party Cruises base rate?",
     answer:
-      'Every booking is all-in: TPWD-licensed captain, fuel, gratuity, tax, premium Bluetooth sound system, large coolers, life jackets in every size, full restroom, and Anderson Mill Marina access (free parking, no stairs, 25 minutes from downtown Austin). Bring your own beverages (BYOB) in cans or plastic — or upgrade with Party On Delivery (our sister company) to have drinks pre-iced on the boat when you arrive. The quoted price is the out-the-door price, no surprise line items.',
+      'The base rate (per-hour for private charters, per-person for the ATX Disco Cruise) includes the TPWD-licensed captain, fuel, premium Bluetooth sound system, large coolers, life jackets in every size, on-board restroom, and Anderson Mill Marina access (free parking, no stairs, 25 minutes from downtown Austin). Texas sales tax (8.25%) and a 20% gratuity for the captain + crew are added on top of the base rate as transparent line items on your quote — never buried, always shown before you pay. Bring your own beverages (BYOB) in cans or plastic — or upgrade with Party On Delivery (our sister company) to have drinks pre-iced on the boat when you arrive.',
   },
   {
     question: 'Why is Premier priced higher than a basic Lake Travis pontoon rental?',
     answer:
-      "Because the basic pontoon rental doesn't include what we include. A $400–$800/day pontoon gets you the boat, and that's it — you drive, you bring music, you haul coolers, you coordinate safety. Once you add a licensed captain ($200–$300/day extra), a sound system, floats, fuel, and your own logistics, you spend more and work the whole day instead of celebrating. Premier at $200/hour (4-hour minimum from Day Tripper) is cost-competitive once you factor in what you'd otherwise have to add — and you actually enjoy your own party.",
+      "Because the basic pontoon rental doesn't include what we include. A $400–$800/day pontoon gets you the boat, and that's it — you drive, you bring music, you haul coolers, you coordinate safety. Once you add a licensed captain ($200–$300/day extra), a sound system, floats, fuel, and your own logistics, you spend more and work the whole day instead of celebrating. Premier starting at $200/hour (4-hour minimum from Day Tripper) plus tax + 20% gratuity is cost-competitive once you factor in what you'd otherwise have to add — and you actually enjoy your own party.",
   },
   {
     question: 'What does Premier cost per guest on a private charter?',
     answer:
-      "Cost-per-guest depends on group size and boat. Typical math: Day Tripper at 4 hours ($800 base) with 14 guests = ~$57/guest. Meeseeks or The Irony at 4 hours ($1,200 base) with 25 guests = ~$48/guest. Clever Girl at 4 hours ($2,000 base) with 75 guests = ~$27/guest. All figures are starting prices and include captain, fuel, gratuity, tax, audio, coolers, and safety gear. BYOB beverages typically add $10–$25/guest depending on what you bring.",
+      "Per-guest math at the base rate (before tax + gratuity): Day Tripper at 4 hours ($800 base) with 14 guests = ~$57/guest. Meeseeks or The Irony at 4 hours ($1,200 base) with 25 guests = ~$48/guest. Clever Girl at 4 hours ($2,000 base) with 75 guests = ~$27/guest. The base rate includes captain, fuel, audio, coolers, and safety gear. Add Texas sales tax (8.25%) and a 20% gratuity for the crew to get the all-in total. BYOB beverages typically add $10–$25/guest depending on what you bring.",
   },
   {
     question: 'How does Premier handle safety on Lake Travis?',
@@ -91,10 +91,10 @@ const DEFAULT_FAQS: Array<{ question: string; answer: string }> = [
 ];
 
 export default function WhyPremierBlock({
-  title = "Why Premier's all-in pricing actually costs less than a DIY pontoon",
-  subtitle = 'Premium looks expensive only until you add up what a cheap rental leaves out. Here is the transparent breakdown our AI-audited FAQs, pricing page, and 4.9-star reviews all point back to.',
-  startingHourly = '$200/hour',
-  costPerGuest = 'From ~$27/guest on Clever Girl (75), ~$48/guest on Meeseeks/Irony (25), ~$57/guest on Day Tripper (14).',
+  title = 'Why Premier costs less than a DIY pontoon, end-to-end',
+  subtitle = 'Premium looks expensive only until you add up what a cheap rental leaves out. Here is the transparent breakdown our AI-audited FAQs, pricing page, and 4.9-star reviews all point back to. Starting prices below are base rates — Texas tax (8.25%) and 20% gratuity are added on top as transparent line items.',
+  startingHourly = '$200/hour (base rate)',
+  costPerGuest = 'Per-guest math at base rate: ~$27/guest on Clever Girl (75), ~$48/guest on Meeseeks/Irony (25), ~$57/guest on Day Tripper (14). Add tax + gratuity on top.',
   faqs,
   suppressSchema = false,
   ctaText = 'Build your quote',
@@ -131,6 +131,9 @@ export default function WhyPremierBlock({
             <span className="hidden sm:inline text-slate-300 dark:text-slate-600">·</span>
             <span className="text-gray-700 dark:text-gray-300">{costPerGuest}</span>
           </div>
+          <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+            All prices shown are starting base rates. Texas sales tax (8.25%) and a 20% gratuity for the crew are added on top as transparent line items at checkout.
+          </p>
         </header>
 
         {/* Two-column comparison — Premier vs DIY pontoon */}

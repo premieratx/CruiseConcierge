@@ -91,12 +91,12 @@ const PRICING_STYLES = `
 export default function PricingV2() {
   const faqs = [
     {
-      q: 'Is tax included?',
-      a: 'Yes, all prices on this page include Texas sales tax. The number you see is the number you pay — no additional tax lines on your invoice.',
+      q: 'Is tax included in the price?',
+      a: 'No — the prices on this page are starting prices BEFORE tax and gratuity. Texas sales tax (8.25%) and a 20% gratuity for your captain and crew are added as transparent line items on your final quote. We list base rates so you can compare apples-to-apples against other operators.',
     },
     {
       q: 'Are tips included?',
-      a: 'Yes, a 20% standard gratuity for your captain and crew is already baked into every price on this page. Additional tips are welcome but never required.',
+      a: 'No — a 20% gratuity for your captain and crew is added on top of the base rate as a transparent line item on your quote. We do not bake gratuity into the headline price because we want our base hourly rates to be directly comparable to other Lake Travis operators.',
     },
     {
       q: 'Do you have group discounts?',
@@ -112,7 +112,7 @@ export default function PricingV2() {
     },
     {
       q: 'Are there any hidden fees?',
-      a: 'No, there are no hidden fees. Captain, fuel, tax, and standard gratuity are all included. Optional add-ons (floating bar, DJ, photographer, custom decor) are clearly itemized before you pay.',
+      a: 'No hidden fees. Captain and fuel are included in the base hourly rate. Texas sales tax (8.25%) and a 20% gratuity for the captain + crew are added as transparent line items on top — never buried, always shown before you pay. Optional add-ons (floating bar, DJ, photographer, custom decor) are itemized separately. Final quote = base rate × hours + tax + gratuity + any add-ons.',
     },
     {
       q: "What's the deposit?",
@@ -140,15 +140,15 @@ export default function PricingV2() {
   return (
     <V2PageTemplate
       pageUrl="/pricing-v2"
-      pageTitle="Pricing | Austin Party Boat Rentals on Lake Travis | Premier Party Cruises"
-      pageDescription="Transparent pricing for Austin party boat rentals: ATX Disco Cruise from $85/person and private charters from $200/hour. All-inclusive — tax, gratuity, fuel, captain."
-      heroEyebrow="Pricing · Transparent · All-Inclusive"
+      pageTitle="Lake Travis Party Boat Pricing — From $85/Person or $200/Hour | Premier"
+      pageDescription="Starting prices for Austin party boat rentals: ATX Disco Cruise from $85/$95/$105 per person, private charters from $200/hour. Captain + fuel included. Texas tax (8.25%) and 20% gratuity added on top as transparent line items."
+      heroEyebrow="Pricing · Transparent Base Rates"
       heroHeadline={
         <>
-          <em>Simple</em> pricing. No surprises.
+          <em>Simple</em> base pricing. Tax + gratuity shown on top.
         </>
       }
-      heroBody="ATX Disco Cruise from $85/person all-inclusive. Private charters from $200/hour. All prices include tax and gratuity. No hidden fees."
+      heroBody="ATX Disco Cruise starts at $85/$95/$105 per person depending on time slot. Private charters start at $200/hour on Day Tripper. Captain + fuel included; Texas sales tax (8.25%) and 20% gratuity for the crew are added as line items — never hidden."
       primaryCta={{ text: 'Get Exact Quote', href: '/chat' }}
       secondaryCta={{ text: 'View Packages', href: '/pricing-breakdown' }}
       faqs={faqs}
@@ -178,15 +178,16 @@ export default function PricingV2() {
       <section className="hp2-section">
         <div className="hp2-section__label">Public Sailings · ATX Disco Cruise</div>
         <h2 className="hp2-section__headline">
-          ATX Disco Cruise <em>from $85/person</em>
+          ATX Disco Cruise <em>from $85 / $95 / $105 per person</em>
         </h2>
         <p className="hp2-section__body">
           Our signature public disco cruise on Lake Travis. Austin's most
-          talked-about floating dance floor, mixed-group format. All-inclusive
-          starting at $85 per person — captain, fuel, disco-lighting, Bluetooth
-          audio, bathrooms, tax, and 20% gratuity included. BYOB drinks and
-          snacks welcome (no glass). Request a quote for current time-slot
-          availability and exact pricing.
+          talked-about floating dance floor, mixed-group format. <strong>Starting prices by time slot:</strong>
+          {' '}$85/person (Friday 12–4 PM), $95/person (Saturday 11 AM–3 PM), $105/person (Saturday 3:30–7:30 PM).
+          {' '}Base ticket includes captain, fuel, disco-lighting, Bluetooth audio, and on-board bathroom.
+          {' '}Texas sales tax (8.25%) and 20% gratuity for the crew are added as transparent line items at checkout. BYOB drinks
+          and snacks welcome (no glass). Request a quote for the current
+          time-slot availability and exact total.
         </p>
       </section>
 
@@ -267,12 +268,11 @@ export default function PricingV2() {
           </div>
 
           <p className="hp2-price-legend">
-            Starting rates for 4-hour minimum charter. All private charter
-            bookings include captain, fuel, coolers, Bluetooth audio, bathroom,
-            tax, and 20% gratuity. BYOB — bring your own ice, or order
-            pre-iced from Party On Delivery (our sister company). Optional
-            add-ons (floating bar, DJ, photographer, decorations, overnight
-            docking) are quoted separately.
+            Starting hourly rates for 4-hour minimum charter (3-hour minimum on weekdays).
+            Base rate includes captain, fuel, coolers, Bluetooth audio, and on-board bathroom.
+            <strong> Texas sales tax (8.25%) and 20% gratuity for the crew are added as transparent line items on top of the base rate</strong> — never buried, always shown before you pay.
+            BYOB — bring your own ice, or order pre-iced from Party On Delivery (our sister company).
+            Optional add-ons (floating bar, DJ, photographer, decorations, overnight docking) are quoted separately.
           </p>
         </div>
       </section>

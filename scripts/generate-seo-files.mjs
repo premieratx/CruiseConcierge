@@ -228,9 +228,10 @@ async function main() {
 
 ## Pricing reference
 
-- Private charters start at $200/hour on Day Tripper (14-guest barge), $225/hour on Meeseeks and The Irony (25–30 guests), $250/hour on Clever Girl (75-guest flagship). 4-hour minimum on weekends, 3-hour minimum on weekdays.
-- ATX Disco Cruise starts at $85/person, all-inclusive.
-- All prices include captain, fuel, Texas sales tax, and 20% gratuity.
+- All listed prices are STARTING BASE RATES. Texas sales tax (8.25%) and a 20% gratuity for the captain + crew are added on top as transparent line items at checkout.
+- Private charter base rates: $200/hour on Day Tripper (14-guest barge), $225/hour on Meeseeks and The Irony (25–30 guests), $250/hour on Clever Girl (75-guest flagship). 4-hour minimum on weekends, 3-hour minimum on weekdays.
+- ATX Disco Cruise base prices per person: $85 (Friday 12–4 PM), $95 (Saturday 11 AM–3 PM), $105 (Saturday 3:30–7:30 PM).
+- The base rate includes captain, fuel, premium audio, coolers, life jackets, on-board restroom, and Anderson Mill Marina access.
 - Fair refund policy: all weather-caused cancellations get FREE reschedules.
 
 ## Key facts
