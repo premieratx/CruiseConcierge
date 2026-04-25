@@ -105,6 +105,23 @@ async function main() {
     SITE_HOST.replace(/\/$/, ''),
   );
 
+  // Netlify with pretty URLs ON 301-redirects /path → /path/ when only
+  // /path/index.html exists. Semrush flags those 301s as "incorrect pages
+  // in sitemap.xml". Normalize every <loc> to a TRAILING-SLASH URL so the
+  // sitemap matches the canonical serving form on Netlify (root / stays /).
+  sitemap = sitemap.replace(/<loc>([^<]+)<\/loc>/g, (m, url) => {
+    try {
+      const u = new URL(url);
+      if (u.pathname === '/' || u.pathname.endsWith('/')) return m;
+      // Skip URLs that already point to a file extension (sitemap, robots, etc).
+      if (/\.[a-z0-9]+$/i.test(u.pathname)) return m;
+      u.pathname = u.pathname + '/';
+      return `<loc>${u.toString()}</loc>`;
+    } catch {
+      return m;
+    }
+  });
+
   // V2-only routes that don't exist on the Replit main site yet.
   // Append these so Google can discover them via sitemap.xml on V2.
   const V2_ONLY_ROUTES = [
@@ -477,14 +494,17 @@ async function prerenderRoutes(sitemapXml, canonicalHost) {
   // If this step fails, every route ends up serving the SPA shell → 198
   // duplicate titles, 198 pages with no H1, and a useless Semrush audit.
   // The failures are VERY loud on purpose so Netlify build logs surface them.
+  //
+  // NOTE: The old SKIP_PRERENDER env-var bailout was removed. Every Netlify
+  // deploy MUST prerender. The fallback path (slug-derived metadata) handles
+  // the case where the live origin is unreachable, so there is no legitimate
+  // reason to skip — skipping just ships 198 duplicate-title pages.
   // ════════════════════════════════════════════════════════════════════
   if (process.env.SKIP_PRERENDER === '1') {
     console.warn('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.warn('⚠️  Per-route prerender SKIPPED (SKIP_PRERENDER=1).');
-    console.warn('⚠️  Every route will serve the SPA shell — expect 198');
-    console.warn('⚠️  duplicate titles in SEO audits. Unset this env var.');
+    console.warn('SKIP_PRERENDER=1 is IGNORED — running prerender anyway.');
+    console.warn('Reason: skipping ships 198 duplicate-title pages.');
     console.warn('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    return;
   }
   const spaHead = readSpaHead();
   if (!spaHead) {
@@ -519,9 +539,17 @@ async function prerenderRoutes(sitemapXml, canonicalHost) {
       done++;
       if (html) {
         const outPath = slug === '/' ? `${OUT_DIR}/index.html` : `${OUT_DIR}${slug}/index.html`;
+        // Also write a sibling .html file (e.g. /pricing.html) so Netlify
+        // serves both /pricing AND /pricing/ as 200 — no 301 redirects in
+        // the sitemap path. Pretty-URL on Netlify will serve .html files at
+        // the bare slug; the index.html under /slug/ serves the trailing-
+        // slash form. With both on disk, neither URL form 301s.
+        const siblingPath =
+          slug === '/' ? null : `${OUT_DIR}${slug}.html`;
         try {
           mkdirSync(dirname(outPath), { recursive: true });
           writeFileSync(outPath, html);
+          if (siblingPath) writeFileSync(siblingPath, html);
           if (usedFallback) fallback++; else ok++;
         } catch (e) {
           console.warn(`  ✗ write ${outPath}: ${e.message}`);
