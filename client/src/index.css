@@ -6,10 +6,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* PRODUCTION-SAFE SSR: Hide SSR content only after React successfully hydrates */
-/* This ensures fallback content stays visible if React fails to load */
-#root[data-hydrated="true"] ~ .ssr-content {
-  display: none !important;
+/* PRODUCTION-SAFE SSR — keep ssr-content in the DOM (so crawlers index it)
+   but visually-hidden from the start so it never causes a layout shift when
+   React hydrates. Lighthouse was scoring CLS = 1.0 (catastrophic) because
+   the previous `display: none` only fired after hydration, and the chunk
+   of SSR content above the fold collapsed at that moment. The
+   visually-hidden pattern keeps screen-readers, Semrush, GPTBot, etc.
+   reading the content; users only see the hydrated React UI. */
+.ssr-content {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  pointer-events: none !important;
+}
+/* If React fails to load, surface the fallback content as a courtesy. */
+#root:not([data-hydrated="true"]) ~ noscript .ssr-content,
+.ssr-content[data-hydration-failed="true"] {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: revert !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  pointer-events: auto !important;
 }
 
 /* Root element - no min-height to prevent white flash on mobile */

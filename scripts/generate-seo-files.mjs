@@ -430,6 +430,66 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
 </html>`;
 }
 
+/**
+ * Title-length safety pass — Semrush flags titles over ~60 chars as "too
+ * much text within the title tags". Many of Replit's blog titles end with
+ * a redundant " | Lake Travis" suffix that pushes them just over the line.
+ * If a title is too long:
+ *   1) Strip the trailing redundant " | Lake Travis" suffix
+ *   2) If still too long, strip the trailing " | <anything>" segment until
+ *      under the limit
+ *   3) As a last resort, hard-truncate at a word boundary with an ellipsis
+ *
+ * Returns { title, changed } so we can also update og:title / twitter:title
+ * to match.
+ */
+const TITLE_MAX = 60;
+function decodeEntities(s) {
+  return String(s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'");
+}
+function shortenTitle(title) {
+  if (!title) return { title, changed: false };
+  // Decode any pre-existing HTML entities so length math is char-accurate
+  // and we don't double-encode on write.
+  const original = decodeEntities(title.trim());
+  let t = original;
+  if (t.length <= TITLE_MAX) return { title: t, changed: t !== title.trim() };
+
+  // 1) Strip redundant trailing " | Lake Travis" / " - Lake Travis" suffix
+  const redundant = /\s*[|·\-—]\s*Lake Travis\s*$/i;
+  if (redundant.test(t)) {
+    t = t.replace(redundant, '');
+    if (t.length <= TITLE_MAX) return { title: t, changed: true };
+  }
+
+  // 2) Strip trailing " | / · / — / – / - <segment>" segments until under
+  // the limit (preserve at least the head so we don't chop too aggressively)
+  while (t.length > TITLE_MAX) {
+    const cuts = ['|', '·', '—', '–'].map((c) => t.lastIndexOf(c));
+    const cut = Math.max(...cuts);
+    if (cut <= 0) break;
+    const head = t.slice(0, cut).trim();
+    if (head.length < 20) break;
+    t = head;
+  }
+  if (t.length <= TITLE_MAX) return { title: t, changed: true };
+
+  // 3) Hard truncate at a word boundary with ellipsis
+  const words = t.split(/\s+/);
+  let acc = '';
+  for (const w of words) {
+    if ((acc + ' ' + w).trim().length > TITLE_MAX - 1) break;
+    acc = (acc ? acc + ' ' : '') + w;
+  }
+  return { title: acc + '…', changed: true };
+}
+
 /** Apply the V2 SEO overlay to a fetched HTML document. OVERWRITES the
  * <title>, <meta name=description>, og/twitter variants, and injects/rewrites
  * the first <h1> so every V2 route ships with V2-optimized metadata — not
@@ -536,6 +596,22 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
     if (shouldOverrideLive(slug)) {
       const overlay = getOverlay(slug);
       if (overlay) html = applyOverlay(html, overlay);
+    }
+
+    // Title-length safety pass — Semrush flags > ~60 char titles. Strip
+    // redundant trailing " | Lake Travis" and similar suffixes, hard-truncate
+    // as a fallback. Applies to every prerendered route, regardless of
+    // overlay, so blog titles + curated titles all stay under the limit.
+    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
+    if (titleMatch) {
+      const original = titleMatch[1];
+      const { title: shortened, changed } = shortenTitle(original);
+      if (changed) {
+        const safe = escapeHtml(shortened);
+        html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${safe}</title>`);
+        html = html.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeAttr(shortened)}" />`);
+        html = html.replace(/<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(shortened)}" />`);
+      }
     }
 
     return html;

@@ -15,11 +15,17 @@
     <link rel="dns-prefetch" href="https://xola.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
-    <!-- PAGESPEED: Preload LCP image (hero poster) - most critical for LCP score -->
-    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-mobile.webp" 
-          media="(max-width: 768px)" fetchpriority="high" type="image/webp" />
-    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-hero-compressed.webp" 
-          media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
+    <!-- PAGESPEED: Preload LCP image (hero video poster) - most critical for LCP score.
+         The home hero is a video; the poster image is the actual LCP element on
+         mobile (Lighthouse audit) because the video data is deferred until after
+         load. Preloading the poster fetches it in parallel with the JS bundle. -->
+    <link rel="preload" as="image" href="/attached_assets/hero-fallback.jpg"
+          fetchpriority="high" />
+    <!-- Bach-page hero images preloaded for direct visits to those routes. -->
+    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-mobile.webp"
+          media="(max-width: 768px)" fetchpriority="low" type="image/webp" />
+    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+          media="(min-width: 769px)" fetchpriority="low" type="image/webp" />
     
     <!-- PAGESPEED: Preconnect to critical third-party domains -->
     <link rel="preconnect" href="https://js.stripe.com" crossorigin>

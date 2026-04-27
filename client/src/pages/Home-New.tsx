@@ -2316,17 +2316,49 @@ export default function HomeNew() {
       {/* ─── Hero ─── */}
       <section className="hp2-hero">
         <div className="hp2-hero__video-wrap">
+          {/*
+            Core Web Vitals fix (LCP was 22s on Lighthouse mobile):
+            - preload="none" so the video data does NOT compete with the
+              poster image fetch and the Vite JS bundle for bandwidth on
+              first paint. The poster image carries LCP for Lighthouse.
+            - The poster is preloaded with fetchpriority="high" in
+              client/index.html, so it's the first image painted.
+            - We defer setting the video src until after first paint to
+              avoid the browser fetching metadata before LCP. React then
+              swaps src on mount and the video starts playing seamlessly
+              behind the poster.
+          */}
           <video
             className="hp2-hero__video"
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             poster="/attached_assets/hero-fallback.jpg"
-          >
-            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
-          </video>
+            ref={(el) => {
+              if (!el) return;
+              if (el.dataset.deferLoaded) return;
+              const start = () => {
+                if (el.dataset.deferLoaded) return;
+                el.dataset.deferLoaded = '1';
+                const src = el.dataset.deferSrc;
+                if (src && !el.querySelector('source')?.getAttribute('src')) {
+                  const source = document.createElement('source');
+                  source.src = src;
+                  source.type = 'video/mp4';
+                  el.appendChild(source);
+                  el.load();
+                }
+              };
+              if ('requestIdleCallback' in window) {
+                (window as any).requestIdleCallback(start, { timeout: 2500 });
+              } else {
+                setTimeout(start, 1500);
+              }
+            }}
+            data-defer-src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4"
+          />
           <div className="hp2-hero__overlay" />
         </div>
 
