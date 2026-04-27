@@ -64,6 +64,15 @@
 # them server-side (301 permanent) so search engines and bookmarks land
 # on the single canonical URL.
 # ──────────────────────────────────────────────────────────────────────────
+# Truncated legacy URL with 25 backlinks across 22 domains
+# (Command Center insight 4cdfddf5-6da0-46c9-a9b9-46fa191bc674).
+# Preserves link equity by 301-ing into the combined-bach pillar.
+[[redirects]]
+  from = "/bachelor-bachelorette-wedding-parti"
+  to = "/combined-bachelor-bachelorette-austin"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/home-v2"
   to = "/"

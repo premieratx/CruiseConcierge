@@ -186,6 +186,16 @@ async function main() {
     '/sunset-anniversary-cruise',
     '/lake-bachelor-bachelorette',
     '/canada-to-austin-bachelorette',
+    // Phase 2 — Branded + non-party + planning + budget pages (2026-04-27)
+    '/about-premier-party-cruises',
+    '/refer-a-friend',
+    '/lake-travis-dinner-cruise',
+    '/best-boat-rental-lake-travis',
+    '/how-to-choose-a-party-boat-austin',
+    '/lake-travis-boat-budget-calculator',
+    '/austin-corporate-vs-family-cruise',
+    // Location landing for NAP consistency / LocalBusiness schema
+    '/locations/anderson-mill-marina',
   ];
   const host = SITE_HOST.replace(/\/$/, '');
   const today = new Date().toISOString().slice(0, 10);
@@ -216,6 +226,7 @@ async function main() {
   const TIER_2 = new Set([
     '/private-cruises', '/atx-disco-cruise', '/pricing', '/pricing-breakdown',
     '/safety', '/plan-your-trip', '/faq', '/contact', '/gallery', '/testimonials-faq',
+    '/about-premier-party-cruises',
   ]);
   const TIER_3 = new Set([
     '/bachelor-party-austin', '/bachelorette-party-austin',
@@ -225,6 +236,9 @@ async function main() {
     // Two-Mode Vibe + niche occasion branches (shipped 2026-04-26)
     '/sweet-16-party-boat', '/family-cruises', '/executive-cruises',
     '/sunset-anniversary-cruise', '/lake-bachelor-bachelorette',
+    // Phase 2 (2026-04-27) — non-party occasions + brand
+    '/lake-travis-dinner-cruise', '/refer-a-friend',
+    '/locations/anderson-mill-marina',
   ]);
   const TIER_4 = new Set([
     '/premier-vs-pontoon', '/premier-vs-float-on', '/premier-vs-austin-party-boat',
@@ -233,6 +247,9 @@ async function main() {
     '/austin-bachelorette-itinerary', '/austin-bachelor-itinerary',
     '/combined-bach-itinerary', '/what-to-bring-on-a-party-boat',
     '/austin-party-bus-shuttle', '/canada-to-austin-bachelorette',
+    // Phase 2 (2026-04-27) — research / planning / budget
+    '/best-boat-rental-lake-travis', '/how-to-choose-a-party-boat-austin',
+    '/lake-travis-boat-budget-calculator', '/austin-corporate-vs-family-cruise',
   ]);
 
   function tierFor(path) {
@@ -516,7 +533,32 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
     <meta name="twitter:title" content="${fullTitle}" />
     <meta name="twitter:description" content="${description}" />
     ${faqSchema}
-    <script type="application/ld+json" data-breadcrumb="auto">${JSON.stringify(buildBreadcrumb(slug, canonicalHost, overlay))}</script>
+    <script type="application/ld+json" data-breadcrumb="auto">${JSON.stringify(buildBreadcrumb(slug, canonicalHost, overlay))}</script>${
+      slug === '/locations/anderson-mill-marina'
+        ? `\n    <script type="application/ld+json" data-localbusiness="anderson-mill">${JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            name: 'Premier Party Cruises — Anderson Mill Marina',
+            image: 'https://premierpartycruises.com/attached_assets/PPC-Logo-LARGE.webp',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: '13993 FM 2769',
+              addressLocality: 'Leander',
+              addressRegion: 'TX',
+              postalCode: '78641',
+              addressCountry: 'US',
+            },
+            geo: { '@type': 'GeoCoordinates', latitude: 30.4634, longitude: -97.8847 },
+            telephone: '+1-512-488-5892',
+            url: `${canonicalHost.replace(/\/$/, '')}/locations/anderson-mill-marina`,
+            openingHoursSpecification: [
+              { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '09:00', closes: '21:00' },
+            ],
+            priceRange: '$$',
+            aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '450' },
+          })}</script>`
+        : ''
+    }
     ${linksAndScripts}
   </head>
   <body>
@@ -646,6 +688,7 @@ const PILLAR_OF = {
   '/lake-bachelor-bachelorette': '/private-cruises',
   '/party-boat-austin': '/private-cruises',
   '/party-boat-lake-travis': '/private-cruises',
+  '/lake-travis-dinner-cruise': '/private-cruises',
   // Branches under /pricing pillar
   '/pricing-breakdown': '/pricing',
   '/austin-party-boat-pricing-guide': '/pricing',
@@ -675,6 +718,14 @@ const PILLAR_OF = {
   '/contact': '/',
   '/gallery': '/',
   '/austin-corporate-event-guide': '/corporate-events',
+  // Phase 2 (2026-04-27)
+  '/about-premier-party-cruises': '/',
+  '/refer-a-friend': '/',
+  '/best-boat-rental-lake-travis': '/best-austin-party-boat',
+  '/how-to-choose-a-party-boat-austin': '/best-austin-party-boat',
+  '/lake-travis-boat-budget-calculator': '/pricing',
+  '/austin-corporate-vs-family-cruise': '/corporate-events',
+  '/locations/anderson-mill-marina': '/plan-your-trip',
 };
 
 const PILLAR_LABELS = {
@@ -692,6 +743,8 @@ const PILLAR_LABELS = {
   '/bachelorette-party-austin': 'Bachelorette Party',
   '/combined-bachelor-bachelorette-austin': 'Combined Bach',
   '/corporate-events': 'Corporate Events',
+  '/about-premier-party-cruises': 'About',
+  '/refer-a-friend': 'Refer a Friend',
 };
 
 function buildBreadcrumb(slug, canonicalHost, overlay) {

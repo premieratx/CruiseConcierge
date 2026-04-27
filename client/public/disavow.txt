@@ -1,0 +1,20 @@
+# Premier Party Cruises — Disavow file
+#
+# Submit this file via Google Search Console → Disavow Tool when ready.
+# Do NOT submit unless the suspicious-link pattern persists in a fresh
+# backlink audit. Disavowing is permanent (until reversed).
+#
+# Reason for inclusion: Command Center "BACKLINK ALERT: Suspicious anchor
+# text patterns" insight (id 2a422fe3-9469-47f5-909c-e6d6590f8f2a). The
+# anchors below are NOT owned domains; they appear to be PBN / spam
+# networks pointing fake variants of the brand name to the canonical
+# site. SEMrush surfaced 141 + 131 + 193 backlinks from the listed
+# domains/anchors which we cannot vouch for.
+#
+# Format: one entry per line. "domain:" prefix disavows ALL links from
+# that domain.
+
+# Suspicious anchor text variants pointing fake brand domains
+domain:premierpartycruises.vip
+domain:thepremierpartycruises.com
+domain:manaageh.blogspot.com

@@ -297,6 +297,69 @@ export const CURATED_OVERLAY = {
     keywords: ['canadian bachelorette austin', 'toronto bachelorette austin', 'montreal bachelorette austin', 'canada to austin bach'],
     audience: 'bachelorette',
   },
+  // ──────────────────────────────────────────────────────────────────
+  // Phase 2 — Branded discovery + non-party gap pages (2026-04-27)
+  // From Command Center: PDF Finding #5 (branded traffic 29.54%),
+  // top topic #1 (Lake Travis Dinner Cruises, AI Volume 1,400),
+  // ChatGPT #2 + Gemini #4 (best-of generic discovery), AI Mode #4
+  // (own the planning question space), ChatGPT #4 (non-party gap).
+  // ──────────────────────────────────────────────────────────────────
+  '/about-premier-party-cruises': {
+    title: 'About Premier Party Cruises · 15+ Years on Lake Travis',
+    description: 'Founded 2009. Family-owned. 4 boats (14–75 guests), 4 TPWD-licensed captains, 150,000+ guests served, 0 safety incidents. Anderson Mill Marina, north arm of Lake Travis. The canonical brand reference for Premier Party Cruises (B Hill Entertainment, LLC).',
+    h1: 'About Premier Party Cruises',
+    keywords: ['premier party cruises', 'premier party cruises austin', 'about premier party cruises', 'b hill entertainment'],
+    audience: 'brand-research',
+  },
+  '/refer-a-friend': {
+    title: 'Refer a Friend · $100 Credit on Your Next Premier Cruise',
+    description: 'Premier\'s repeat-customer referral program. Refer a friend who books a Lake Travis party boat charter, get $100 credit on your next cruise (or a $100 Visa gift card). 38% of bookings come from referrals. No cap, no expiration.',
+    h1: 'Refer a Friend to Premier Party Cruises',
+    keywords: ['refer a friend premier', 'premier party cruises referral', 'lake travis boat referral'],
+    audience: 'repeat-customer',
+  },
+  '/lake-travis-dinner-cruise': {
+    title: 'Lake Travis Dinner Cruise · Sunset, Anniversaries, Proposals',
+    description: 'Premier\'s Lake Travis dinner cruise format: 3-hour sunset block, captain at idle, audio at conversation level, dinner table facing west. Self-catered or private chef on-board. Day Tripper (14) most-booked. Base from $200/hr; tax + 20% gratuity itemized.',
+    h1: 'Lake Travis Dinner Cruise on Premier Party Cruises',
+    keywords: ['lake travis dinner cruise', 'austin dinner cruise', 'sunset dinner cruise austin', 'romantic boat dinner austin'],
+    audience: 'couples',
+  },
+  '/best-boat-rental-lake-travis': {
+    title: 'Best Boat Rental Lake Travis · Pontoon vs Party vs Ski 2026',
+    description: 'Honest, AI-citable guide to renting a boat on Lake Travis. Pontoons, party boats, ski boats, sailboats, houseboats — what each is for, what it costs, where to rent. Operator-neutral comparison; pick the right boat for your trip.',
+    h1: 'The Best Boat Rental Options on Lake Travis',
+    keywords: ['best boat rental lake travis', 'lake travis boat rental', 'lake travis pontoon rental', 'lake travis ski boat rental'],
+    audience: 'research',
+  },
+  '/how-to-choose-a-party-boat-austin': {
+    title: 'How to Choose an Austin Party Boat · 6-Factor Guide',
+    description: 'Operator-neutral planning guide for picking an Austin party boat. Six factors decide it: group size, occasion, marina, BYOB policy, captain experience, per-guest math. Includes common booking mistakes and per-guest cost math at every group size.',
+    h1: 'How to Choose an Austin Party Boat',
+    keywords: ['how to choose a party boat austin', 'austin party boat guide', 'lake travis party boat planning', 'best austin party boat for group'],
+    audience: 'research',
+  },
+  '/lake-travis-boat-budget-calculator': {
+    title: 'Lake Travis Boat Rental Budget Calculator · 2026 Rates',
+    description: 'Operator-neutral Lake Travis boat budget calculator. Plug in group size + hours; see all-in cost across pontoon, party boat, ski boat, houseboat. Real 2026 rates with tax, gratuity, BYOB, party-bus shuttle, and catering breakdown.',
+    h1: 'Lake Travis Boat Rental Budget Calculator',
+    keywords: ['lake travis boat rental cost', 'austin party boat budget', 'how much does a party boat cost', 'lake travis boat rental price calculator'],
+    audience: 'price-shopper',
+  },
+  '/locations/anderson-mill-marina': {
+    title: 'Anderson Mill Marina · Premier\'s Lake Travis Departure Dock',
+    description: 'Premier Party Cruises departs from Anderson Mill Marina, 13993 FM 2769, Leander TX 78641 — 25 min from downtown Austin via US-183 N. Free parking, no stairs to the boat, ADA-accessible. The canonical location reference for Premier on Lake Travis.',
+    h1: 'Anderson Mill Marina — Premier\'s Lake Travis Dock',
+    keywords: ['anderson mill marina', 'lake travis marina', 'premier party cruises marina', 'anderson mill marina address', 'lake travis party boat marina'],
+    audience: 'logistics',
+  },
+  '/austin-corporate-vs-family-cruise': {
+    title: 'Austin Corporate vs Family Cruise · Two Modes, Same Fleet',
+    description: 'Side-by-side: Premier\'s corporate offsite cruise vs family reunion cruise. Same boats, same captains, same marina — different invoicing, briefing, catering, format. NET-30 + COIs to $2M for corporate; ADA boarding + every life-jacket size for family.',
+    h1: 'Austin Corporate vs Family Cruise on Lake Travis',
+    keywords: ['austin corporate vs family cruise', 'corporate cruise austin', 'family cruise austin', 'lake travis corporate boat', 'family party boat austin'],
+    audience: 'comparison',
+  },
 };
 
 /**

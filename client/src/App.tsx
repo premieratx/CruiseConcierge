@@ -577,6 +577,19 @@ function Router() {
       <Route path="/sunset-anniversary-cruise" component={V2RichContentRoute} />
       <Route path="/lake-bachelor-bachelorette" component={V2RichContentRoute} />
       <Route path="/canada-to-austin-bachelorette" component={V2RichContentRoute} />
+      {/* Phase 2 — Brand + non-party + planning + budget (Command Center 2026-04-27) */}
+      <Route path="/about-premier-party-cruises" component={V2RichContentRoute} />
+      <Route path="/refer-a-friend" component={V2RichContentRoute} />
+      <Route path="/lake-travis-dinner-cruise" component={V2RichContentRoute} />
+      <Route path="/best-boat-rental-lake-travis" component={V2RichContentRoute} />
+      <Route path="/how-to-choose-a-party-boat-austin" component={V2RichContentRoute} />
+      <Route path="/lake-travis-boat-budget-calculator" component={V2RichContentRoute} />
+      <Route path="/austin-corporate-vs-family-cruise" component={V2RichContentRoute} />
+      <Route path="/locations/anderson-mill-marina" component={V2RichContentRoute} />
+      {/* Legacy redirect — truncated URL still has 25 backlinks */}
+      <Route path="/bachelor-bachelorette-wedding-parti">
+        <Redirect to="/combined-bachelor-bachelorette-austin" />
+      </Route>
       <Route path="/compare-austin-party-boats" component={CompareAustinPartyBoatsV2} />
       <Route path="/plan-your-trip" component={PlanYourTripV2} />
       <Route path="/safety" component={SafetyHubV2} />
