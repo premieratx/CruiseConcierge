@@ -670,35 +670,6 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
     }
 
     // ────────────────────────────────────────────────────────────────
-    // H1 / TITLE DUPLICATE-PAIR FIX
-    // ────────────────────────────────────────────────────────────────
-    // Replit's blog posts (/blogs/...) ship with the H1 set to the exact
-    // same string as the <title>. Semrush's "duplicate H1 and title tags"
-    // warning is triggered when title === h1 on the same page across the
-    // blog index — that's the source of the 43-page warning. The titles
-    // themselves are unique and SEO-good; only the H1 needs to differ.
-    //
-    // For any non-curated route where we detect title === h1, we replace
-    // ONLY the H1 with a structurally-different variant derived from the
-    // templateOverlay (e.g. "X — Premier's Austin Party Boat Blog").
-    // We leave the live origin's title untouched.
-    if (!shouldOverrideLive(slug)) {
-      const titleM = html.match(/<title>([\s\S]*?)<\/title>/i);
-      const h1M = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
-      if (titleM && h1M) {
-        const titleText = decodeEntities(titleM[1]).replace(/\s+/g, ' ').trim();
-        const h1Text = decodeEntities(h1M[1].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
-        if (titleText && h1Text && titleText === h1Text) {
-          // Get the template overlay's h1 (different structure from title).
-          const tpl = getOverlay(slug);
-          if (tpl?.h1 && tpl.h1 !== titleText) {
-            html = html.replace(/<h1\b([^>]*)>[\s\S]*?<\/h1>/i, `<h1$1>${escapeHtml(tpl.h1)}</h1>`);
-          }
-        }
-      }
-    }
-
-    // ────────────────────────────────────────────────────────────────
     // INTERNAL LINK INJECTION
     // ────────────────────────────────────────────────────────────────
     // Boost orphan blog posts (Semrush "5 pages with only 1 incoming
@@ -744,6 +715,37 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
         html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${safe}</title>`);
         html = html.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeAttr(shortened)}" />`);
         html = html.replace(/<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(shortened)}" />`);
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────
+    // H1 / TITLE DUPLICATE-PAIR FIX  (runs LAST, after title shortener)
+    // ────────────────────────────────────────────────────────────────
+    // Replit's blog posts ship with <title>="X | Lake Travis" (60 chars)
+    // and <h1>="X" (no Lake-Travis suffix). When the title shortener
+    // strips " | Lake Travis", the title collapses to "X" — which then
+    // matches the H1 verbatim. Semrush flags ALL such pages as
+    // "duplicate H1 and title tags" (43 pages on the previous audit).
+    //
+    // Fix: AFTER the title shortener runs, re-check title vs h1. If
+    // they're now equal, replace ONLY the <h1> with the templateOverlay's
+    // structurally-different version ("X — Premier's Austin Party Boat
+    // Blog"). The unique title stays intact.
+    if (!shouldOverrideLive(slug)) {
+      const titleM2 = html.match(/<title>([\s\S]*?)<\/title>/i);
+      const h1M2 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
+      if (titleM2 && h1M2) {
+        const tText = decodeEntities(titleM2[1]).replace(/\s+/g, ' ').replace(/…$/, '').trim();
+        const hText = decodeEntities(h1M2[1].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
+        // Compare case-insensitively + ignoring trailing punctuation so
+        // we catch near-matches the shortener produced too.
+        const norm = (s) => s.toLowerCase().replace(/[.…|·\-—–\s]+$/, '').trim();
+        if (tText && hText && norm(tText) === norm(hText)) {
+          const tpl = getOverlay(slug);
+          if (tpl?.h1 && norm(tpl.h1) !== norm(tText)) {
+            html = html.replace(/<h1\b([^>]*)>[\s\S]*?<\/h1>/i, `<h1$1>${escapeHtml(tpl.h1)}</h1>`);
+          }
+        }
       }
     }
 
