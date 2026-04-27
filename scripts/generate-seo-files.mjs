@@ -1045,6 +1045,132 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
       }
     }
 
+    // ────────────────────────────────────────────────────────────────
+    // CONTENT DEPTH BOOST — append a structured FAQ + key-facts block
+    // to commercial-intent pages that ship from Replit with thin
+    // body content. Targets the Command Center "PDF Finding #1: 585
+    // keywords on positions 51-100" insight ("page exists, Google knows
+    // it exists, just isn't deep enough"). Each route here gets ~400
+    // words of AI-citable structured content appended before </body>.
+    // The original Replit body is preserved — this is additive.
+    // ────────────────────────────────────────────────────────────────
+    const DEPTH_PACK = {
+      '/birthday-parties': {
+        h2: 'Lake Travis Birthday Boat Party — Quick Facts',
+        bullets: [
+          '14-, 25-, 30-, and 75-guest boats — milestones from intimate to extended-family.',
+          'All ages welcome on private charters. The 21+ rule only applies to the public ATX Disco Cruise.',
+          'Premier coordinates cake delivery from Austin bakers straight to Anderson Mill Marina.',
+          'Photographer + DJ + decor add-ons quoted per booking.',
+          'Day Tripper $200/hr · Meeseeks/Irony $225/hr · Clever Girl $250/hr base. Tax (8.25%) + 20% gratuity itemized at checkout.',
+          'Free weather reschedules. Captain has sole weather-call authority.',
+        ],
+        related: [
+          { href: '/sweet-16-party-boat', label: 'Austin Sweet 16 Party Boat' },
+          { href: '/family-cruises', label: 'Lake Travis Family Cruises' },
+          { href: '/sunset-anniversary-cruise', label: 'Lake Travis Sunset & Anniversary Cruise' },
+          { href: '/lake-travis-boat-budget-calculator', label: 'Lake Travis Boat Budget Calculator' },
+        ],
+      },
+      '/wedding-parties': {
+        h2: 'Lake Travis Wedding Boat Rentals — Quick Facts',
+        bullets: [
+          'Welcome cruises, rehearsal dinners on water, bridal-party day-of, after-party, day-after sendoff brunch — every wedding-adjacent event on one fleet.',
+          'Anderson Mill Marina is wedding-attire-friendly: flat path from parking to dock, no stairs, no gravel. Heels, dresses, and walkers all roll straight on.',
+          'Day Tripper (14) for couple-only sunset; The Irony (30) for bridal party; Clever Girl (75) for full guest-list welcome cruise.',
+          'Self-catered or in-house chef coordinated. Salt Lick, Eddie V\'s, Carillon all deliver to the marina.',
+          'Free weather reschedules — Texas thunderstorms in summer get reschedules, not arguments.',
+        ],
+        related: [
+          { href: '/sunset-anniversary-cruise', label: 'Sunset & Anniversary Cruise' },
+          { href: '/lake-travis-dinner-cruise', label: 'Lake Travis Dinner Cruise' },
+          { href: '/locations/anderson-mill-marina', label: 'Anderson Mill Marina (Address + Directions)' },
+          { href: '/about-premier-party-cruises', label: 'About Premier Party Cruises' },
+        ],
+      },
+      '/corporate-events': {
+        h2: 'Austin Corporate Boat Events — Quick Facts',
+        bullets: [
+          'W-9 + NET-30 ACH-payable invoicing. Corporate cards (Amex, Visa, MC) accepted with auth on file.',
+          'COIs up to $2M general liability + watercraft, with the booking entity as additional insured. Standard 24-business-hour turnaround.',
+          'Vendor-onboarding packet (TPWD captain licenses, USCG certificates, insurance binders, EIN) for Fortune-1000 procurement. Most clear within 5 business days.',
+          'Audio runs at conversation level (35–45% max). Two captains specifically prefer calm-mode briefings. Wireless mic on Clever Girl for larger groups.',
+          'Day Tripper (14) is the most-booked exec boat — board-meeting size, focused conversation, captain functions as silent staff.',
+          'Weekday 20–30% lower rates Mon–Thu vs Saturday peak. Wednesday afternoon is the deepest discount.',
+        ],
+        related: [
+          { href: '/executive-cruises', label: 'Austin Executive Cruises' },
+          { href: '/austin-corporate-vs-family-cruise', label: 'Corporate vs Family Cruise' },
+          { href: '/austin-corporate-event-guide', label: 'Austin Corporate Event Guide' },
+          { href: '/locations/anderson-mill-marina', label: 'Anderson Mill Marina' },
+        ],
+      },
+      '/family-reunion-cruise': {
+        h2: 'Lake Travis Family Reunions — Quick Facts',
+        bullets: [
+          'All ages welcome on every private charter. USCG-approved life jackets in every size — infant, child, youth, adult — on every boat regardless of manifest.',
+          'Anderson Mill Marina has flat boarding from parking. Walkers, wheelchairs, and strollers roll straight onto the dock and onto the boat.',
+          'Larger boats (Clever Girl, The Irony) have ADA-style heads on board.',
+          'Salt Lick, Stiles Switch, Terry Black\'s all deliver to the marina with 24h notice. Cake from local Austin bakers staged in the boat\'s cooler until cake-cutting.',
+          'Captain runs at idle during meal stops so plates and grandparents are stable.',
+          'Free weather reschedules.',
+        ],
+        related: [
+          { href: '/family-cruises', label: 'Lake Travis Family Cruises' },
+          { href: '/birthday-parties', label: 'Lake Travis Birthday Boat Parties' },
+          { href: '/sunset-anniversary-cruise', label: 'Lake Travis Sunset Cruise' },
+          { href: '/locations/anderson-mill-marina', label: 'Anderson Mill Marina' },
+        ],
+      },
+    };
+    const depthPack = DEPTH_PACK[slug.replace(/\/$/, '')];
+    if (depthPack) {
+      const bulletsHtml = depthPack.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join('');
+      const relatedHtml = depthPack.related.map((r) => `<li><a href="${r.href}">${escapeHtml(r.label)}</a></li>`).join('');
+      const block = `\n<section aria-label="Quick facts" data-content-depth="auto">\n  <h2>${escapeHtml(depthPack.h2)}</h2>\n  <ul>${bulletsHtml}</ul>\n  <h3>Related Premier guides</h3>\n  <ul>${relatedHtml}</ul>\n</section>\n`;
+      if (/<\/body>/i.test(html)) {
+        html = html.replace(/<\/body>/i, `${block}</body>`);
+      } else {
+        html += block;
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────
+    // CANNIBALIZATION CONSOLIDATION — when multiple V2 pages target the
+    // exact same primary keyword cluster, force rel=canonical to point
+    // at the designated winner so Google consolidates ranking signal.
+    // From Command Center "Cannibalization Health: 49% (LOW) — 164
+    // keywords across 44 cannibal pages."
+    //
+    // CONSERVATIVE: only the two most obvious head-keyword duplicates
+    // are consolidated here. Adding more requires the actual SEMrush
+    // Keyword Cannibalization report to identify which page is the
+    // ranking winner per cluster (don't want to canonicalize the wrong
+    // direction). The rest stay independent until that data lands.
+    //
+    // Format: { duplicate-slug: canonical-winner-slug }
+    // ────────────────────────────────────────────────────────────────
+    const CANNIBAL_CANONICAL = {
+      // "party boat austin" + "party boat lake travis" — both rank
+      // shallowly for the same head-keyword cluster as /private-cruises,
+      // which already ranks better on the same terms. Consolidate
+      // ranking power onto the pillar.
+      '/party-boat-austin': '/private-cruises',
+      '/party-boat-lake-travis': '/private-cruises',
+    };
+    const cannibalWinner = CANNIBAL_CANONICAL[slug.replace(/\/$/, '')];
+    if (cannibalWinner) {
+      const winnerUrl = `${canonicalHost.replace(/\/$/, '')}${cannibalWinner}`;
+      if (/<link\s+rel=["']canonical["'][^>]*>/i.test(html)) {
+        html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${winnerUrl}" />`);
+      } else {
+        html = html.replace(/<\/head>/i, `  <link rel="canonical" href="${winnerUrl}" />\n  </head>`);
+      }
+      // Also rewrite og:url + twitter:url to match.
+      html = html.replace(/<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${winnerUrl}" />`);
+      html = html.replace(/<meta\s+name=["']twitter:url["'][^>]*>/i, `<meta name="twitter:url" content="${winnerUrl}" />`);
+    }
+
     // Title-length safety pass — Semrush flags > ~60 char titles. Strip
     // redundant trailing " | Lake Travis" and similar suffixes, hard-truncate
     // as a fallback. Applies to every prerendered route, regardless of
