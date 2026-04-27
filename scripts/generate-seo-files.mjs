@@ -139,6 +139,29 @@ async function main() {
     }
   });
 
+  // ────────────────────────────────────────────────────────────────────
+  // Sitemap drop list — known non-canonical URLs that Replit's sitemap
+  // accidentally lists. The actual blog post lives at the -austin
+  // suffixed slug, but the sitemap also has the un-suffixed variant which
+  // 404s / canonicalizes to the suffixed version. Semrush flags it as
+  // "incorrect page found in sitemap.xml" because the URL in <loc> does
+  // not match the canonical of any served page.
+  //
+  // Add new entries here as we discover them; each entry strips the
+  // matching <url>...</url> block from the sitemap so the URL never
+  // reaches the audit tool.
+  // ────────────────────────────────────────────────────────────────────
+  const SITEMAP_DROP_PATHS = [
+    '/blogs/all-inclusive-corporate-packages',  // canonical is /blogs/all-inclusive-corporate-packages-austin
+  ];
+  for (const dropPath of SITEMAP_DROP_PATHS) {
+    const dropRe = new RegExp(
+      `\\s*<url>[^<]*<loc>[^<]*${dropPath.replace(/[-/]/g, (c) => '\\' + c)}<\\/loc>[\\s\\S]*?<\\/url>`,
+      'g',
+    );
+    sitemap = sitemap.replace(dropRe, '');
+  }
+
   // V2-only routes that don't exist on the Replit main site yet.
   // Append these so Google can discover them via sitemap.xml on V2.
   const V2_ONLY_ROUTES = [
@@ -435,6 +458,16 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
           <a href="/faq">FAQ</a>
           <a href="/contact">Contact</a>
         </nav>
+        <aside aria-label="Related Premier guides">
+          <h2>Related Premier guides</h2>
+          <ul>
+            <li><a href="/blogs/all-inclusive-corporate-packages-austin">All-Inclusive Corporate Packages — Austin</a></li>
+            <li><a href="/blogs/austin-bachelor-party-january">Austin Bachelor Party in January</a></li>
+            <li><a href="/blogs/austin-bachelorette-party-february">Austin Bachelorette in February</a></li>
+            <li><a href="/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide">Lake Travis Boat Party Regulations</a></li>
+            <li><a href="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises">Lake Travis Boat Safety + Maintenance</a></li>
+          </ul>
+        </aside>
       </main>
     </div>
   </body>
@@ -661,6 +694,39 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
           if (tpl?.h1 && tpl.h1 !== titleText) {
             html = html.replace(/<h1\b([^>]*)>[\s\S]*?<\/h1>/i, `<h1$1>${escapeHtml(tpl.h1)}</h1>`);
           }
+        }
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────
+    // INTERNAL LINK INJECTION
+    // ────────────────────────────────────────────────────────────────
+    // Boost orphan blog posts (Semrush "5 pages with only 1 incoming
+    // internal link" notice) by injecting a "Related guides" footer on
+    // every prerendered blog page. Each orphan slug here picks up an
+    // extra inbound link from every blog post in the prerender pass.
+    // After this lands, every orphan has ~50 inbound links instead of 1.
+    if (slug.startsWith('/blogs')) {
+      const ORPHAN_LINKS = [
+        { href: '/blogs/all-inclusive-corporate-packages-austin', label: 'All-Inclusive Corporate Packages — Austin' },
+        { href: '/blogs/austin-bachelor-party-january', label: 'Austin Bachelor Party in January — Winter Lake Travis Guide' },
+        { href: '/blogs/austin-bachelorette-party-february', label: 'Austin Bachelorette in February — Valentine\'s Season' },
+        { href: '/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide', label: 'Lake Travis Boat Party Regulations: Legal Compliance' },
+        { href: '/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises', label: 'Lake Travis Boat Safety + Maintenance Standards' },
+      ];
+      // Don't link a page to itself.
+      const links = ORPHAN_LINKS
+        .filter((l) => l.href !== slug)
+        .map((l) => `<li><a href="${l.href}">${escapeHtml(l.label)}</a></li>`)
+        .join('');
+      if (links) {
+        const block = `\n<aside aria-label="Related Premier guides" data-internal-link-block="orphan-boost"><h2>Related Premier guides</h2><ul>${links}</ul></aside>\n`;
+        // Inject right before </body> so it doesn't disturb the live
+        // page's own layout. Crawlers + AI scrapers still see the links.
+        if (/<\/body>/i.test(html)) {
+          html = html.replace(/<\/body>/i, `${block}</body>`);
+        } else {
+          html += block;
         }
       }
     }
