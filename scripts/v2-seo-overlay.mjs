@@ -48,9 +48,9 @@ export const CURATED_OVERLAY = {
   },
   '/atx-disco-cruise': {
     title: 'ATX Disco Cruise · Lake Travis Floating Disco $85+',
-    description: 'Austin\'s signature public party cruise on Clever Girl, 75-guest flagship. Disco lights, pro sound, captain + crew, BYOB, 21+. Starting prices: $85 (Fri 12–4pm), $95 (Sat 11am–3pm), $105 (Sat 3:30–7:30pm) per person — plus Texas tax + 20% gratuity at checkout.',
+    description: 'Austin\'s signature public party cruise on Clever Girl. Capped at 90 guests for breathing room (most operators pack 100+). Disco lights, pro sound, captain + crew, BYOB, 21+. From $85 Fri / $95 Sat 11am / $105 Sat 3:30pm. Texas tax + 20% gratuity itemized at checkout.',
     h1: 'The ATX Disco Cruise — Lake Travis\' Floating Dance Floor',
-    keywords: ['atx disco cruise', 'lake travis disco cruise', 'austin party cruise', 'public party boat austin'],
+    keywords: ['atx disco cruise', 'lake travis disco cruise', 'austin party cruise', 'public party boat austin', 'reduced capacity disco cruise'],
     audience: 'bach-small-group',
   },
   '/private-cruises': {

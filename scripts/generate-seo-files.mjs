@@ -385,6 +385,12 @@ ${siteBase}/sitemap.xml
 // ────────────────────────────────────────────────────────────────────
 // Per-route prerender
 // ────────────────────────────────────────────────────────────────────
+// ⚠️  CUTOVER REQUIRED BEFORE DNS FLIP — see CUTOVER.md step 3.
+// Today this targets premierpartycruises.com (Replit backend). Once the
+// apex DNS flips to Netlify, this becomes a self-loop and the prerender
+// fetches the Netlify deploy itself instead of the Replit-rendered HTML.
+// Switch to https://api.premierpartycruises.com (or whatever subdomain
+// the Replit backend gets moved to) BEFORE flipping DNS.
 const LIVE_HOST = 'https://premierpartycruises.com';
 const SPA_INDEX_PATH = `${OUT_DIR}/index.html`;
 

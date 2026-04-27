@@ -2808,6 +2808,162 @@ export default function HomeNew() {
       {/* ─── Trip-Highlight Testimonials by Segment (AI Visibility: Own The Trip Highlight) ─── */}
       <TripHighlightTestimonials />
 
+      {/* ─── EXPLORE PREMIER ─── exact-match anchor links to TIER 2/3/4
+           pages (Command Center PDF Finding #2: 489 keywords on positions
+           21-50 — fastest lift comes from internal links from the home page,
+           which holds 40% of all backlinks). Each anchor uses the keyword
+           the destination page targets, not a generic label. */}
+      <section style={{
+        padding: '5rem 2rem',
+        background: 'var(--hp2-bg-1)',
+        borderTop: '1px solid rgba(200, 169, 110, 0.10)',
+        borderBottom: '1px solid rgba(200, 169, 110, 0.10)',
+      }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <p style={{
+            fontSize: '0.75rem',
+            letterSpacing: '0.28em',
+            textTransform: 'uppercase',
+            color: 'var(--hp2-gold)',
+            fontFamily: 'var(--hp2-font-body)',
+            marginBottom: '0.85rem',
+            textAlign: 'center',
+          }}>
+            Explore Premier &middot; By Occasion, By Marina, By Budget
+          </p>
+          <h2 style={{
+            fontFamily: 'var(--hp2-font-heading)',
+            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+            fontWeight: 300,
+            lineHeight: 1.1,
+            color: 'var(--hp2-cream)',
+            textAlign: 'center',
+            marginTop: 0,
+            marginBottom: '3rem',
+            letterSpacing: '-0.01em',
+          }}>
+            Every <em style={{ fontStyle: 'italic', color: 'var(--hp2-gold-light)' }}>Lake Travis</em> answer in one place.
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '2.5rem',
+            maxWidth: '1180px',
+            margin: '0 auto',
+          }}>
+            {[
+              {
+                title: 'By occasion',
+                links: [
+                  { href: '/bachelor-party-austin', label: 'Austin bachelor party boat' },
+                  { href: '/bachelorette-party-austin', label: 'Austin bachelorette party' },
+                  { href: '/lake-bachelor-bachelorette', label: 'Lake bachelor + bachelorette' },
+                  { href: '/canada-to-austin-bachelorette', label: 'Toronto / Montreal to Austin bachelorette' },
+                  { href: '/sweet-16-party-boat', label: 'Austin Sweet 16 party boat' },
+                  { href: '/birthday-parties', label: 'Lake Travis birthday party boat' },
+                  { href: '/wedding-parties', label: 'Lake Travis wedding boat' },
+                  { href: '/sunset-anniversary-cruise', label: 'Lake Travis anniversary cruise' },
+                  { href: '/lake-travis-dinner-cruise', label: 'Lake Travis dinner cruise' },
+                ],
+              },
+              {
+                title: 'For business + family',
+                links: [
+                  { href: '/corporate-events', label: 'Lake Travis corporate event boat' },
+                  { href: '/executive-cruises', label: 'Austin executive cruise' },
+                  { href: '/austin-corporate-event-guide', label: 'Austin corporate event guide' },
+                  { href: '/austin-corporate-vs-family-cruise', label: 'Corporate vs family cruise' },
+                  { href: '/family-cruises', label: 'Lake Travis family cruise' },
+                  { href: '/family-reunion-cruise', label: 'Family reunion boat Lake Travis' },
+                ],
+              },
+              {
+                title: 'Pricing + planning',
+                links: [
+                  { href: '/pricing', label: 'Lake Travis party boat pricing' },
+                  { href: '/austin-party-boat-pricing-guide', label: 'Austin party boat pricing guide' },
+                  { href: '/lake-travis-boat-budget-calculator', label: 'Lake Travis boat budget calculator' },
+                  { href: '/how-to-choose-a-party-boat-austin', label: 'How to choose a party boat' },
+                  { href: '/best-boat-rental-lake-travis', label: 'Best boat rental Lake Travis' },
+                  { href: '/best-austin-party-boat', label: 'Best Austin party boat 2026' },
+                  { href: '/plan-your-trip', label: 'Plan your Lake Travis trip' },
+                ],
+              },
+              {
+                title: 'Comparisons + research',
+                links: [
+                  { href: '/premier-vs-pontoon', label: 'Premier vs pontoon rental' },
+                  { href: '/premier-vs-austin-party-boat', label: 'Premier vs ATX Party Boats' },
+                  { href: '/premier-vs-float-on', label: 'Premier vs Float On' },
+                  { href: '/lake-travis-boat-rental-guide', label: 'Lake Travis boat rental guide' },
+                  { href: '/austin-bachelorette-itinerary', label: 'Austin bachelorette itinerary' },
+                  { href: '/austin-bachelor-itinerary', label: 'Austin bachelor itinerary' },
+                  { href: '/combined-bach-itinerary', label: 'Combined bach weekend itinerary' },
+                  { href: '/safety', label: 'Premier Safety Code' },
+                  { href: '/about-premier-party-cruises', label: 'About Premier Party Cruises' },
+                ],
+              },
+              {
+                title: 'Logistics + location',
+                links: [
+                  { href: '/locations/anderson-mill-marina', label: 'Anderson Mill Marina address + directions' },
+                  { href: '/austin-party-bus-shuttle', label: 'Austin party bus + boat shuttle' },
+                  { href: '/what-to-bring-on-a-party-boat', label: 'What to bring on a party boat' },
+                  { href: '/private-cruises', label: 'Private Lake Travis charters' },
+                  { href: '/atx-disco-cruise', label: 'ATX Disco Cruise' },
+                  { href: '/refer-a-friend', label: 'Refer a friend ($100 credit)' },
+                  { href: '/contact', label: 'Contact Premier Party Cruises' },
+                  { href: '/faq', label: 'Austin party boat FAQ' },
+                ],
+              },
+            ].map((col, i) => (
+              <div key={i}>
+                <h3 style={{
+                  fontFamily: 'var(--hp2-font-heading)',
+                  fontSize: '1.15rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  color: 'var(--hp2-gold-light)',
+                  margin: '0 0 1.25rem 0',
+                  borderBottom: '1px solid rgba(200, 169, 110, 0.18)',
+                  paddingBottom: '0.6rem',
+                }}>
+                  {col.title}
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {col.links.map((l) => (
+                    <li key={l.href} style={{ margin: '0.55rem 0' }}>
+                      <a
+                        href={l.href}
+                        style={{
+                          color: 'var(--hp2-cream-muted)',
+                          fontFamily: 'var(--hp2-font-body)',
+                          fontSize: '0.95rem',
+                          textDecoration: 'none',
+                          borderBottom: '1px solid transparent',
+                          transition: 'color 0.2s, border-color 0.2s',
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLAnchorElement).style.color = 'var(--hp2-gold-light)';
+                          (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = 'var(--hp2-gold-dim2)';
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLAnchorElement).style.color = 'var(--hp2-cream-muted)';
+                          (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = 'transparent';
+                        }}
+                      >
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── Embedded Quote Builder (moved after proof — Wes McDowell: close after trust is built) ─── */}
       <section className="hp2-quote-embed" id="quote-builder-embed">
         <div className="hp2-quote-embed__bg" aria-hidden>
