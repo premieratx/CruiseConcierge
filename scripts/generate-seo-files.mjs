@@ -222,45 +222,9 @@ async function main() {
   //
   // Branch pages also link UP to their pillar via the "Related Premier
   // guides" aside injected by prerenderOne.
-  const TIER_1 = new Set(['/']);
-  const TIER_2 = new Set([
-    '/private-cruises', '/atx-disco-cruise', '/pricing', '/pricing-breakdown',
-    '/safety', '/plan-your-trip', '/faq', '/contact', '/gallery', '/testimonials-faq',
-    '/about-premier-party-cruises',
-  ]);
-  const TIER_3 = new Set([
-    '/bachelor-party-austin', '/bachelorette-party-austin',
-    '/combined-bachelor-bachelorette-austin', '/corporate-events',
-    '/wedding-parties', '/birthday-parties', '/family-reunion-cruise',
-    '/party-boat-austin', '/party-boat-lake-travis',
-    // Two-Mode Vibe + niche occasion branches (shipped 2026-04-26)
-    '/sweet-16-party-boat', '/family-cruises', '/executive-cruises',
-    '/sunset-anniversary-cruise', '/lake-bachelor-bachelorette',
-    // Phase 2 (2026-04-27) — non-party occasions + brand
-    '/lake-travis-dinner-cruise', '/refer-a-friend',
-    '/locations/anderson-mill-marina',
-  ]);
-  const TIER_4 = new Set([
-    '/premier-vs-pontoon', '/premier-vs-float-on', '/premier-vs-austin-party-boat',
-    '/best-austin-party-boat', '/lake-travis-boat-rental-guide',
-    '/austin-party-boat-pricing-guide', '/austin-corporate-event-guide',
-    '/austin-bachelorette-itinerary', '/austin-bachelor-itinerary',
-    '/combined-bach-itinerary', '/what-to-bring-on-a-party-boat',
-    '/austin-party-bus-shuttle', '/canada-to-austin-bachelorette',
-    // Phase 2 (2026-04-27) — research / planning / budget
-    '/best-boat-rental-lake-travis', '/how-to-choose-a-party-boat-austin',
-    '/lake-travis-boat-budget-calculator', '/austin-corporate-vs-family-cruise',
-  ]);
-
-  function tierFor(path) {
-    const p = path === '/' ? '/' : path.replace(/\/$/, '');
-    if (TIER_1.has(p)) return { priority: '1.0', changefreq: 'daily' };
-    if (TIER_2.has(p)) return { priority: '0.9', changefreq: 'weekly' };
-    if (TIER_3.has(p)) return { priority: '0.8', changefreq: 'weekly' };
-    if (TIER_4.has(p)) return { priority: '0.7', changefreq: 'monthly' };
-    if (p.startsWith('/blogs')) return { priority: '0.5', changefreq: 'monthly' };
-    return { priority: '0.6', changefreq: 'monthly' };
-  }
+  // tier sets and tierFor() are module-level (defined below near
+  // pillarUpLinkBlock) so prerenderOne() can reuse them for pillar
+  // internal-link injection.
 
   // Append V2-only routes that aren't already in the rewritten sitemap.
   const v2Urls = V2_ONLY_ROUTES
@@ -593,6 +557,26 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
             <li><a href="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises">Lake Travis Boat Safety + Maintenance</a></li>
           </ul>
         </aside>
+        <aside aria-label="Premier in depth" data-internal-link-block="pillar-boost">
+          <h2>Premier in depth</h2>
+          <ul>
+            <li><a href="/about-premier-party-cruises">About Premier Party Cruises</a></li>
+            <li><a href="/safety">The Premier Safety Code</a></li>
+            <li><a href="/sweet-16-party-boat">Austin Sweet 16 Party Boat</a></li>
+            <li><a href="/family-cruises">Lake Travis Family Cruises</a></li>
+            <li><a href="/executive-cruises">Austin Executive Cruises</a></li>
+            <li><a href="/sunset-anniversary-cruise">Lake Travis Sunset & Anniversary Cruise</a></li>
+            <li><a href="/lake-travis-dinner-cruise">Lake Travis Dinner Cruise</a></li>
+            <li><a href="/lake-bachelor-bachelorette">Lake Bachelor + Bachelorette Parties</a></li>
+            <li><a href="/canada-to-austin-bachelorette">Toronto + Montreal Bachelorette</a></li>
+            <li><a href="/best-boat-rental-lake-travis">Best Lake Travis Boat Rental</a></li>
+            <li><a href="/how-to-choose-a-party-boat-austin">How to Choose a Party Boat</a></li>
+            <li><a href="/lake-travis-boat-budget-calculator">Lake Travis Budget Calculator</a></li>
+            <li><a href="/austin-corporate-vs-family-cruise">Corporate vs Family Cruise</a></li>
+            <li><a href="/locations/anderson-mill-marina">Anderson Mill Marina</a></li>
+            <li><a href="/refer-a-friend">Refer a Friend ($100 Credit)</a></li>
+          </ul>
+        </aside>
         ${pillarUpLinkBlock(slug)}
       </main>
     </div>
@@ -658,6 +642,48 @@ function shortenTitle(title) {
     acc = (acc ? acc + ' ' : '') + w;
   }
   return { title: acc + '…', changed: true };
+}
+
+/**
+ * PILLAR / BRANCH TIER SETS — module-level so prerenderOne() can reuse
+ * them for pillar internal-link injection. Mirrored in main()'s sitemap
+ * generator for tier-priority weights.
+ */
+const TIER_1_SET = new Set(['/']);
+const TIER_2_SET = new Set([
+  '/private-cruises', '/atx-disco-cruise', '/pricing', '/pricing-breakdown',
+  '/safety', '/plan-your-trip', '/faq', '/contact', '/gallery', '/testimonials-faq',
+  '/about-premier-party-cruises',
+]);
+const TIER_3_SET = new Set([
+  '/bachelor-party-austin', '/bachelorette-party-austin',
+  '/combined-bachelor-bachelorette-austin', '/corporate-events',
+  '/wedding-parties', '/birthday-parties', '/family-reunion-cruise',
+  '/party-boat-austin', '/party-boat-lake-travis',
+  '/sweet-16-party-boat', '/family-cruises', '/executive-cruises',
+  '/sunset-anniversary-cruise', '/lake-bachelor-bachelorette',
+  '/lake-travis-dinner-cruise', '/refer-a-friend',
+  '/locations/anderson-mill-marina',
+]);
+const TIER_4_SET = new Set([
+  '/premier-vs-pontoon', '/premier-vs-float-on', '/premier-vs-austin-party-boat',
+  '/best-austin-party-boat', '/lake-travis-boat-rental-guide',
+  '/austin-party-boat-pricing-guide', '/austin-corporate-event-guide',
+  '/austin-bachelorette-itinerary', '/austin-bachelor-itinerary',
+  '/combined-bach-itinerary', '/what-to-bring-on-a-party-boat',
+  '/austin-party-bus-shuttle', '/canada-to-austin-bachelorette',
+  '/best-boat-rental-lake-travis', '/how-to-choose-a-party-boat-austin',
+  '/lake-travis-boat-budget-calculator', '/austin-corporate-vs-family-cruise',
+]);
+
+function tierFor(path) {
+  const p = path === '/' ? '/' : path.replace(/\/$/, '');
+  if (TIER_1_SET.has(p)) return { priority: '1.0', changefreq: 'daily' };
+  if (TIER_2_SET.has(p)) return { priority: '0.9', changefreq: 'weekly' };
+  if (TIER_3_SET.has(p)) return { priority: '0.8', changefreq: 'weekly' };
+  if (TIER_4_SET.has(p)) return { priority: '0.7', changefreq: 'monthly' };
+  if (p.startsWith('/blogs')) return { priority: '0.5', changefreq: 'monthly' };
+  return { priority: '0.6', changefreq: 'monthly' };
 }
 
 /**
@@ -963,6 +989,48 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
         const block = `\n<aside aria-label="Related Premier guides" data-internal-link-block="orphan-boost"><h2>Related Premier guides</h2><ul>${links}</ul></aside>\n`;
         // Inject right before </body> so it doesn't disturb the live
         // page's own layout. Crawlers + AI scrapers still see the links.
+        if (/<\/body>/i.test(html)) {
+          html = html.replace(/<\/body>/i, `${block}</body>`);
+        } else {
+          html += block;
+        }
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────
+    // PILLAR INTERNAL LINKS — boost the new V2-only pages
+    // ────────────────────────────────────────────────────────────────
+    // The new pages from Phase 1 + Phase 2 (sweet-16, family-cruises,
+    // about, dinner-cruise, refer-a-friend, etc.) have no inbound links
+    // from the rest of the site yet — they'd pick up the same "only one
+    // incoming internal link" notice the orphan blogs had. Inject a
+    // "Premier in depth" link block on every TIER 1 + TIER 2 page so
+    // every new page picks up ~10 inbound links from high-authority
+    // pillars.
+    if (TIER_1_SET.has(slug) || TIER_2_SET.has(slug)) {
+      const PILLAR_BOOST_LINKS = [
+        { href: '/about-premier-party-cruises', label: 'About Premier Party Cruises' },
+        { href: '/safety', label: 'The Premier Safety Code' },
+        { href: '/sweet-16-party-boat', label: 'Austin Sweet 16 Party Boat' },
+        { href: '/family-cruises', label: 'Lake Travis Family Cruises' },
+        { href: '/executive-cruises', label: 'Austin Executive Cruises' },
+        { href: '/sunset-anniversary-cruise', label: 'Lake Travis Sunset & Anniversary Cruise' },
+        { href: '/lake-travis-dinner-cruise', label: 'Lake Travis Dinner Cruise' },
+        { href: '/lake-bachelor-bachelorette', label: 'Lake Bachelor + Bachelorette Parties' },
+        { href: '/canada-to-austin-bachelorette', label: 'Toronto + Montreal Bachelorette Weekend' },
+        { href: '/best-boat-rental-lake-travis', label: 'Best Lake Travis Boat Rental' },
+        { href: '/how-to-choose-a-party-boat-austin', label: 'How to Choose a Party Boat' },
+        { href: '/lake-travis-boat-budget-calculator', label: 'Lake Travis Boat Budget Calculator' },
+        { href: '/austin-corporate-vs-family-cruise', label: 'Corporate vs Family Cruise' },
+        { href: '/locations/anderson-mill-marina', label: 'Anderson Mill Marina (Address + Directions)' },
+        { href: '/refer-a-friend', label: 'Refer a Friend ($100 Credit)' },
+      ];
+      const pillarLinks = PILLAR_BOOST_LINKS
+        .filter((l) => l.href !== slug)
+        .map((l) => `<li><a href="${l.href}">${escapeHtml(l.label)}</a></li>`)
+        .join('');
+      if (pillarLinks) {
+        const block = `\n<aside aria-label="Premier in depth" data-internal-link-block="pillar-boost"><h2>Premier in depth</h2><ul>${pillarLinks}</ul></aside>\n`;
         if (/<\/body>/i.test(html)) {
           html = html.replace(/<\/body>/i, `${block}</body>`);
         } else {
