@@ -190,17 +190,99 @@ async function main() {
   const host = SITE_HOST.replace(/\/$/, '');
   const today = new Date().toISOString().slice(0, 10);
   const alreadyPresent = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
+
+  // ────────────────────────────────────────────────────────────────────
+  // PILLAR / BRANCH SITE STRUCTURE
+  // ────────────────────────────────────────────────────────────────────
+  // Information architecture for SEO + AI visibility crawlers. Each tier
+  // gets a specific <priority> + <changefreq> in the sitemap so search
+  // engines can spend crawl budget on the most important pages first.
+  // The same hierarchy is mirrored in BreadcrumbList JSON-LD per page
+  // (see prerenderOne) so AI LLMs understand the canonical site graph.
+  //
+  //   TIER 1 (1.0): / — canonical entry point
+  //   TIER 2 (0.9): top-level service pillars (private, disco, pricing,
+  //                  safety, plan, faq, contact)
+  //   TIER 3 (0.8): occasion branches (bachelor, bachelorette, corporate,
+  //                  wedding, birthday, family, sweet-16, anniversary,
+  //                  lake-bach, executive, family-cruises, etc.)
+  //   TIER 4 (0.7): comparison + guide content (premier-vs-*, *-guide,
+  //                  itineraries, what-to-bring, party-bus, canada)
+  //   TIER 5 (0.5): /blogs/* leaves
+  //
+  // Branch pages also link UP to their pillar via the "Related Premier
+  // guides" aside injected by prerenderOne.
+  const TIER_1 = new Set(['/']);
+  const TIER_2 = new Set([
+    '/private-cruises', '/atx-disco-cruise', '/pricing', '/pricing-breakdown',
+    '/safety', '/plan-your-trip', '/faq', '/contact', '/gallery', '/testimonials-faq',
+  ]);
+  const TIER_3 = new Set([
+    '/bachelor-party-austin', '/bachelorette-party-austin',
+    '/combined-bachelor-bachelorette-austin', '/corporate-events',
+    '/wedding-parties', '/birthday-parties', '/family-reunion-cruise',
+    '/party-boat-austin', '/party-boat-lake-travis',
+    // Two-Mode Vibe + niche occasion branches (shipped 2026-04-26)
+    '/sweet-16-party-boat', '/family-cruises', '/executive-cruises',
+    '/sunset-anniversary-cruise', '/lake-bachelor-bachelorette',
+  ]);
+  const TIER_4 = new Set([
+    '/premier-vs-pontoon', '/premier-vs-float-on', '/premier-vs-austin-party-boat',
+    '/best-austin-party-boat', '/lake-travis-boat-rental-guide',
+    '/austin-party-boat-pricing-guide', '/austin-corporate-event-guide',
+    '/austin-bachelorette-itinerary', '/austin-bachelor-itinerary',
+    '/combined-bach-itinerary', '/what-to-bring-on-a-party-boat',
+    '/austin-party-bus-shuttle', '/canada-to-austin-bachelorette',
+  ]);
+
+  function tierFor(path) {
+    const p = path === '/' ? '/' : path.replace(/\/$/, '');
+    if (TIER_1.has(p)) return { priority: '1.0', changefreq: 'daily' };
+    if (TIER_2.has(p)) return { priority: '0.9', changefreq: 'weekly' };
+    if (TIER_3.has(p)) return { priority: '0.8', changefreq: 'weekly' };
+    if (TIER_4.has(p)) return { priority: '0.7', changefreq: 'monthly' };
+    if (p.startsWith('/blogs')) return { priority: '0.5', changefreq: 'monthly' };
+    return { priority: '0.6', changefreq: 'monthly' };
+  }
+
+  // Append V2-only routes that aren't already in the rewritten sitemap.
   const v2Urls = V2_ONLY_ROUTES
-    .map((p) => `${host}${p}`)
-    .filter((u) => !alreadyPresent.has(u))
-    .map(
-      (u) =>
-        `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
-    )
+    .map((p) => ({ url: `${host}${p}`, path: p }))
+    .filter(({ url }) => !alreadyPresent.has(url))
+    .map(({ url, path }) => {
+      const t = tierFor(path);
+      return `  <url>\n    <loc>${url}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${t.changefreq}</changefreq>\n    <priority>${t.priority}</priority>\n  </url>`;
+    })
     .join('\n');
   if (v2Urls) {
     sitemap = sitemap.replace('</urlset>', `${v2Urls}\n</urlset>`);
   }
+
+  // Rewrite ALL existing <priority> + <changefreq> tags in the sitemap
+  // to match our pillar/branch tiers. This overrides whatever Replit's
+  // sitemap generator picked, so V2's IA matches its actual structure.
+  sitemap = sitemap.replace(
+    /<url>([\s\S]*?)<\/url>/g,
+    (block, inner) => {
+      const locM = inner.match(/<loc>([^<]+)<\/loc>/);
+      if (!locM) return block;
+      let path;
+      try { path = new URL(locM[1]).pathname || '/'; } catch { return block; }
+      const t = tierFor(path);
+      let next = inner;
+      if (/<priority>/.test(next)) {
+        next = next.replace(/<priority>[^<]+<\/priority>/, `<priority>${t.priority}</priority>`);
+      } else {
+        next += `\n    <priority>${t.priority}</priority>`;
+      }
+      if (/<changefreq>/.test(next)) {
+        next = next.replace(/<changefreq>[^<]+<\/changefreq>/, `<changefreq>${t.changefreq}</changefreq>`);
+      } else {
+        next += `\n    <changefreq>${t.changefreq}</changefreq>`;
+      }
+      return `<url>${next}</url>`;
+    },
+  );
 
   const sitemapOut = `${OUT_DIR}/sitemap.xml`;
   ensureDir(sitemapOut);
@@ -434,6 +516,7 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
     <meta name="twitter:title" content="${fullTitle}" />
     <meta name="twitter:description" content="${description}" />
     ${faqSchema}
+    <script type="application/ld+json" data-breadcrumb="auto">${JSON.stringify(buildBreadcrumb(slug, canonicalHost, overlay))}</script>
     ${linksAndScripts}
   </head>
   <body>
@@ -468,6 +551,7 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
             <li><a href="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises">Lake Travis Boat Safety + Maintenance</a></li>
           </ul>
         </aside>
+        ${pillarUpLinkBlock(slug)}
       </main>
     </div>
   </body>
@@ -532,6 +616,116 @@ function shortenTitle(title) {
     acc = (acc ? acc + ' ' : '') + w;
   }
   return { title: acc + '…', changed: true };
+}
+
+/**
+ * PILLAR / BRANCH MAP for BreadcrumbList JSON-LD + cross-linking.
+ *
+ * Mirrors the TIER classification used in main()'s sitemap generator.
+ * Each branch maps to a parent pillar slug. Top-level pillars and the
+ * home route map to themselves and emit a 1-step breadcrumb.
+ *
+ * AI LLMs (ChatGPT, Perplexity, Gemini, Google AI Mode) explicitly read
+ * BreadcrumbList JSON-LD to understand site IA. Each prerendered page
+ * gets its own breadcrumb chain so the model knows
+ * "Lake bachelor party → private cruises → home."
+ */
+const PILLAR_OF = {
+  // Branches under /private-cruises pillar
+  '/bachelor-party-austin': '/private-cruises',
+  '/bachelorette-party-austin': '/private-cruises',
+  '/combined-bachelor-bachelorette-austin': '/private-cruises',
+  '/corporate-events': '/private-cruises',
+  '/wedding-parties': '/private-cruises',
+  '/birthday-parties': '/private-cruises',
+  '/family-reunion-cruise': '/private-cruises',
+  '/sweet-16-party-boat': '/private-cruises',
+  '/family-cruises': '/private-cruises',
+  '/executive-cruises': '/private-cruises',
+  '/sunset-anniversary-cruise': '/private-cruises',
+  '/lake-bachelor-bachelorette': '/private-cruises',
+  '/party-boat-austin': '/private-cruises',
+  '/party-boat-lake-travis': '/private-cruises',
+  // Branches under /pricing pillar
+  '/pricing-breakdown': '/pricing',
+  '/austin-party-boat-pricing-guide': '/pricing',
+  '/premier-vs-pontoon': '/pricing',
+  // Branches under /plan-your-trip pillar
+  '/austin-party-bus-shuttle': '/plan-your-trip',
+  '/what-to-bring-on-a-party-boat': '/plan-your-trip',
+  '/lake-travis-boat-rental-guide': '/plan-your-trip',
+  // Branches under /faq pillar
+  '/testimonials-faq': '/faq',
+  // Comparison + research pages — pillar = best-austin-party-boat
+  '/best-austin-party-boat': '/',
+  '/premier-vs-float-on': '/best-austin-party-boat',
+  '/premier-vs-austin-party-boat': '/best-austin-party-boat',
+  // Itineraries — pillar = bachelor / bachelorette
+  '/austin-bachelor-itinerary': '/bachelor-party-austin',
+  '/austin-bachelorette-itinerary': '/bachelorette-party-austin',
+  '/combined-bach-itinerary': '/combined-bachelor-bachelorette-austin',
+  '/canada-to-austin-bachelorette': '/bachelorette-party-austin',
+  // Pillars themselves
+  '/private-cruises': '/',
+  '/atx-disco-cruise': '/',
+  '/pricing': '/',
+  '/safety': '/',
+  '/plan-your-trip': '/',
+  '/faq': '/',
+  '/contact': '/',
+  '/gallery': '/',
+  '/austin-corporate-event-guide': '/corporate-events',
+};
+
+const PILLAR_LABELS = {
+  '/': 'Home',
+  '/private-cruises': 'Private Charters',
+  '/atx-disco-cruise': 'ATX Disco Cruise',
+  '/pricing': 'Pricing',
+  '/safety': 'Safety',
+  '/plan-your-trip': 'Plan Your Trip',
+  '/faq': 'FAQ',
+  '/contact': 'Contact',
+  '/gallery': 'Gallery',
+  '/best-austin-party-boat': 'Comparisons',
+  '/bachelor-party-austin': 'Bachelor Party',
+  '/bachelorette-party-austin': 'Bachelorette Party',
+  '/combined-bachelor-bachelorette-austin': 'Combined Bach',
+  '/corporate-events': 'Corporate Events',
+};
+
+function buildBreadcrumb(slug, canonicalHost, overlay) {
+  const norm = slug === '/' ? '/' : slug.replace(/\/$/, '');
+  const pillar = PILLAR_OF[norm] || '/';
+  const chain = [];
+  // Walk up: leaf → pillar → home
+  if (norm !== '/') {
+    chain.push({ slug: norm, name: overlay?.h1 || PILLAR_LABELS[norm] || norm.replace(/^\//, '').replace(/-/g, ' ') });
+    if (pillar !== '/' && pillar !== norm) {
+      chain.push({ slug: pillar, name: PILLAR_LABELS[pillar] || pillar.replace(/^\//, '').replace(/-/g, ' ') });
+    }
+  }
+  chain.push({ slug: '/', name: 'Premier Party Cruises' });
+  // BreadcrumbList wants ROOT-FIRST order
+  const items = chain.reverse().map((step, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: step.name,
+    item: `${canonicalHost.replace(/\/$/, '')}${step.slug === '/' ? '/' : step.slug}`,
+  }));
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items,
+  };
+}
+
+function pillarUpLinkBlock(slug) {
+  const norm = slug === '/' ? '/' : slug.replace(/\/$/, '');
+  const pillar = PILLAR_OF[norm];
+  if (!pillar || pillar === norm) return '';
+  const label = PILLAR_LABELS[pillar] || pillar.replace(/^\//, '').replace(/-/g, ' ');
+  return `<aside aria-label="Part of" data-pillar-link="up"><p>Part of <a href="${pillar}">${escapeHtml(label)}</a> on Premier Party Cruises.</p></aside>`;
 }
 
 /** Apply the V2 SEO overlay to a fetched HTML document. OVERWRITES the
@@ -666,6 +860,28 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
         liveTitle.toLowerCase() === 'premier party cruises';
       if (shouldOverrideLive(slug) || isSpaShellFallback) {
         html = applyOverlay(html, overlay);
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────
+    // BREADCRUMBLIST JSON-LD + PILLAR UP-LINK
+    // ────────────────────────────────────────────────────────────────
+    // Every prerendered page emits a BreadcrumbList showing its position
+    // in the pillar/branch hierarchy (root → pillar → leaf). AI LLMs
+    // explicitly read this to understand site IA. Branch pages also get
+    // a visible "Part of <pillar>" up-link so crawlers see the upward
+    // edge in the link graph (boosts pillar PageRank).
+    {
+      const overlayForBreadcrumb = getOverlay(slug);
+      const breadcrumb = buildBreadcrumb(slug, canonicalHost, overlayForBreadcrumb);
+      const breadcrumbJsonLd = `<script type="application/ld+json" data-breadcrumb="auto">${JSON.stringify(breadcrumb)}</script>`;
+      // Insert right before </head> so it's discoverable by every parser.
+      if (/<\/head>/i.test(html)) {
+        html = html.replace(/<\/head>/i, `${breadcrumbJsonLd}\n  </head>`);
+      }
+      const upBlock = pillarUpLinkBlock(slug);
+      if (upBlock && /<\/body>/i.test(html)) {
+        html = html.replace(/<\/body>/i, `${upBlock}\n</body>`);
       }
     }
 

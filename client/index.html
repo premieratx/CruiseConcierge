@@ -143,7 +143,16 @@
     <script type="module">
       if(location.pathname.startsWith('/embed/')){import('/@vite/client?overlay=false');window.onerror=function(){return true;};window.onunhandledrejection=function(e){e.preventDefault();return true;};document.addEventListener('DOMContentLoaded',function(){var s=document.createElement('style');s.textContent='[class*="overlay"],[class*="modal"]{display:none!important;}';document.head.appendChild(s);});}
     </script>
-    <!-- Xola Checkout Script - Load ONLY when booking button clicked (reduces TBT) -->
+    <!-- Xola Checkout Script — STRICT click-only loader.
+         Previously the click listener matched any element with className
+         containing "book-now" or "booking-btn", which fired on most
+         navigation buttons and book CTAs anywhere on the page — including
+         on first-paint hover-tap events on mobile. Lighthouse measured
+         a 864ms blocking task from xola.com/client even though a real
+         user hadn't yet booked. Now we ONLY load the script when the
+         user clicks an element that EXPLICITLY opts in via
+         data-xola-button / data-xola-checkout, OR clicks an actual
+         <a href="...xola.com..."> link. -->
     <script>
       window.loadXolaCheckout = function() {
         if (window.xolaLoaded) return;
@@ -160,12 +169,7 @@
           if (target.hasAttribute && (
             target.hasAttribute('data-xola-button') ||
             target.hasAttribute('data-xola-checkout') ||
-            (target.className && typeof target.className === 'string' && (
-              target.className.includes('xola') ||
-              target.className.includes('book-now') ||
-              target.className.includes('booking-btn')
-            )) ||
-            (target.href && target.href.includes('xola.com'))
+            (target.tagName === 'A' && target.href && target.href.indexOf('xola.com') !== -1)
           )) {
             window.loadXolaCheckout();
             return;

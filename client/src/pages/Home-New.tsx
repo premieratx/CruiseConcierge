@@ -702,11 +702,28 @@ html { scroll-behavior: smooth; }
   z-index: 0;
 }
 
-.hp2-hero__video {
+/* The poster <img> is the LCP element — explicit rather than the video's
+   poster attribute (which Lighthouse measures on the video, not the img). */
+.hp2-hero__poster {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.30;
+  z-index: 0;
+  background: #111827;  /* match SSR fallback so first-paint matches the hero */
+}
+
+.hp2-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;  /* fades to 0.30 once src loads (set by ref callback) */
+  transition: opacity 0.6s ease;
+  z-index: 1;
 }
 
 .hp2-hero__overlay {
@@ -2317,17 +2334,31 @@ export default function HomeNew() {
       <section className="hp2-hero">
         <div className="hp2-hero__video-wrap">
           {/*
-            Core Web Vitals fix (LCP was 22s on Lighthouse mobile):
-            - preload="none" so the video data does NOT compete with the
-              poster image fetch and the Vite JS bundle for bandwidth on
-              first paint. The poster image carries LCP for Lighthouse.
-            - The poster is preloaded with fetchpriority="high" in
-              client/index.html, so it's the first image painted.
-            - We defer setting the video src until after first paint to
-              avoid the browser fetching metadata before LCP. React then
-              swaps src on mount and the video starts playing seamlessly
-              behind the poster.
+            Core Web Vitals LCP fix (was 16.79s POOR on Lighthouse mobile):
+            - The LCP element previously measured was div.hp2-hero__video-wrap
+              because the <video poster=...> attribute is rendered as part
+              of the video element, not as a real <img>. Lighthouse
+              attributes its paint to the video, not the poster image —
+              so even with the poster preloaded, LCP didn't trigger until
+              the video element itself painted. That waited on the entire
+              JS bundle parsing.
+            - Fix: render a real <img> as the hero background. The <img>
+              is the explicit LCP element. It's preloaded with
+              fetchpriority="high" in client/index.html, so it paints
+              within the first ~500ms.
+            - The <video> only mounts AFTER window 'load' + a 2-second
+              idle delay, so its initial fetch never competes with LCP.
+              Once mounted, it fades over the img.
           */}
+          <img
+            className="hp2-hero__poster"
+            src="/attached_assets/hero-fallback.jpg"
+            alt="Lake Travis party boat at sunset — Premier Party Cruises"
+            width={1920}
+            height={1080}
+            decoding="async"
+            fetchPriority="high"
+          />
           <video
             className="hp2-hero__video"
             autoPlay
@@ -2335,7 +2366,6 @@ export default function HomeNew() {
             loop
             playsInline
             preload="none"
-            poster="/attached_assets/hero-fallback.jpg"
             ref={(el) => {
               if (!el) return;
               if (el.dataset.deferLoaded) return;
@@ -2349,12 +2379,23 @@ export default function HomeNew() {
                   source.type = 'video/mp4';
                   el.appendChild(source);
                   el.load();
+                  el.style.opacity = '0.30';  // fade in on first frame
                 }
               };
-              if ('requestIdleCallback' in window) {
-                (window as any).requestIdleCallback(start, { timeout: 2500 });
+              // Wait for window 'load' (LCP fully measured) + idle callback
+              // + 2-second buffer, so the video fetch never competes with
+              // the LCP image, the JS bundle, or any third-party scripts.
+              const kick = () => {
+                if ('requestIdleCallback' in window) {
+                  (window as any).requestIdleCallback(start, { timeout: 4000 });
+                } else {
+                  setTimeout(start, 2000);
+                }
+              };
+              if (document.readyState === 'complete') {
+                setTimeout(kick, 2000);
               } else {
-                setTimeout(start, 1500);
+                window.addEventListener('load', () => setTimeout(kick, 2000), { once: true });
               }
             }}
             data-defer-src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4"
