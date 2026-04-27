@@ -102,6 +102,7 @@ const PartyBoatLakeTravisV2 = lazy(() => import("./pages/PartyBoatLakeTravisV2")
 const PremierVsFloatOnV2 = lazy(() => import("./pages/PremierVsFloatOnV2"));
 const PremierVsAustinPartyBoatV2 = lazy(() => import("./pages/PremierVsAustinPartyBoatV2"));
 const PremierVsPontoonV2 = lazy(() => import("./pages/PremierVsPontoonV2"));
+const V2RichContentRoute = lazy(() => import("./pages/V2RichContentRoute"));
 const CompareAustinPartyBoatsV2 = lazy(() => import("./pages/CompareAustinPartyBoatsV2"));
 const PlanYourTripV2 = lazy(() => import("./pages/PlanYourTripV2"));
 const SafetyHubV2 = lazy(() => import("./pages/SafetyHubV2"));
@@ -569,6 +570,13 @@ function Router() {
       <Route path="/premier-vs-float-on" component={PremierVsFloatOnV2} />
       <Route path="/premier-vs-austin-party-boat" component={PremierVsAustinPartyBoatV2} />
       <Route path="/premier-vs-pontoon" component={PremierVsPontoonV2} />
+      {/* Two-Mode Vibe + niche routes (Command Center 2026-04-26) */}
+      <Route path="/sweet-16-party-boat" component={V2RichContentRoute} />
+      <Route path="/family-cruises" component={V2RichContentRoute} />
+      <Route path="/executive-cruises" component={V2RichContentRoute} />
+      <Route path="/sunset-anniversary-cruise" component={V2RichContentRoute} />
+      <Route path="/lake-bachelor-bachelorette" component={V2RichContentRoute} />
+      <Route path="/canada-to-austin-bachelorette" component={V2RichContentRoute} />
       <Route path="/compare-austin-party-boats" component={CompareAustinPartyBoatsV2} />
       <Route path="/plan-your-trip" component={PlanYourTripV2} />
       <Route path="/safety" component={SafetyHubV2} />

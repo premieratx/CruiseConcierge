@@ -249,6 +249,54 @@ export const CURATED_OVERLAY = {
     keywords: ['combined bach itinerary', 'couples bach party austin', 'combined bach weekend'],
     audience: 'bach-combined',
   },
+  // ──────────────────────────────────────────────────────────────────
+  // Two-Mode Vibe expansion (Command Center AI Strategy #3): explicitly
+  // separates the Disco/rager side of Premier from the calm/family/exec
+  // side. Each page targets keyword clusters AI Mode currently lumps
+  // into the rager category and lets us recapture mid-funnel intent.
+  // ──────────────────────────────────────────────────────────────────
+  '/sweet-16-party-boat': {
+    title: 'Austin Sweet 16 Party Boat · Lake Travis from $200/Hour',
+    description: 'Austin Sweet 16 party boat rentals on Lake Travis. Private charters 14–75 guests, captain handles the driving, parents on board (or not), DJ-grade audio, custom decor + cake delivery. Anderson Mill Marina, no stairs. Base from $200/hr; tax + 20% gratuity itemized.',
+    h1: 'Austin Sweet 16 Party Boat Rentals on Lake Travis',
+    keywords: ['sweet 16 party boat austin', 'sweet 16 cruise austin', 'lake travis sweet 16', 'sweet sixteen boat rental austin'],
+    audience: 'family-milestone',
+  },
+  '/family-cruises': {
+    title: 'Lake Travis Family Cruises · Calm Mode, All Ages, No Stairs',
+    description: 'Family-mode private cruises on Lake Travis: multi-generation reunions, kid birthdays, anniversaries, retirement parties. Calm playlist, shaded upper deck, every life-jacket size, ADA boarding, captain handles the driving. Boats 14–75 guests; base from $200/hr.',
+    h1: 'Lake Travis Family Cruises with Premier',
+    keywords: ['family cruise lake travis', 'family boat rental austin', 'multigenerational lake travis cruise', 'kid friendly party boat austin'],
+    audience: 'family',
+  },
+  '/executive-cruises': {
+    title: 'Austin Executive Cruises · Lake Travis Client + Board Boats',
+    description: 'Executive division of Premier Party Cruises: Lake Travis client dinners, board offsites, partner hosting, sales-incentive trips. W-9 + NET-30 invoicing, COIs to $2M, conversation-level audio, vetted caterers. Day Tripper from $200/hr base; tax + gratuity itemized.',
+    h1: 'Austin Executive Cruises on Lake Travis',
+    keywords: ['executive cruise austin', 'corporate boat austin', 'client dinner boat lake travis', 'board offsite austin lake travis'],
+    audience: 'executive',
+  },
+  '/sunset-anniversary-cruise': {
+    title: 'Lake Travis Sunset Anniversary Cruise · Vow Renewals + 25th',
+    description: 'Lake Travis sunset cruises for anniversaries, vow renewals, and surprise proposals. 3-hour golden-hour blocks on Day Tripper (14) or The Irony (25–30), captain runs at idle for dinner, photographer + private chef coordinated. Base from $200/hr; tax + gratuity itemized.',
+    h1: 'Lake Travis Sunset Anniversary Cruise',
+    keywords: ['anniversary cruise lake travis', 'austin sunset cruise', 'vow renewal boat austin', 'proposal cruise lake travis'],
+    audience: 'couples',
+  },
+  '/lake-bachelor-bachelorette': {
+    title: 'Lake Bachelor + Bachelorette · Lake Travis Private Charters',
+    description: 'Operator-direct booking guide for Lake Travis bachelor + bachelorette parties. Private charters 14–75 guests, BYOB + Party On Delivery, captain handles the driving, Anderson Mill Marina (25 min from downtown Austin). Base from $200/hr; tax + 20% gratuity itemized.',
+    h1: 'Lake Bachelor + Bachelorette Parties on Lake Travis',
+    keywords: ['lake bachelor party', 'lake bachelorette party', 'lake travis bach party', 'lake bach party boat'],
+    audience: 'bach',
+  },
+  '/canada-to-austin-bachelorette': {
+    title: 'Toronto + Montreal to Austin Bachelorette · Lake Travis',
+    description: 'Cross-border bachelorette planning guide for Toronto, Montreal, and other Canadian groups flying to Austin. Direct YYZ/YUL→AUS flights, USD billing on Canadian cards, 21+ Texas alcohol law on the water, Lake Travis Saturday charter + Sunday brunch + sendoff format.',
+    h1: 'Toronto + Montreal to Austin Bachelorette Weekend',
+    keywords: ['canadian bachelorette austin', 'toronto bachelorette austin', 'montreal bachelorette austin', 'canada to austin bach'],
+    audience: 'bachelorette',
+  },
 };
 
 /**
@@ -265,9 +313,19 @@ export function templateOverlay(slug) {
   const isBlog = parts[0] === 'blogs';
 
   // Turn "austin-bachelor-party-ideas" → "Austin Bachelor Party Ideas"
+  // Preserve known acronyms in their conventional casing so the rendered
+  // H1 / title doesn't read "Atx Disco Cruise" or "Sxsw Season" or "Byob".
+  const ACRONYMS = new Set([
+    'atx', 'sxsw', 'byob', 'faq', 'ut', 'cpr', 'tpwd', 'usd', 'cad',
+    'aus', 'yyz', 'yul', 'dj', 'tx', 'usa', 'us', 'ada', 'bbq',
+  ]);
   const pretty = leaf
     .split('-')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .map((w) => {
+      const lower = w.toLowerCase();
+      if (ACRONYMS.has(lower)) return lower.toUpperCase();
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    })
     .join(' ');
 
   // Classify by leaf tokens for tailored descriptions.

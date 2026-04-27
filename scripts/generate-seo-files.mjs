@@ -156,6 +156,13 @@ async function main() {
     '/austin-party-bus-shuttle',
     '/combined-bach-itinerary',
     '/austin-corporate-event-guide',
+    // Two-Mode Vibe expansion (Command Center AI Strategy #3 + others)
+    '/sweet-16-party-boat',
+    '/family-cruises',
+    '/executive-cruises',
+    '/sunset-anniversary-cruise',
+    '/lake-bachelor-bachelorette',
+    '/canada-to-austin-bachelorette',
   ];
   const host = SITE_HOST.replace(/\/$/, '');
   const today = new Date().toISOString().slice(0, 10);
@@ -389,7 +396,11 @@ function synthesizeFallbackHtml(slug, canonicalHost, spaHead) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${fullTitle}</title>
-    <meta name="description" content="${description}" />
+    <meta name="description" content="${description}" />${
+      Array.isArray(overlay?.keywords) && overlay.keywords.length
+        ? `\n    <meta name="keywords" content="${escapeAttr(overlay.keywords.slice(0, 8).join(', '))}" />`
+        : ''
+    }
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="${canonical}" />
     <meta property="og:type" content="website" />
@@ -496,7 +507,20 @@ function shortenTitle(title) {
  * a straight copy of the live site. */
 function applyOverlay(html, overlay) {
   if (!overlay) return html;
-  const { title, description, h1 } = overlay;
+  const { title, description, h1, keywords } = overlay;
+
+  // <meta name="keywords"> — Semrush, Ahrefs, and most AI crawlers DO read
+  // the keywords meta tag (Google ignores it for ranking but uses it as a
+  // topical hint, and AI Mode + Perplexity surface it as one signal among
+  // many). We inject the curated overlay's keyword cluster on every route.
+  if (Array.isArray(keywords) && keywords.length) {
+    const kw = keywords.slice(0, 8).join(', ');
+    if (/<meta\s+name=["']keywords["'][^>]*>/i.test(html)) {
+      html = html.replace(/<meta\s+name=["']keywords["'][^>]*>/i, `<meta name="keywords" content="${escapeAttr(kw)}" />`);
+    } else {
+      html = html.replace(/<\/head>/i, `  <meta name="keywords" content="${escapeAttr(kw)}" />\n  </head>`);
+    }
+  }
 
   // <title>
   if (title) {
@@ -609,6 +633,35 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
         liveTitle.toLowerCase() === 'premier party cruises';
       if (shouldOverrideLive(slug) || isSpaShellFallback) {
         html = applyOverlay(html, overlay);
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────
+    // H1 / TITLE DUPLICATE-PAIR FIX
+    // ────────────────────────────────────────────────────────────────
+    // Replit's blog posts (/blogs/...) ship with the H1 set to the exact
+    // same string as the <title>. Semrush's "duplicate H1 and title tags"
+    // warning is triggered when title === h1 on the same page across the
+    // blog index — that's the source of the 43-page warning. The titles
+    // themselves are unique and SEO-good; only the H1 needs to differ.
+    //
+    // For any non-curated route where we detect title === h1, we replace
+    // ONLY the H1 with a structurally-different variant derived from the
+    // templateOverlay (e.g. "X — Premier's Austin Party Boat Blog").
+    // We leave the live origin's title untouched.
+    if (!shouldOverrideLive(slug)) {
+      const titleM = html.match(/<title>([\s\S]*?)<\/title>/i);
+      const h1M = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
+      if (titleM && h1M) {
+        const titleText = decodeEntities(titleM[1]).replace(/\s+/g, ' ').trim();
+        const h1Text = decodeEntities(h1M[1].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
+        if (titleText && h1Text && titleText === h1Text) {
+          // Get the template overlay's h1 (different structure from title).
+          const tpl = getOverlay(slug);
+          if (tpl?.h1 && tpl.h1 !== titleText) {
+            html = html.replace(/<h1\b([^>]*)>[\s\S]*?<\/h1>/i, `<h1$1>${escapeHtml(tpl.h1)}</h1>`);
+          }
+        }
       }
     }
 
