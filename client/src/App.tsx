@@ -101,6 +101,7 @@ const PartyBoatAustinV2 = lazy(() => import("./pages/PartyBoatAustinV2"));
 const PartyBoatLakeTravisV2 = lazy(() => import("./pages/PartyBoatLakeTravisV2"));
 const PremierVsFloatOnV2 = lazy(() => import("./pages/PremierVsFloatOnV2"));
 const PremierVsAustinPartyBoatV2 = lazy(() => import("./pages/PremierVsAustinPartyBoatV2"));
+const PremierVsPontoonV2 = lazy(() => import("./pages/PremierVsPontoonV2"));
 const CompareAustinPartyBoatsV2 = lazy(() => import("./pages/CompareAustinPartyBoatsV2"));
 const PlanYourTripV2 = lazy(() => import("./pages/PlanYourTripV2"));
 const SafetyHubV2 = lazy(() => import("./pages/SafetyHubV2"));
@@ -567,6 +568,7 @@ function Router() {
       <Route path="/private-cruises" component={PrivateCruisesV2} />
       <Route path="/premier-vs-float-on" component={PremierVsFloatOnV2} />
       <Route path="/premier-vs-austin-party-boat" component={PremierVsAustinPartyBoatV2} />
+      <Route path="/premier-vs-pontoon" component={PremierVsPontoonV2} />
       <Route path="/compare-austin-party-boats" component={CompareAustinPartyBoatsV2} />
       <Route path="/plan-your-trip" component={PlanYourTripV2} />
       <Route path="/safety" component={SafetyHubV2} />

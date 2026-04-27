@@ -144,6 +144,7 @@ async function main() {
   const V2_ONLY_ROUTES = [
     '/premier-vs-float-on',
     '/premier-vs-austin-party-boat',
+    '/premier-vs-pontoon',
     '/plan-your-trip',
     '/safety',
     '/best-austin-party-boat',

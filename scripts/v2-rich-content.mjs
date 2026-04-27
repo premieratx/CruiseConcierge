@@ -67,6 +67,27 @@ const RICH_CONTENT = {
           'Risk-averse buyers — corporate compliance teams, wedding planners holding insurance, family planners managing multi-generation guests — pick Premier because the safety record is not a marketing claim. We carry $2M general liability and $5M aggregate policy through a marine-specialty carrier, plus excess umbrella for larger events. We will share certificates of insurance (COI) on request and add a corporate client as additional insured for any event that requires it. Our W-9, COI, and TPWD captain credentials are on file and emailed within one business day of request.',
         ],
       },
+      {
+        heading: 'Meet our captains — the people behind the 15-year clean record',
+        paragraphs: [
+          "Our four lead captains run Day Tripper, Meeseeks, The Irony, and Clever Girl with an average tenure of 7 years at Premier. They are not seasonal hires. They have run the same coves, the same swim spots, and the same group dynamics through every weather pattern Lake Travis throws — high winds out of the south in March, sudden afternoon thunderheads in July, foggy spring mornings, and the dry chop of August. That repetition is what produces a 15-year clean record across 150,000+ guests. Every captain is TPWD-licensed (Texas Parks and Wildlife Department commercial captain license), CPR-certified through American Red Cross or American Heart Association, and on Clever Girl carries an additional Lifeguard certification.",
+          "On the day of your booking, the captain is the person who runs the 4-minute pre-cruise safety briefing, picks the swim cove based on real-time water and weather conditions, manages the swim platform when guests enter and exit, monitors the marine VHF radio (channel 16), watches the sky for incoming weather, and stays sober and focused for the entire sailing. Captains do not drink on the boat. Captains do not skip the safety briefing. Captains have authority — full and final — to anchor, return to dock, or cancel a cruise if conditions warrant. We hire and pay for that authority because guests' safety is the only thing that matters.",
+          "Behind the captains is a crew that loads coolers, manages life jacket fit for kids on family charters, handles tie-up at the swim cove, runs the audio system, and assists with guest boarding. Crew are CPR-trained and brief every season on incident response. The captain + crew model is what separates a captained party charter like Premier from a self-drive pontoon rental: someone whose entire job is the safety and rhythm of the day, not someone in your group who has to stay sober and navigate.",
+        ],
+      },
+      {
+        heading: 'Premier Safety Code — what we promise every group',
+        paragraphs: [
+          "1) A TPWD-licensed captain on every sailing, every time. No exceptions, no substitutions.",
+          "2) USCG-approved life jackets in every adult, child, and infant size on every boat — regardless of whether kids are listed on the booking.",
+          "3) A 4-minute safety briefing before every cruise. Never skipped. Never rushed.",
+          "4) Real-time weather monitoring with the authority to anchor, return early, or cancel for safety. Free reschedules on every weather-caused cancellation, always.",
+          "5) Captain and crew sober at all times during the sailing. We don't compromise this rule.",
+          "6) $2M general liability + $5M aggregate insurance through a marine-specialty carrier; COI shared on request and corporate clients added as additional insured for events that require it.",
+          "7) An on-board first-aid kit restocked monthly, fire extinguisher rated for boat fires, marine VHF radio monitored on channel 16, anchor + 200 ft of rode, navigation lights, and a Type IV throwable cushion on every boat.",
+          "8) 0 reportable incidents across 150,000+ guests over 15+ years — a record we measure, publish, and protect by hiring captains and crew we trust to enforce all of the above.",
+        ],
+      },
     ],
     faqs: [
       { q: 'Has Premier Party Cruises had any safety incidents?', a: 'Zero safety incidents in 15+ years of operation across 150,000+ guests. That is the longest unblemished record of any party-boat operator on Lake Travis. The record is verifiable through TPWD reporting and our marine insurance carrier.' },
@@ -549,6 +570,61 @@ const RICH_CONTENT = {
       { q: 'Do we need to bring ice?', a: 'Yes — we provide large coolers but BYO ice OR order pre-iced via Party On Delivery (sister company) and the boat is stocked before you board.' },
       { q: 'Can we bring food?', a: 'Yes — chips, fruit, charcuterie, snacks. Keep food in cans, plastic, or paper. POD also coordinates pizza, tacos, and full catering deliveries.' },
       { q: 'Do we need to tip the crew?', a: 'On a Premier private charter, 20% gratuity is added as a line item at checkout. Additional cash tip is welcome but never required. The ATX Disco Cruise is the same — gratuity is in the line items.' },
+    ],
+  },
+
+  '/premier-vs-pontoon': {
+    intro: "An honest cost-comparison of Premier Party Cruises vs a budget Lake Travis pontoon rental. The headline rate looks higher on Premier; the trip-end total usually doesn't. Here's the line-by-line math, the per-guest breakdown, and the narrow profile of group for whom a DIY pontoon actually wins.",
+    sections: [
+      {
+        heading: 'Why the headline price is misleading',
+        paragraphs: [
+          "A budget Lake Travis pontoon rents for $400–$800/day for the boat alone. That number is what most groups see and compare against Premier's $200/hr starting rate (which sounds higher because it's hourly). What the pontoon sticker price doesn't include: the captain (you drive, or you add $200–$300/day for one), the sound system (you bring your own speaker or rent one for $75–$200), fuel ($60–$120 of it for a 4-hour day), ice ($30–$60 to fill the coolers you also have to bring), floats and lily pads ($50–$200 depending on what you buy or rent), pro audio if you want music that actually fills the boat, life jackets in every size, and the on-board restroom most pontoons don't have.",
+          "Premier's $200/hour starting rate already includes all of those. The captain is TPWD-licensed and CPR-certified. The Bluetooth audio is marine-grade. The coolers are large and BYOB-stocked (or pre-iced via Party On Delivery, our sister company). USCG life jackets are stocked in every size including infant + child on every boat regardless of who shows up. There's an on-board restroom. Anderson Mill Marina parking is free. The path from car to boat has no stairs.",
+        ],
+      },
+      {
+        heading: 'The all-in math, line by line',
+        paragraphs: [
+          "Premier 4-hour Day Tripper (14 guests) at $200/hr base rate = $800. Add Texas sales tax (8.25%) = $66. Add 20% gratuity for the crew = $160. All-in total: roughly $1,026 for the boat day.",
+          "Budget pontoon DIY for the same 4 hours: $600 boat rental + $250 captain add-on (if you don't drive) + $100 audio rental + $80 fuel + $50 ice + $100 floats = $1,180 base, before tip and food. And the group still does all the planning + safety on the day.",
+          "Per-guest math at full boat capacity (Premier base rate, before tax + gratuity): Day Tripper 14 guests at 4 hours = ~$57/guest. Meeseeks or The Irony 25 guests at 4 hours = ~$48/guest. Clever Girl 75 guests at 4 hours = ~$27/guest. The pontoon math typically lands at ~$120–$190/guest because pontoons cap at 8–12 guests. The bigger the group, the worse the pontoon ratio gets.",
+        ],
+      },
+      {
+        heading: 'What\'s included in Premier\'s base rate vs what you add to a pontoon',
+        paragraphs: [
+          "Premier base rate includes: TPWD-licensed captain, fuel, premium Bluetooth sound system, large coolers, USCG life jackets every size, on-board restroom, Anderson Mill Marina access (free parking, no stairs from car to boat). Texas sales tax (8.25%) and a 20% gratuity for the crew are added on top as transparent line items at checkout — never hidden, always shown before you pay.",
+          "Budget pontoon DIY: the boat rental, period. Everything else is on you to source, pay for, and coordinate — captain, sound, fuel, ice, floats, life jacket fit-checking, safety briefing, navigation, anchor selection, and weather decisions.",
+        ],
+      },
+      {
+        heading: 'Safety: licensed captain vs renter responsibility',
+        paragraphs: [
+          "Premier carries a TPWD-licensed, CPR-certified captain on every sailing. 15+ years of operation, 150,000+ guests served, zero reportable safety incidents — the longest unblemished record on Lake Travis. $2M general liability + $5M aggregate insurance through a marine-specialty carrier. Pre-cruise 4-minute safety briefing on every boat. Children's life jackets in every size on every boat regardless of booking.",
+          "DIY pontoon safety is the renter's responsibility. Someone in your group has to stay sober, navigate the boat, decide the swim spot, fit life jackets, monitor weather, and respond to anything that goes sideways. For experienced-boater small groups, that's manageable. For high-stakes occasions — bachelorette/bachelor parties, weddings, corporate events, family reunions, mixed-age groups — the captained difference is meaningful enough that corporate compliance teams, wedding planners, and family planners specifically pick Premier for it.",
+        ],
+      },
+      {
+        heading: 'When the DIY pontoon actually wins',
+        paragraphs: [
+          "There is one specific profile where a self-drive pontoon is genuinely cheaper end-to-end: 5–8 experienced boaters who want autonomy, are comfortable driving and staying sober, know Lake Travis well, and don't need a hosted experience. That's roughly 5% of Austin party-on-the-water trips. For the other 95% — bach groups, weddings, corporate, mixed-age family events, anyone over 8 guests, anyone who wants the day to feel produced — Premier's all-in number lands at or below the realistic DIY total once you add what gets left out of the pontoon sticker price.",
+        ],
+      },
+      {
+        heading: 'Weather policy: Premier vs typical pontoon outfitter',
+        paragraphs: [
+          "Premier offers FREE weather reschedules on every booking. Every weather-caused cancellation gets rebooked at no charge — no rebooking fee, no deposit forfeit. We monitor National Weather Service marine forecasts for Lake Travis (zone TXZ191) and make the call ourselves; we will never put a group on the water in unsafe conditions to preserve a booking. Pontoon outfitter weather policies vary widely; many require deposit forfeit on weather-day cancellations or charge a rebooking fee, especially during peak season. Always confirm the policy before booking a pontoon.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Is a Lake Travis pontoon rental cheaper than Premier Party Cruises?', a: 'On sticker price, yes — pontoons start at $400–$800/day for the boat alone. Once you add a captain ($200–$300/day), audio, fuel, ice, floats, and the planning load, the all-in total usually exceeds Premier — and you spend the day working instead of celebrating. Premier base rate includes all of those.' },
+      { q: 'What does Premier include that a pontoon doesn\'t?', a: 'TPWD-licensed captain, fuel, premium Bluetooth sound system, large coolers, USCG life jackets every size including infant + child, on-board restroom, marina access (free parking, no stairs), and a 4-minute pre-cruise safety briefing. Texas tax (8.25%) + 20% gratuity added as transparent line items on top of the base rate.' },
+      { q: 'What\'s the per-guest cost on Premier vs a pontoon?', a: 'Premier base-rate per-guest at full capacity: Day Tripper ~$57, Meeseeks/Irony ~$48, Clever Girl ~$27. Add tax + gratuity. Pontoons typically run $120–$190/guest because they cap at 8–12 guests. The bigger your group, the better Premier\'s math.' },
+      { q: 'When does a pontoon make more sense?', a: '5–8 experienced boaters who want autonomy, are comfortable driving and staying sober, know Lake Travis well, and don\'t need a hosted experience. About 5% of Austin party-on-the-water trips. For the other 95%, Premier wins on the all-in math.' },
+      { q: 'Is Premier safer than renting a pontoon?', a: 'Premier has TPWD-licensed captains, CPR-certified crew, USCG life jackets every size on every boat, $2M GL + $5M aggregate insurance, and a 15+ year zero-incident record across 150,000+ guests. Pontoon safety is on the renter — someone has to stay sober, navigate, manage life jackets, and make weather calls. For high-stakes occasions, captained is the call.' },
+      { q: 'Does Premier offer free weather rescheduling?', a: 'Yes — every booking. Every weather-caused cancellation gets rebooked at no charge. No rebooking fee, no deposit forfeit. Many pontoon outfitters charge for weather-day rebookings or forfeit deposits.' },
     ],
   },
 

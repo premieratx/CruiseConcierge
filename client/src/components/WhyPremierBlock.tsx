@@ -224,6 +224,13 @@ export default function WhyPremierBlock({
             <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
               Instant quote. No credit card. Fair refund + free weather reschedules.
             </p>
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              Comparing options? See{' '}
+              <Link href="/premier-vs-pontoon" className="underline hover:text-blue-600 dark:hover:text-blue-400">
+                Premier vs a Lake Travis pontoon rental
+              </Link>{' '}
+              for the line-by-line cost math.
+            </p>
           </div>
         </div>
       </div>

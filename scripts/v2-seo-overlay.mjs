@@ -165,6 +165,13 @@ export const CURATED_OVERLAY = {
     keywords: ['premier vs atx party boats', 'austin party boat comparison'],
     audience: 'comparison',
   },
+  '/premier-vs-pontoon': {
+    title: 'Premier vs Pontoon Rental — Lake Travis Cost Math | Premier',
+    description: 'Honest cost-comparison: Premier Party Cruises vs a budget Lake Travis pontoon. Per-guest math, what each price actually includes, and when a DIY pontoon is cheaper end-to-end (spoiler: rarely, once you add captain + audio + fuel + ice + floats). Base from $200/hr.',
+    h1: 'Premier Party Cruises vs a Lake Travis Pontoon Rental — All-In Math',
+    keywords: ['premier vs pontoon', 'lake travis pontoon vs party boat', 'is premier worth the money', 'cheap lake travis boat rental'],
+    audience: 'price-shopper',
+  },
   '/best-austin-party-boat': {
     title: 'Best Austin Party Boat 2026 — Ranked by Occasion + Group Size',
     description: 'Ranked Austin party boat operators by occasion (bach, wedding, corporate, family), group size (14–75), marina access, safety record, and BYOB policy. Updated 2026 with fleet + pricing comparisons.',

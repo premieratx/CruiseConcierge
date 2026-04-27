@@ -2732,6 +2732,9 @@ export default function HomeNew() {
         </div>
       </section>
 
+      {/* ─── Trip-Highlight Testimonials by Segment (AI Visibility: Own The Trip Highlight) ─── */}
+      <TripHighlightTestimonials />
+
       {/* ─── Embedded Quote Builder (moved after proof — Wes McDowell: close after trust is built) ─── */}
       <section className="hp2-quote-embed" id="quote-builder-embed">
         <div className="hp2-quote-embed__bg" aria-hidden>
