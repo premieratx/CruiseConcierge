@@ -589,13 +589,27 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
     }
 
     // V2 SEO overlay — OVERWRITE the inherited title/description/H1 with
-    // V2-optimized metadata, but ONLY for routes in the curated overlay.
-    // For long-tail / blog routes, the live origin's existing title is
-    // usually shorter and better SEO than my slug-derived templateOverlay,
-    // so we let it pass through unchanged.
-    if (shouldOverrideLive(slug)) {
-      const overlay = getOverlay(slug);
-      if (overlay) html = applyOverlay(html, overlay);
+    // V2-optimized metadata.
+    //
+    // Curated routes ALWAYS get overwritten (we hand-wrote those titles).
+    //
+    // For non-curated (long-tail / blog) routes, we only override if the
+    // live origin returned the SPA-shell fallback — i.e. its title is the
+    // generic "Austin Party Boat Rentals | Lake Travis Cruises" or similar
+    // brand fallback that's identical across many routes. If we leave
+    // those alone, Semrush flags 40+ pages as sharing one title+H1 pair.
+    const overlay = getOverlay(slug);
+    if (overlay) {
+      const liveTitleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
+      const liveTitle = liveTitleMatch ? decodeEntities(liveTitleMatch[1]).trim() : '';
+      const isSpaShellFallback =
+        !liveTitle ||
+        /Austin Party Boat Rentals\s*\|\s*Lake Travis Cruises/i.test(liveTitle) ||
+        /Premier Party Cruises\s*-\s*Austin Lake Travis Party Boats/i.test(liveTitle) ||
+        liveTitle.toLowerCase() === 'premier party cruises';
+      if (shouldOverrideLive(slug) || isSpaShellFallback) {
+        html = applyOverlay(html, overlay);
+      }
     }
 
     // Title-length safety pass — Semrush flags > ~60 char titles. Strip

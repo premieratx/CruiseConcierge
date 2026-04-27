@@ -26,14 +26,14 @@
 
 export const CURATED_OVERLAY = {
   '/': {
-    title: 'Austin Party Boat Rentals on Lake Travis | Premier Party Cruises',
+    title: 'Austin Party Boat Rentals on Lake Travis · Premier',
     description: 'Austin\'s longest-running Lake Travis party boat fleet — 15+ years, 150,000+ guests, zero incidents. Private charters from $200/hour, ATX Disco Cruise from $85/$95/$105 per person (base rates, plus tax + 20% gratuity). BYOB + Party On Delivery.',
     h1: 'Austin Party Boat Rentals on Lake Travis — Private Charters & the ATX Disco Cruise',
     keywords: ['austin party boat rentals', 'lake travis party boat', 'party boat austin', 'lake travis boat rental'],
     audience: 'all',
   },
   '/pricing': {
-    title: 'Lake Travis Party Boat Pricing — From $85/Person or $200/Hour',
+    title: 'Lake Travis Party Boat Pricing · From $85 or $200/Hour',
     description: 'Starting Austin party boat rates: ATX Disco Cruise $85/$95/$105 per person by time slot, private charters from $200/hr on Day Tripper up to $250/hr on Clever Girl (75). Base rates include captain + fuel; Texas tax (8.25%) and 20% gratuity added on top.',
     h1: 'Transparent Lake Travis Party Boat Pricing — Base Rates + Line-Item Tax & Gratuity',
     keywords: ['lake travis party boat pricing', 'austin party boat cost', 'lake travis boat rental price'],
@@ -47,7 +47,7 @@ export const CURATED_OVERLAY = {
     audience: 'price-shopper',
   },
   '/atx-disco-cruise': {
-    title: 'ATX Disco Cruise — Lake Travis\' Floating Disco from $85/Person',
+    title: 'ATX Disco Cruise · Lake Travis Floating Disco $85+',
     description: 'Austin\'s signature public party cruise on Clever Girl, 75-guest flagship. Disco lights, pro sound, captain + crew, BYOB, 21+. Starting prices: $85 (Fri 12–4pm), $95 (Sat 11am–3pm), $105 (Sat 3:30–7:30pm) per person — plus Texas tax + 20% gratuity at checkout.',
     h1: 'The ATX Disco Cruise — Lake Travis\' Floating Dance Floor',
     keywords: ['atx disco cruise', 'lake travis disco cruise', 'austin party cruise', 'public party boat austin'],
@@ -96,7 +96,7 @@ export const CURATED_OVERLAY = {
     audience: 'wedding',
   },
   '/birthday-parties': {
-    title: 'Lake Travis Birthday Party Boat Rentals — 30s, 40s, 50, 60, 75',
+    title: 'Lake Travis Birthday Party Boat Rentals · 30s to 75',
     description: 'Milestone birthday party boat rentals on Lake Travis for groups 14–75. All-ages private charters (kids + grandparents welcome), pro audio for toasts, shaded seating, captain handles the driving. Free weather reschedules.',
     h1: 'Lake Travis Birthday Party Boats for Every Milestone',
     keywords: ['birthday party boat lake travis', 'austin birthday boat rental', 'milestone birthday austin'],
@@ -131,7 +131,7 @@ export const CURATED_OVERLAY = {
     audience: 'visual',
   },
   '/faq': {
-    title: 'Austin Party Boat FAQ — BYOB, Pricing, Weather, Marina, Safety',
+    title: 'Austin Party Boat FAQ · BYOB, Pricing, Weather, Marina',
     description: 'Answers to every Lake Travis party boat question: BYOB rules, pricing math, cancellation + weather reschedule policy, marina directions + parking, 21+ / alcohol policy, group-size + capacity, safety gear, accessibility.',
     h1: 'Austin Party Boat FAQ',
     keywords: ['austin party boat faq', 'lake travis boat rental questions'],
@@ -166,7 +166,7 @@ export const CURATED_OVERLAY = {
     audience: 'comparison',
   },
   '/premier-vs-pontoon': {
-    title: 'Premier vs Pontoon Rental — Lake Travis Cost Math | Premier',
+    title: 'Premier vs Pontoon Rental · Lake Travis Cost Math',
     description: 'Honest cost-comparison: Premier Party Cruises vs a budget Lake Travis pontoon. Per-guest math, what each price actually includes, and when a DIY pontoon is cheaper end-to-end (spoiler: rarely, once you add captain + audio + fuel + ice + floats). Base from $200/hr.',
     h1: 'Premier Party Cruises vs a Lake Travis Pontoon Rental — All-In Math',
     keywords: ['premier vs pontoon', 'lake travis pontoon vs party boat', 'is premier worth the money', 'cheap lake travis boat rental'],
@@ -310,13 +310,33 @@ export function templateOverlay(slug) {
     keywordHint = pretty.toLowerCase();
   }
 
+  // Title format keeps brand suffix so it stays unique even when many
+  // slugs share keyword prefixes. If the title is too long the shortener
+  // will strip "| Premier Party Cruises" leaving just `pretty` — that's
+  // why the H1 below uses a DIFFERENT structural prefix ("Premier's
+  // guide to ...") so title and H1 can never collapse to the same string
+  // and trigger Semrush's "duplicate H1 and title tags" warning.
   const title = isBlog
-    ? `${pretty} — Austin Party Boat Guide | Premier`
-    : `${pretty} — Lake Travis Party Boat | Premier`;
+    ? `${pretty} | Premier Austin Party Boat Blog`
+    : `${pretty} | Premier Party Cruises`;
 
   const description = `${pretty} on Lake Travis with Premier Party Cruises. Designed for ${audienceHint} — private charters starting at $200/hr (base rate, captain + fuel included; Texas tax + 20% gratuity added on top). BYOB with Party On Delivery drink setup, Anderson Mill Marina (25 min from downtown Austin, free parking, no stairs).`;
 
-  const h1 = pretty;
+  // H1 uses a brand-prefix pattern so it is structurally different from
+  // the title (which uses a brand-SUFFIX pattern). Even if the title
+  // shortener strips the suffix and reduces title to just `pretty`, the
+  // H1 still starts with "Premier's guide to" / "Premier covers" and
+  // never matches the title. Required to satisfy Semrush "duplicate H1
+  // and title tags" check across 40+ long-tail blog routes.
+  const hasLakeTravis = /lake travis/i.test(pretty);
+  const hasAustin = /austin/i.test(pretty);
+  const h1 = isBlog
+    ? `${pretty} — Premier's Austin Party Boat Blog`
+    : hasLakeTravis
+      ? `${pretty} — Premier Party Cruises`
+      : hasAustin
+        ? `${pretty} on Lake Travis with Premier`
+        : `${pretty} — Lake Travis with Premier Party Cruises`;
 
   return { title, description, h1, keywords: [keywordHint], audience: audienceHint };
 }
