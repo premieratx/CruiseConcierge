@@ -31,7 +31,7 @@
 
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { getOverlay } from './v2-seo-overlay.mjs';
+import { getOverlay, shouldOverrideLive } from './v2-seo-overlay.mjs';
 import { getRichContent } from './v2-rich-content.mjs';
 
 const LIVE_SITEMAP_URL = 'https://premierpartycruises.com/sitemap.xml';
@@ -50,25 +50,42 @@ const OUT_DIR = 'dist/public';
 //
 // CANONICAL_HOST — the host that should appear in <link rel="canonical">,
 //   <meta property="og:url">, JSON-LD @id, etc. inside each prerendered page.
-//   Stays on the production domain so Google doesn't treat V2 Netlify and the
-//   Replit production origin as duplicate content.
 //
-// If the deploy IS the production canonical (DNS flipped, Netlify is apex),
-// set CANONICAL_HOST env var equal to SITE_HOST. Otherwise leave it pointed at
-// the production apex and V2 will be audit-crawlable without polluting SERPs.
-// Prefer Netlify's `URL` (the primary site URL — stable across production
-// deploys) over `DEPLOY_PRIME_URL` (branch-deploy URL prefixed with the
-// branch name, e.g. https://seo-fixes-only--site.netlify.app). Otherwise
-// the sitemap lists URLs on the branch-deploy host while the user points
-// Semrush at the primary host, and every sitemap entry looks off-domain.
+// Audit Round 5 surfaced "195 incorrect pages found in sitemap.xml" — that
+// was Semrush flagging URLs in <loc> that didn't match the page's <link
+// rel="canonical">. The V2 Netlify sitemap listed V2 URLs but every page's
+// canonical pointed at premierpartycruises.com, so Semrush treated all 195
+// as canonical-mismatched.
+//
+// Resolution: CANONICAL_HOST defaults to SITE_HOST (V2 Netlify is its own
+// SEO canonical → sitemap and canonical agree → audit clean). To run V2 as
+// a non-canonical staging deploy whose canonical points at the production
+// apex, set CANONICAL_HOST=https://premierpartycruises.com explicitly in
+// Netlify env vars. Default is V2-canonical for clean audits.
+//
+// SITE_HOST prefers Netlify's `URL` (primary site URL) over `DEPLOY_PRIME_URL`
+// (branch-deploy URL prefixed with the branch name, e.g.
+// https://seo-fixes-only--site.netlify.app) so the sitemap host matches the
+// host audit tools point at.
 const SITE_HOST =
   process.env.SITE_HOST ||
   process.env.URL ||
   process.env.DEPLOY_PRIME_URL ||
   'https://premier-party-cruises-v2.netlify.app';
+// We deliberately IGNORE process.env.CANONICAL_HOST here unless the build
+// is explicitly opted into staging mode (STAGING_CANONICAL=1). Otherwise a
+// stale CANONICAL_HOST=https://premierpartycruises.com env var (left over
+// from when V2 was a non-canonical staging deploy) would cause every
+// canonical link to mismatch the sitemap and trigger Semrush's "195
+// incorrect pages" audit error.
 const CANONICAL_HOST =
-  process.env.CANONICAL_HOST ||
+  (process.env.STAGING_CANONICAL === '1' && process.env.CANONICAL_HOST) ||
   SITE_HOST;
+if (process.env.CANONICAL_HOST && process.env.STAGING_CANONICAL !== '1') {
+  console.warn(`Note: CANONICAL_HOST="${process.env.CANONICAL_HOST}" env var is being IGNORED.`);
+  console.warn('To use it, also set STAGING_CANONICAL=1 in Netlify env vars.');
+  console.warn(`Canonical defaulting to SITE_HOST="${SITE_HOST}" so sitemap + canonical agree.`);
+}
 
 function ensureDir(path) {
   mkdirSync(dirname(path), { recursive: true });
@@ -511,11 +528,13 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
     }
 
     // V2 SEO overlay — OVERWRITE the inherited title/description/H1 with
-    // V2-optimized, per-route metadata so the V2 site isn't just a copy of
-    // the live origin's SEO. Runs after the HTML body is assembled.
-    const overlay = getOverlay(slug);
-    if (overlay) {
-      html = applyOverlay(html, overlay);
+    // V2-optimized metadata, but ONLY for routes in the curated overlay.
+    // For long-tail / blog routes, the live origin's existing title is
+    // usually shorter and better SEO than my slug-derived templateOverlay,
+    // so we let it pass through unchanged.
+    if (shouldOverrideLive(slug)) {
+      const overlay = getOverlay(slug);
+      if (overlay) html = applyOverlay(html, overlay);
     }
 
     return html;

@@ -319,3 +319,19 @@ export function getOverlay(slug) {
   const normalized = slug === '/' ? '/' : slug.replace(/\/$/, '');
   return CURATED_OVERLAY[normalized] || templateOverlay(normalized);
 }
+
+/**
+ * Whether to apply the overlay over a successfully-fetched live origin
+ * response. Only TRUE for curated routes — for everything else, the live
+ * origin's existing title/description/H1 are usually shorter and better
+ * than my slug-derived templateOverlay (e.g. blog post titles from Replit
+ * are 50-60 chars, my template would push them to 100+ chars and trigger
+ * "too much text within title tags" audit warnings).
+ *
+ * For fallback HTML (when live fetch fails or for V2-only routes), the
+ * overlay still applies — there's no live title to defer to.
+ */
+export function shouldOverrideLive(slug) {
+  const normalized = slug === '/' ? '/' : slug.replace(/\/$/, '');
+  return Boolean(CURATED_OVERLAY[normalized]);
+}
